@@ -125,7 +125,7 @@ ul
                                                   td.location
                                                       p=parameter.Location || 'query'
                                                   td.description
-                                                      p=parameter.Description || 'No description'
+                                                      p !{parameter.Description || 'No description'}
                                                       - if (parameter.Type =='enumerated' && parameter.EnumeratedDescription)
                                                           dl.clearfix
                                                               - each description, choice in parameter.EnumeratedDescription
