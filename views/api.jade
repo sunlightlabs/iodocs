@@ -98,7 +98,10 @@ ul
                                                   - var required =false
                                                   - var className =''
                                               tr(class=className)
-                                                  td.name=parameter.Name
+                                                  td.name
+                                                      #{parameter.Name}
+                                                      - if (parameter.MultipleAllowed == 'Y')
+                                                          button.duplicate-parameter +
                                                   td.parameter
                                                       - if (parameter.Type =='enumerated')
                                                           select(name='params[' + parameter.Name + ']', placeholder=className)

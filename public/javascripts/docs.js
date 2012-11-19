@@ -162,6 +162,13 @@
         })
     });
 
+    $('button.duplicate-parameter').click(function(event){
+        var row = $(this).parents("tr");
+        row.clone(true).insertAfter(row);
+        event.stopPropagation();
+        return false;
+    });
+
     /*
         Try it! button. Submits the method params, apikey and secret if any, and apiName
     */
