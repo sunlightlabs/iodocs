@@ -1,0 +1,27 @@
+
+body{
+    color: #65615f;
+    font-size: 80%;
+    line-height: 22px;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    background-color: #ECECEC;
+}
+
+h1.logo a { width: 357px; height: 64px; display: block; text-indent: -9999em; background: url(../images/logo.jpg) top left no-repeat;}
+
+
+form#credentials > section.credentials label,
+form#credentials > section.credentials input
+{ display: inline-block; margin: 10px; }
+form#credentials > section.credentials label[for="saveKey"]
+{ margin-left: 30px; }
+form#credentials > section.credentials input[type="checkbox"]
+{ width: 20px; padding: 0; }
+
+form#credentials { position: relative; }
+#__formsaver_container {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
