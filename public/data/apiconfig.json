@@ -1,34 +1,40 @@
 {
-    "klout": {
-        "name": "Klout API",
+    "openstates": {
+        "name": "Open States",
         "protocol": "http",
-        "baseURL": "api.klout.com",
-        "publicPath": "/1",
-        "headers" : {},
+        "baseURL": "openstates.org",
+        "publicPath": "/api/v1/",
+        "headers": {},
         "auth": "key",
-        "keyParam": "key"
+        "keyParam": "apikey"
     },
-    "usatoday": {
-        "name": "USA TODAY Census API",
+
+    "congress": {
+        "name": "Congress",
         "protocol": "http",
-        "baseURL": "api.usatoday.com",
-        "publicPath": "/open",
+        "baseURL": "services.sunlightlabs.com",
+        "publicPath": "/api/",
+        "headers": {},
         "auth": "key",
-        "keyParam": "api_key"
+        "keyParam": "apikey"
     },
-    "linkedin": {
-        "name": "LinkedIn",
+
+    "twitter": {
+        "name": "Twitter",
         "protocol": "http",
-        "baseURL": "api.linkedin.com",
-        "publicPath": "",
-        "privatePath": "/v1",
+        "baseURL": "api.twitter.com",
+        "privatePath": "/1.1",
+        "publicPath": "/1.1",
+        "booleanTrueVal": "true",
+        "booleanFalseVal": "false",
+        "headers": {},
         "auth": "oauth",
         "oauth": {
             "type": "three-legged",
-            "requestURL": "https://api.linkedin.com/uas/oauth/requestToken",
-            "signinURL":  "https://api.linkedin.com/uas/oauth/authorize?oauth_token=",
-            "accessURL":  "https://api.linkedin.com/uas/oauth/accessToken",
-            "version": "1.0",
+            "requestURL": "https://api.twitter.com/oauth/request_token",
+            "signinURL": "https://api.twitter.com/oauth/authorize?oauth_token=",
+            "accessURL": "https://api.twitter.com/oauth/access_token",
+            "version": "1.1",
             "crypt": "HMAC-SHA1"
         },
         "keyParam":""

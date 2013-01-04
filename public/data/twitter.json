@@ -1,0 +1,28 @@
+{
+    "endpoints": [
+        {
+            "name": "Statuses",
+            "methods": [
+                {
+                    "MethodName": "",
+                    "Synopsis": "",
+                    "HTTPMethod": "GET",
+                    "URI": "/statuses/show.json",
+                    "RequiresOAuth": "N",
+                    "parameters": [
+                        {
+                            "Name": "id",
+                            "Description": "The numerical ID of the desired Tweet.",
+                            "Required": "Y",
+                            "Type": "integer"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
+
+
+
+

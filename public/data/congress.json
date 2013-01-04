@@ -1,0 +1,251 @@
+{
+    "endpoints": [
+        {
+            "name": "Legislators",
+            "methods": [
+                {
+                    "MethodName": "getList",
+                    "Synopsis": "Fetch a list of legislators meeting the specified criteria.",
+                    "HTTPMethod": "GET",
+                    "URI": "/legislators.getList.:format",
+                    "RequiresOAuth": "N",
+                    "parameters": [
+                        {
+                            "Name": "format",
+                            "Required": "Y",
+                            "Default": "json",
+                            "Type": "enumerated",
+                            "EnumeratedList": [ "json", "xml" ]
+                        },
+                        {
+                            "Name": "title",
+                            "Required": "N",
+                            "Type": "string",
+                            "MultipleAllowed": "Y"
+                        },
+                        {
+                            "Name": "firstname",
+                            "Required": "N",
+                            "Type": "string",
+                            "MultipleAllowed": "Y"
+                        },
+                        {
+                            "Name": "middlename",
+                            "Required": "N",
+                            "Type": "string",
+                            "MultipleAllowed": "Y"
+                        },
+                        {
+                            "Name": "lastname",
+                            "Required": "N",
+                            "Type": "string",
+                            "MultipleAllowed": "Y"
+                        },
+                        {
+                            "Name": "name_suffix",
+                            "Required": "N",
+                            "Type": "string",
+                            "MultipleAllowed": "Y"
+                        },
+                        {
+                            "Name": "nickname",
+                            "Required": "N",
+                            "Type": "string",
+                            "MultipleAllowed": "Y"
+                        },
+                        {
+                            "Name": "party",
+                            "Required": "N",
+                            "Type": "string",
+                            "MultipleAllowed": "Y"
+                        },
+                        {
+                            "Name": "state",
+                            "Required": "N",
+                            "Type": "string",
+                            "MultipleAllowed": "Y"
+                        },
+                        {
+                            "Name": "district",
+                            "Required": "N",
+                            "Type": "string",
+                            "MultipleAllowed": "Y"
+                        },
+                        {
+                            "Name": "in_office",
+                            "Required": "N",
+                            "Type": "string",
+                            "MultipleAllowed": "Y"
+                        },
+                        {
+                            "Name": "gender",
+                            "Required": "N",
+                            "Type": "enumerated",
+                            "EnumeratedList": [ null, "M", "F" ],
+                            "MultipleAllowed": "Y"
+                        },
+                        {
+                            "Name": "phone",
+                            "Required": "N",
+                            "Type": "string",
+                            "MultipleAllowed": "Y"
+                        },
+                        {
+                            "Name": "fax",
+                            "Required": "N",
+                            "Type": "string",
+                            "MultipleAllowed": "Y"
+                        },
+                        {
+                            "Name": "website",
+                            "Required": "N",
+                            "Type": "string",
+                            "MultipleAllowed": "Y"
+                        },
+                        {
+                            "Name": "webform",
+                            "Required": "N",
+                            "Type": "string",
+                            "MultipleAllowed": "Y"
+                        },
+                        {
+                            "Name": "email",
+                            "Required": "N",
+                            "Type": "string",
+                            "MultipleAllowed": "Y"
+                        },
+                        {
+                            "Name": "congress_office",
+                            "Required": "N",
+                            "Type": "string",
+                            "MultipleAllowed": "Y"
+                        },
+                        {
+                            "Name": "bioguide_id",
+                            "Required": "N",
+                            "Type": "string",
+                            "MultipleAllowed": "Y"
+                        },
+                        {
+                            "Name": "votesmart_id",
+                            "Required": "N",
+                            "Type": "string",
+                            "MultipleAllowed": "Y"
+                        },
+                        {
+                            "Name": "fec_id",
+                            "Required": "N",
+                            "Type": "string",
+                            "MultipleAllowed": "Y"
+                        },
+                        {
+                            "Name": "govtrack_id",
+                            "Required": "N",
+                            "Type": "string",
+                            "MultipleAllowed": "Y"
+                        },
+                        {
+                            "Name": "crp_id",
+                            "Required": "N",
+                            "Type": "string",
+                            "MultipleAllowed": "Y"
+                        },
+                        {
+                            "Name": "twitter_id",
+                            "Required": "N",
+                            "Type": "string",
+                            "MultipleAllowed": "Y"
+                        },
+                        {
+                            "Name": "youtube_url",
+                            "Required": "N",
+                            "Type": "string",
+                            "MultipleAllowed": "Y"
+                        },
+                        {
+                            "Name": "facebook_id",
+                            "Required": "N",
+                            "Type": "string",
+                            "MultipleAllowed": "Y"
+                        },
+                        {
+                            "Name": "senate_class",
+                            "Required": "N",
+                            "Type": "enumerated",
+                            "EnumeratedList": [ null, "I", "II", "III" ],
+                            "MultipleAllowed": "Y"
+                        },
+                        {
+                            "Name": "birthdate",
+                            "Required": "N",
+                            "Type": "string",
+                            "MultipleAllowed": "Y",
+                            "Description": "Date of birth in YYYY-MM-DD format."
+                        },
+                        {
+                            "Name": "all_legislators",
+                            "Required": "N",
+                            "Type": "enumerated",
+                            "EnumeratedList": [ null, 1, 0 ],
+                            "Description": "If you use multiple instances of the above arguments, this argument should be set to 0"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Districts",
+            "methods": [
+                {
+                    "MethodName": "getDistrictsFromZip",
+                    "Synopsis": "Return a list of all districts overlapping with the given zip code.",
+                    "HTTPMethod": "GET",
+                    "URI": "districts.getDistrictsFromZip.:format",
+                    "RequiresOAuth": "N",
+                    "parameters": [
+                        {
+                            "Name": "format",
+                            "Required": "Y",
+                            "Default": "json",
+                            "Type": "enumerated",
+                            "EnumeratedList": [ "json", "xml" ]
+                        },
+                        {
+                            "Name": "zip",
+                            "Required": "Y",
+                            "Type": "numeric string"
+                        }
+                    ]
+                },
+                {
+                    "MethodName": "getDistrictFromLatLong",
+                    "Synopsis": "Return the district the given lat/long pair is in.",
+                    "HTTPMethod": "GET",
+                    "URI": "districts.getDistrictFromLatLong.:format",
+                    "RequiresOAuth": "N",
+                    "parameters": [
+                        {
+                            "Name": "format",
+                            "Required": "Y",
+                            "Default": "json",
+                            "Type": "enumerated",
+                            "EnumeratedList": [ "json", "xml" ]
+                        },
+                        {
+                            "Name": "latitude",
+                            "Required": "Y",
+                            "Type": "decimal"
+                        },
+                        {
+                            "Name": "longitude",
+                            "Required": "Y",
+                            "Type": "decimal"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
+
+

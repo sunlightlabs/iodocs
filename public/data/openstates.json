@@ -1,0 +1,170 @@
+{
+    "endpoints": [
+        {
+            "name": "Metadata",
+            "methods": [
+                {
+                    "MethodName": "Metadata Overview",
+                    "Synopsis": "Fetch a list of all states annotated with a list of features supported by each one.",
+                    "HTTPMethod": "GET",
+                    "URI": "/metadata/",
+                    "RequiresOAuth": "N",
+                    "parameters": []
+                },
+                {
+                    "MethodName": "State Metadata",
+                    "Synopsis": "Fetch metadata specific to a state.",
+                    "HTTPMethod": "GET",
+                    "URI": "/metadata/:state/",
+                    "RequiresOAuth": "N",
+                    "parameters": [
+                        {
+                            "Name": "state",
+                            "Required": "Y",
+                            "Default": "dc",
+                            "Type": "enumerated",
+                            "EnumeratedList": [
+                                "al", "ak", "az", "ar", "ca", "co", "ct", "de",
+                                "dc", "fl", "ga", "hi", "id", "il", "in", "ia",
+                                "ks", "ky", "la", "me", "md", "ma", "mi", "mn",
+                                "ms", "mo", "mt", "ne", "nv", "nh", "nj", "nm",
+                                "ny", "nc", "nd", "oh", "ok", "or", "pa", "ri",
+                                "sc", "sd", "tn", "tx", "ut", "vt", "va", "wa",
+                                "wv", "wi", "wy"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Bills",
+            "methods": [
+                {
+                    "MethodName": "Bill Search",
+                    "Synopsis": "Search through bills, either by keyword or by properties such as updated date or session",
+                    "HTTPMethod": "GET",
+                    "URI": "/bills/",
+                    "RequiresOAuth": "N",
+                    "parameters": [
+                        {
+                            "Name": "state",
+                            "Required": "N",
+                            "Default": null,
+                            "Type": "enumerated",
+                            "EnumeratedList": [
+                                "al", "ak", "az", "ar", "ca", "co", "ct", "de",
+                                "dc", "fl", "ga", "hi", "id", "il", "in", "ia",
+                                "ks", "ky", "la", "me", "md", "ma", "mi", "mn",
+                                "ms", "mo", "mt", "ne", "nv", "nh", "nj", "nm",
+                                "ny", "nc", "nd", "oh", "ok", "or", "pa", "ri",
+                                "sc", "sd", "tn", "tx", "ut", "vt", "va", "wa",
+                                "wv", "wi", "wy"
+                            ]
+                        },
+                        {
+                            "Name": "search_window",
+                            "Required": "N",
+                            "Default": null,
+                            "Type": "string",
+                            "Description": "a string representing what time period to search across. Pass 'session' to search bills from the state's current or most recent legislative session, 'term' to search the current or most recent term, 'all' to search as far back as Open States has data for, or supply 'session:SESSION_NAME' or 'term:TERM_NAME' (e.g. 'session:2009' or 'term:2009-2010') to search a specific session or term."
+                        },
+                        {
+                            "Name": "chamber",
+                            "Required": "N",
+                            "Default": null,
+                            "Type": "enumerated",
+                            "EnumeratedList": ["upper", "lower"]
+                        },
+                        {
+                            "Name": "search_window",
+                            "Required": "N",
+                            "Default": null,
+                            "Type": "string",
+                            "Description": "Return all bills with ids in a set of bill ids that are pipe | separated (ex. HB 1|HB 2|SB 10)."
+                        },
+                        {
+                            "Name": "updated_since",
+                            "Required": "N",
+                            "Default": null,
+                            "Type": "string",
+                            "Description": "Only return bills that have been updated since a given date, YYYY-MM-DD format."
+                        },
+                        {
+                            "Name": "sudject",
+                            "Required": "N",
+                            "Default": null,
+                            "Type": "enumerated",
+                            "EnumeratedList": [
+                                "Agriculture and Food", "Animal Rights and Wildlife Issues",
+                                "Arts and Humanities", "Budget, Spending, and Taxes",
+                                "Business and Consumers", "Campaign Finance and Election Issues",
+                                "Civil Liberties and Civil Rights", "Commerce", "Crime",
+                                "Drugs", "Education", "Energy", "Environmental",
+                                "Executive Branch", "Family and Children Issues",
+                                "Federal, State, and Local Relations", "Gambling and Gaming",
+                                "Government Reform", "Guns", "Health", "Housing and Property",
+                                "Immigration", "Indigenous Peoples", "Insurance",
+                                "Judiciary", "Labor and Employment", "Legal Issues",
+                                "Legislative Affairs", "Military",
+                                "Municipal and County Issues", "Nominations", "Other",
+                                "Public Services", "Recreation", "Reproductive Issues",
+                                "Resolutions", "Science and Medical Research", "Senior Issues",
+                                "Sexual Orientation and Gender Issues", "Social Issues",
+                                "State Agencies", "Technology and Communication", "Trade",
+                                "Transportation", "Welfare and Poverty"
+                            ],
+                            "Description": "Filter by bills that are about a given subject. If multiple subject parameters are supplied then only bills that match all of them will be returned."
+                        },
+                        {
+                            "Name": "sponsor_id",
+                            "Required": "N",
+                            "Default": null,
+                            "Type": "string",
+                            "Description": "Only return bills sponsored by the legislator with the given id (corresponds to leg_id)"
+                        }
+                    ]
+                },
+                {
+                    "MethodName": "Bill Lookup",
+                    "Synopsis": "Lookup full details on a bill by id (including all actions, sponsors, votes, etc).",
+                    "HTTPMethod": "GET",
+                    "URI": "/bills/:state/:session/:bill_id/",
+                    "RequiresOAuth": "N",
+                    "parameters": [
+                        {
+                            "Name": "state",
+                            "Required": "Y",
+                            "Default": null,
+                            "Type": "enumerated",
+                            "EnumeratedList": [
+                                "al", "ak", "az", "ar", "ca", "co", "ct", "de",
+                                "dc", "fl", "ga", "hi", "id", "il", "in", "ia",
+                                "ks", "ky", "la", "me", "md", "ma", "mi", "mn",
+                                "ms", "mo", "mt", "ne", "nv", "nh", "nj", "nm",
+                                "ny", "nc", "nd", "oh", "ok", "or", "pa", "ri",
+                                "sc", "sd", "tn", "tx", "ut", "vt", "va", "wa",
+                                "wv", "wi", "wy"
+                            ]
+                        },
+                        {
+                            "Name": "session",
+                            "Required": "Y",
+                            "Default": null,
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "bill_id",
+                            "Required": "Y",
+                            "Default": null,
+                            "Type": "string"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
+
+
+
