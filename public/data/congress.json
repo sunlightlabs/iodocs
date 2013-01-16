@@ -214,31 +214,10 @@
             "name": "Districts",
             "methods": [
                 {
-                    "MethodName": "getDistrictsFromZip",
-                    "Synopsis": "Return a list of all districts overlapping with the given zip code.",
+                    "MethodName": "districts/locate",
+                    "Synopsis": "Find congressional districts by a latitude and longitude, or a zip code. There is no support for pagination, operators, ordering, or partial responses. At-large districts, which encompass an entire state, are assigned a district number of 0.",
                     "HTTPMethod": "GET",
-                    "URI": "districts.getDistrictsFromZip.:format",
-                    "RequiresOAuth": "N",
-                    "parameters": [
-                        {
-                            "Name": "format",
-                            "Required": "Y",
-                            "Default": "json",
-                            "Type": "enumerated",
-                            "EnumeratedList": [ "json", "xml" ]
-                        },
-                        {
-                            "Name": "zip",
-                            "Required": "Y",
-                            "Type": "numeric string"
-                        }
-                    ]
-                },
-                {
-                    "MethodName": "getDistrictFromLatLong",
-                    "Synopsis": "Return the district the given lat/long pair is in.",
-                    "HTTPMethod": "GET",
-                    "URI": "districts.getDistrictFromLatLong.:format",
+                    "URI": "districts/locate.:format",
                     "RequiresOAuth": "N",
                     "parameters": [
                         {
@@ -251,12 +230,20 @@
                         {
                             "Name": "latitude",
                             "Required": "Y",
-                            "Type": "decimal"
+                            "Description": "The latitude of the location.",
+                            "Type": "lat/long"
                         },
                         {
                             "Name": "longitude",
                             "Required": "Y",
-                            "Type": "decimal"
+                            "Description": "The longitude of the location.",
+                            "Type": "lat/long"
+                        },
+                        {
+                            "Name": "zip",
+                            "Required": "N",
+                            "Type": "numeric string",
+                            "Description": "A zip code may intersect multiple Congressional districts, so it is not as precise as using a latitude and longitude."
                         }
                     ]
                 }
