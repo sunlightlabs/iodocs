@@ -1,7 +1,7 @@
 {
     "endpoints": [
         {
-            "name": "Located Legislators",
+            "name": "Legislators",
             "methods": [
                 {
                     "MethodName": "legislators/locate",
@@ -21,18 +21,18 @@
                         {
                             "Name": "latitude",
                             "Required": "Y",
-                            "Type": "lat/long",
+                            "Type": "lat/long"
                         },
                         {
                             "Name": "longitude",
                             "Required": "Y",
-                            "Type": "lat/long",
+                            "Type": "lat/long"
                         },
                         {
                             "Name": "zip",
                             "Required": "N",
-                            "Description": "Zip code of the district.  We recommend using lat/long instead since zip codes are much more imprecise."
-                            "Type": "integer",
+                            "Description": "Zip code of the district.  We recommend using lat/long instead since zip codes are much more imprecise.",
+                            "Type": "integer"
                         }
                     ]
                 },
@@ -55,13 +55,13 @@
                             "Name": "first_name",
                             "Required": "N",
                             "Description": "The member's first name. This may or may not be the name they are usually called.",
-                            "Type": "string",
+                            "Type": "string"
                         },
                         {
                             "Name": "nickname", 
                             "Required": "N",
                             "Description": "The member's nickname. If present, usually safe to assume this is the name they go by.",
-                            "Type": "string",
+                            "Type": "string"
                         },
                         {
                             "Name": "middlename",
@@ -79,7 +79,7 @@
                             "Name": "name_suffix",
                             "Required": "N",
                             "Type": "string",
-                            "Description": 'A name suffix, if the member uses one. For example, "Jr." or "III".'
+                            "Description": "A name suffix, if the member uses one. For example, \"Jr.\" or \"III\"."
                         },
                         {
                             "Name": "nickname",
