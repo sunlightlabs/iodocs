@@ -1,51 +1,85 @@
 {
     "endpoints": [
         {
-            "name": "Legislators",
+            "name": "Located Legislators",
             "methods": [
                 {
-                    "MethodName": "getList",
-                    "Synopsis": "Fetch a list of legislators meeting the specified criteria.",
+                    "MethodName": "legislators/locate",
+                    "Synopsis": "Find members of Congerss by a latitude and longitude, or by a zip code. There is no support for operators, ordering, or partial responses. At-large districts, which encompass an entire state, are assigned a district number of 0.",
                     "HTTPMethod": "GET",
-                    "URI": "/legislators.getList.:format",
+                    "URI": "/legislators/locate.:format",
                     "RequiresOAuth": "N",
                     "parameters": [
                         {
                             "Name": "format",
                             "Required": "Y",
                             "Default": "json",
+                            "Description": "Output format as JSON or XML",
                             "Type": "enumerated",
-                            "EnumeratedList": [ "json", "xml" ]
+                            "EnumeratedList": ["json", "xml"]
                         },
                         {
-                            "Name": "title",
-                            "Required": "N",
-                            "Type": "string",
-                            "MultipleAllowed": "Y"
+                            "Name": "latitude",
+                            "Required": "Y",
+                            "Type": "lat/long",
                         },
                         {
-                            "Name": "firstname",
+                            "Name": "longitude",
+                            "Required": "Y",
+                            "Type": "lat/long",
+                        },
+                        {
+                            "Name": "zip",
                             "Required": "N",
+                            "Description": "Zip code of the district.  We recommend using lat/long instead since zip codes are much more imprecise."
+                            "Type": "integer",
+                        }
+                    ]
+                },
+                {
+                    "MethodName": "legislators",
+                    "Synopsis": "Search and filter for members of Congress",
+                    "HTTPMethod": "GET",
+                    "URI": "/legislators.:format",
+                    "RequiresOAuth": "N",
+                    "parameters": [
+                        {
+                            "Name": "format",
+                            "Required": "Y",
+                            "Default": "json",
+                            "Description": "Output format as JSON or XML",
+                            "Type": "enumerated",
+                            "EnumeratedList": ["json", "xml"]
+                        },
+                        {
+                            "Name": "first_name",
+                            "Required": "N",
+                            "Description": "The member's first name. This may or may not be the name they are usually called.",
                             "Type": "string",
-                            "MultipleAllowed": "Y"
+                        },
+                        {
+                            "Name": "nickname", 
+                            "Required": "N",
+                            "Description": "The member's nickname. If present, usually safe to assume this is the name they go by.",
+                            "Type": "string",
                         },
                         {
                             "Name": "middlename",
                             "Required": "N",
                             "Type": "string",
-                            "MultipleAllowed": "Y"
+                            "Description": "The member's middle name, if they have one."
                         },
                         {
                             "Name": "lastname",
                             "Required": "N",
                             "Type": "string",
-                            "MultipleAllowed": "Y"
+                            "Description": "The member's last name."
                         },
                         {
                             "Name": "name_suffix",
                             "Required": "N",
                             "Type": "string",
-                            "MultipleAllowed": "Y"
+                            "Description": 'A name suffix, if the member uses one. For example, "Jr." or "III".'
                         },
                         {
                             "Name": "nickname",

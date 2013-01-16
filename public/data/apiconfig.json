@@ -12,37 +12,11 @@
     "congress": {
         "name": "Congress",
         "protocol": "http",
-        "baseURL": "services.sunlightlabs.com",
-        "publicPath": "/api/",
+        "baseURL": "congress.api.sunlightfoundation.com",
+        "publicPath": "/",
         "headers": {},
         "auth": "key",
         "keyParam": "apikey"
     },
 
-    "twitter": {
-        "name": "Twitter",
-        "protocol": "http",
-        "baseURL": "api.twitter.com",
-        "privatePath": "/1.1",
-        "publicPath": "/1.1",
-        "booleanTrueVal": "true",
-        "booleanFalseVal": "false",
-        "headers": {},
-        "auth": "oauth",
-        "oauth": {
-            "type": "three-legged",
-            "requestURL": "https://api.twitter.com/oauth/request_token",
-            "signinURL": "https://api.twitter.com/oauth/authorize?oauth_token=",
-            "accessURL": "https://api.twitter.com/oauth/access_token",
-            "version": "1.1",
-            "crypt": "HMAC-SHA1"
-        },
-        "keyParam":""
-    },
-    "requestbin": {
-        "name": "Requestb.in",
-        "protocol": "http",
-        "baseURL": "requestb.in",
-        "publicPath": "/"
-    }
 }
