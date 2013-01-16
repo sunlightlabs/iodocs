@@ -7,17 +7,9 @@
                     "MethodName": "legislators/locate",
                     "Synopsis": "Find members of Congerss by a latitude and longitude, or by a zip code. There is no support for operators, ordering, or partial responses. At-large districts, which encompass an entire state, are assigned a district number of 0.",
                     "HTTPMethod": "GET",
-                    "URI": "/legislators/locate.:format",
+                    "URI": "/legislators/locate.json",
                     "RequiresOAuth": "N",
                     "parameters": [
-                        {
-                            "Name": "format",
-                            "Required": "Y",
-                            "Default": "json",
-                            "Description": "Output format as JSON or XML",
-                            "Type": "enumerated",
-                            "EnumeratedList": ["json", "xml"]
-                        },
                         {
                             "Name": "latitude",
                             "Required": "Y",
@@ -42,17 +34,9 @@
                     "MethodName": "legislators",
                     "Synopsis": "Search and filter for members of Congress",
                     "HTTPMethod": "GET",
-                    "URI": "/legislators.:format",
+                    "URI": "/legislators.json",
                     "RequiresOAuth": "N",
                     "parameters": [
-                        {
-                            "Name": "format",
-                            "Required": "Y",
-                            "Default": "json",
-                            "Description": "Output format as JSON or XML",
-                            "Type": "enumerated",
-                            "EnumeratedList": ["json", "xml"]
-                        },  
                         {
                             "Name": "title",
                             "Required": "N",
@@ -217,16 +201,9 @@
                     "MethodName": "districts/locate",
                     "Synopsis": "Find congressional districts by a latitude and longitude, or a zip code. There is no support for pagination, operators, ordering, or partial responses. At-large districts, which encompass an entire state, are assigned a district number of 0.",
                     "HTTPMethod": "GET",
-                    "URI": "districts/locate.:format",
+                    "URI": "districts/locate.json",
                     "RequiresOAuth": "N",
                     "parameters": [
-                        {
-                            "Name": "format",
-                            "Required": "Y",
-                            "Default": "json",
-                            "Type": "enumerated",
-                            "EnumeratedList": [ "json", "xml" ]
-                        },
                         {
                             "Name": "latitude",
                             "Required": "Y",
