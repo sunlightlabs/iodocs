@@ -102,7 +102,8 @@
                         {
                             "Name": "party",
                             "Required": "N",
-                            "Type": "string",
+                            "Type": "enumerated",
+                            "EnumeratedList": [null, "R", "D", "I"],
                             "Description": "First letter of the party this member belongs to. \"R\", \"D\", or \"I\". "
                         },
                         {                        
