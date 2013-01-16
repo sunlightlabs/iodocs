@@ -21,11 +21,13 @@
                         {
                             "Name": "latitude",
                             "Required": "Y",
+                            "Description": "The latitude of the location.",
                             "Type": "lat/long"
                         },
                         {
                             "Name": "longitude",
                             "Required": "Y",
+                            "Description": "The longitude of the location.",
                             "Type": "lat/long"
                         },
                         {
@@ -50,7 +52,23 @@
                             "Description": "Output format as JSON or XML",
                             "Type": "enumerated",
                             "EnumeratedList": ["json", "xml"]
+                        },  
+                        {
+                            "Name": "title",
+                            "Required": "N",
+                            "Description": "Title of this member. \"Sen\", \"Rep\", \"Del\", or \"Com\".",
+                            "Type": "enumerated",
+                            "EnumeratedList": [null, "Sen", "Rep", "Del", "Com"]
                         },
+                        {
+                            "Name": "chamber",
+                            "Required": "N",
+                            "Description": "Chamber the member is in. \"Senate\" or \"House\".",
+                            "Type": "enumerated",
+                            "EnumeratedList": [null, "senate", "house"]
+                        },
+
+
                         {
                             "Name": "first_name",
                             "Required": "N",
@@ -82,147 +100,111 @@
                             "Description": "A name suffix, if the member uses one. For example, \"Jr.\" or \"III\"."
                         },
                         {
-                            "Name": "nickname",
-                            "Required": "N",
-                            "Type": "string",
-                            "MultipleAllowed": "Y"
-                        },
-                        {
                             "Name": "party",
                             "Required": "N",
                             "Type": "string",
-                            "MultipleAllowed": "Y"
+                            "Description": "First letter of the party this member belongs to. \"R\", \"D\", or \"I\". "
                         },
-                        {
+                        {                        
                             "Name": "state",
                             "Required": "N",
-                            "Type": "string",
-                            "MultipleAllowed": "Y"
+                            "Description": "Two-letter code of the state this member represents.",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "state_name",
+                            "Required": "N",
+                            "Description": "The full state name of the state this member represents.",
+                            "Type": "string"
                         },
                         {
                             "Name": "district",
                             "Required": "N",
                             "Type": "string",
-                            "MultipleAllowed": "Y"
+                            "Description": "The number of the district that a House member represents. Null for Senators."
                         },
                         {
                             "Name": "in_office",
                             "Required": "N",
                             "Type": "string",
-                            "MultipleAllowed": "Y"
+                            "Description": "Whether a legislator is currently holding elected office in Congress."
                         },
                         {
                             "Name": "gender",
                             "Required": "N",
                             "Type": "enumerated",
                             "EnumeratedList": [ null, "M", "F" ],
-                            "MultipleAllowed": "Y"
-                        },
-                        {
-                            "Name": "phone",
-                            "Required": "N",
-                            "Type": "string",
-                            "MultipleAllowed": "Y"
-                        },
-                        {
-                            "Name": "fax",
-                            "Required": "N",
-                            "Type": "string",
-                            "MultipleAllowed": "Y"
-                        },
-                        {
-                            "Name": "website",
-                            "Required": "N",
-                            "Type": "string",
-                            "MultipleAllowed": "Y"
-                        },
-                        {
-                            "Name": "webform",
-                            "Required": "N",
-                            "Type": "string",
-                            "MultipleAllowed": "Y"
-                        },
-                        {
-                            "Name": "email",
-                            "Required": "N",
-                            "Type": "string",
-                            "MultipleAllowed": "Y"
-                        },
-                        {
-                            "Name": "congress_office",
-                            "Required": "N",
-                            "Type": "string",
-                            "MultipleAllowed": "Y"
-                        },
-                        {
-                            "Name": "bioguide_id",
-                            "Required": "N",
-                            "Type": "string",
-                            "MultipleAllowed": "Y"
-                        },
-                        {
-                            "Name": "votesmart_id",
-                            "Required": "N",
-                            "Type": "string",
-                            "MultipleAllowed": "Y"
-                        },
-                        {
-                            "Name": "fec_id",
-                            "Required": "N",
-                            "Type": "string",
-                            "MultipleAllowed": "Y"
-                        },
-                        {
-                            "Name": "govtrack_id",
-                            "Required": "N",
-                            "Type": "string",
-                            "MultipleAllowed": "Y"
-                        },
-                        {
-                            "Name": "crp_id",
-                            "Required": "N",
-                            "Type": "string",
-                            "MultipleAllowed": "Y"
-                        },
-                        {
-                            "Name": "twitter_id",
-                            "Required": "N",
-                            "Type": "string",
-                            "MultipleAllowed": "Y"
-                        },
-                        {
-                            "Name": "youtube_url",
-                            "Required": "N",
-                            "Type": "string",
-                            "MultipleAllowed": "Y"
-                        },
-                        {
-                            "Name": "facebook_id",
-                            "Required": "N",
-                            "Type": "string",
-                            "MultipleAllowed": "Y"
-                        },
-                        {
-                            "Name": "senate_class",
-                            "Required": "N",
-                            "Type": "enumerated",
-                            "EnumeratedList": [ null, "I", "II", "III" ],
-                            "MultipleAllowed": "Y"
+                            "Description": "First letter of this member's gender. \"M\" or \"F\"."
                         },
                         {
                             "Name": "birthdate",
                             "Required": "N",
                             "Type": "string",
-                            "MultipleAllowed": "Y",
-                            "Description": "Date of birth in YYYY-MM-DD format."
+                            "Description": "Date of the legislator's birth in YYYY-MM-DD format."
                         },
                         {
-                            "Name": "all_legislators",
+                            "Name": "term_start",
+                            "Required": "N",
+                            "Type": "string",
+                            "Description": "The date a member's current term started, in YYYY-MM-DD format."
+                        },
+                        {
+                            "Name": "term_end",
+                            "Required": "N",
+                            "Type": "string",
+                            "Description": "The date a member's current term ended, in YYYY-MM-DD format."
+                        },
+                        {
+                            "Name": "senate_class",
                             "Required": "N",
                             "Type": "enumerated",
-                            "EnumeratedList": [ null, 1, 0 ],
-                            "Description": "If you use multiple instances of the above arguments, this argument should be set to 0"
+                            "EnumeratedList": [null, 1, 2, 3],
+                            "Description": "Which senate \"class\" the member belongs to (1, 2, or 3). Every 2 years, a separate one third of the Senate is elected to a 6-year term. Senators of the same class face election in the same year. Blank for members of the House."
+                        },
+                        {
+                            "Name": "bioguide_id",
+                            "Required": "N",
+                            "Type": "string",
+                            "Description": "Identifier for this member in various Congressional sources. Originally taken from the Congressional Biographical Directory, but used in many places. If you're going to pick one ID as a Congressperson's unique ID, use this."
+                        },
+                         {
+                            "Name": "thomas_id",
+                            "Required": "N",
+                            "Type": "string",
+                            "Description": "Identifier for this member as it appears on THOMAS.gov and Congress.gov."
+                        },
+                        {
+                            "Name": "lis_id",
+                            "Required": "N",
+                            "Type": "string",
+                            "Description": "Identifier for this member as it appears on some of Congress' data systems (namely Senate votes)."
+                        },
+                        {
+                            "Name": "votesmart_id",
+                            "Required": "N",
+                            "Type": "string",
+                            "Description": "Identifier for this member as it appears on Project Vote Smart."
+                        },
+                        {
+                            "Name": "fec_ids",
+                            "Required": "N",
+                            "Type": "string",
+                            "MultipleAllowed": "Y",
+                            "Description": "A list of identifiers for this member as they appear in filings at the Federal Election Commission."
+                        },
+                        {
+                            "Name": "govtrack_id",
+                            "Required": "N",
+                            "Type": "string",
+                            "Description": "Identifier for this member as it appears on GovTrack.us."
+                        },
+                        {
+                            "Name": "crp_id",
+                            "Required": "N",
+                            "Type": "string",
+                            "Description": "Identifier for this member as it appears on CRP's OpenSecrets."
                         }
+                      
                     ]
                 }
             ]
