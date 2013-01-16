@@ -17,6 +17,6 @@
         "headers": {},
         "auth": "key",
         "keyParam": "apikey"
-    },
+    }
 
 }
