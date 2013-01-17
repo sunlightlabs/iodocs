@@ -4,39 +4,45 @@
             "name": "Legislators",
             "methods": [
                 {
-                    "MethodName": "legislators/locate",
-                    "Synopsis": "Find members of Congerss by a latitude and longitude, or by a zip code. There is no support for operators, ordering, or partial responses. At-large districts, which encompass an entire state, are assigned a district number of 0.",
+                    "MethodName": "/legislators/locate",
+                    "Synopsis": "Find members of Congress by a latitude and longitude, or by a zip code. All Senators or Representatives who may represent the given location or zip are returned.",
                     "HTTPMethod": "GET",
-                    "URI": "/legislators/locate.json",
+                    "URI": "legislators/locate",
                     "RequiresOAuth": "N",
                     "parameters": [
                         {
                             "Name": "latitude",
-                            "Required": "Y",
+                            "Required": "N",
                             "Description": "The latitude of the location.",
                             "Type": "lat/long"
                         },
                         {
                             "Name": "longitude",
-                            "Required": "Y",
+                            "Required": "N",
                             "Description": "The longitude of the location.",
                             "Type": "lat/long"
                         },
                         {
                             "Name": "zip",
                             "Required": "N",
-                            "Description": "Zip code of the district.  We recommend using lat/long instead since zip codes are much more imprecise.",
-                            "Type": "integer"
+                            "Description": "Zip code of the location.",
+                            "Type": "number"
                         }
                     ]
                 },
                 {
-                    "MethodName": "legislators",
-                    "Synopsis": "Search and filter for members of Congress",
+                    "MethodName": "/legislators",
+                    "Synopsis": "Search and filter for members of Congress. Below are just the fields you can filter on - responses may have many more fields.",
                     "HTTPMethod": "GET",
-                    "URI": "/legislators.json",
+                    "URI": "legislators",
                     "RequiresOAuth": "N",
                     "parameters": [
+                        {
+                            "Name": "query",
+                            "Required": "N",
+                            "Description": "A string fragment to match against members' name fields.",
+                            "Type": "string"
+                        },
                         {
                             "Name": "title",
                             "Required": "N",
@@ -47,7 +53,7 @@
                         {
                             "Name": "chamber",
                             "Required": "N",
-                            "Description": "Chamber the member is in. \"Senate\" or \"House\".",
+                            "Description": "Chamber the member is in. \"senate\" or \"house\".",
                             "Type": "enumerated",
                             "EnumeratedList": [null, "senate", "house"]
                         },
@@ -66,13 +72,13 @@
                             "Type": "string"
                         },
                         {
-                            "Name": "middlename",
+                            "Name": "middle_name",
                             "Required": "N",
                             "Type": "string",
                             "Description": "The member's middle name, if they have one."
                         },
                         {
-                            "Name": "lastname",
+                            "Name": "last_name",
                             "Required": "N",
                             "Type": "string",
                             "Description": "The member's last name."
@@ -105,27 +111,27 @@
                         {
                             "Name": "district",
                             "Required": "N",
-                            "Type": "string",
-                            "Description": "The number of the district that a House member represents. Null for Senators."
+                            "Type": "number",
+                            "Description": "The number of the district that a House member represents. Is null for senators."
                         },
                         {
                             "Name": "in_office",
                             "Required": "N",
-                            "Type": "string",
-                            "Description": "Whether a legislator is currently holding elected office in Congress."
+                            "Type": "boolean",
+                            "Description": "Whether a member is currently holding elected office in Congress."
                         },
                         {
                             "Name": "gender",
                             "Required": "N",
                             "Type": "enumerated",
                             "EnumeratedList": [ null, "M", "F" ],
-                            "Description": "First letter of this member's gender. \"M\" or \"F\"."
+                            "Description": "First letter of this member's current gender. \"M\" or \"F\"."
                         },
                         {
                             "Name": "birthdate",
                             "Required": "N",
                             "Type": "string",
-                            "Description": "Date of the legislator's birth in YYYY-MM-DD format."
+                            "Description": "Date of the member's birth in YYYY-MM-DD format."
                         },
                         {
                             "Name": "term_start",
@@ -142,7 +148,7 @@
                         {
                             "Name": "senate_class",
                             "Required": "N",
-                            "Type": "enumerated",
+                            "Type": "number",
                             "EnumeratedList": [null, 1, 2, 3],
                             "Description": "Which senate \"class\" the member belongs to (1, 2, or 3). Every 2 years, a separate one third of the Senate is elected to a 6-year term. Senators of the same class face election in the same year. Blank for members of the House."
                         },
@@ -174,8 +180,7 @@
                             "Name": "fec_ids",
                             "Required": "N",
                             "Type": "string",
-                            "MultipleAllowed": "Y",
-                            "Description": "A list of identifiers for this member as they appear in filings at the Federal Election Commission."
+                            "Description": "Identifier for this member as they appear in filings at the Federal Election Commission."
                         },
                         {
                             "Name": "govtrack_id",
@@ -198,29 +203,168 @@
             "name": "Districts",
             "methods": [
                 {
-                    "MethodName": "districts/locate",
-                    "Synopsis": "Find congressional districts by a latitude and longitude, or a zip code. There is no support for pagination, operators, ordering, or partial responses. At-large districts, which encompass an entire state, are assigned a district number of 0.",
+                    "MethodName": "/districts/locate",
+                    "Synopsis": "Find congressional districts by a latitude and longitude, or a zip code.",
                     "HTTPMethod": "GET",
-                    "URI": "districts/locate.json",
+                    "URI": "districts/locate",
                     "RequiresOAuth": "N",
                     "parameters": [
                         {
                             "Name": "latitude",
-                            "Required": "Y",
+                            "Required": "N",
                             "Description": "The latitude of the location.",
                             "Type": "lat/long"
                         },
                         {
                             "Name": "longitude",
-                            "Required": "Y",
+                            "Required": "N",
                             "Description": "The longitude of the location.",
                             "Type": "lat/long"
                         },
                         {
                             "Name": "zip",
                             "Required": "N",
-                            "Type": "numeric string",
+                            "Type": "string",
                             "Description": "A zip code may intersect multiple Congressional districts, so it is not as precise as using a latitude and longitude."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Committees",
+            "methods": [
+                {
+                    "MethodName": "/committees",
+                    "Synopsis": "Search and filter committees and subcommittees in the House and Senate.",
+                    "HTTPMethod": "GET",
+                    "URI": "committees",
+                    "RequiresOAuth": "N",
+                    "parameters": [
+                        {
+                            "Name": "query",
+                            "Required": "N",
+                            "Description": "A string fragment to match against committees' names.",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "committee_id",
+                            "Required": "N",
+                            "Description": "Official ID of the committee, as it appears in various official sources (Senate, House, and Library of Congress).",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "chamber",
+                            "Required": "N",
+                            "Description": "The chamber this committee is part of. \"house\", \"senate\", or \"joint\".",
+                            "Type": "enumerated",
+                            "EnumeratedList": [null, "house", "senate", "joint"]
+                        },
+                        {
+                            "Name": "subcommittee",
+                            "Required": "N",
+                            "Description": "Whether or not the committee is a subcommittee.",
+                            "Type": "boolean"
+                        },
+                        {
+                            "Name": "member_ids",
+                            "Required": "N",
+                            "Description": "Enter a member's bioguide ID to find all committees/subcommittees that member is on.",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "parent_committee_id",
+                            "Required": "N",
+                            "Description": "If the committee is a subcommittee, the ID of its parent committee.",
+                            "Type": "string"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Votes",
+            "methods": [
+                {
+                    "MethodName": "/votes",
+                    "Synopsis": "Search and filter votes in the House and Senate. Generally current within an hour of the vote taking place. Below are just the fields you can filter on - responses may have many more fields.",
+                    "HTTPMethod": "GET",
+                    "URI": "votes",
+                    "RequiresOAuth": "N",
+                    "parameters": [
+                        {
+                            "Name": "query",
+                            "Required": "N",
+                            "Description": "A string fragment to match against votes' question fields.",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "roll_id",
+                            "Required": "N",
+                            "Description": "A unique identifier for a roll call vote. Made from the first letter of the chamber, the vote number, and the legislative year (e.g. \"h24-2012\").",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "chamber",
+                            "Required": "N",
+                            "Description": "The chamber the vote was taken in. \"house\" or \"senate\".",
+                            "Type": "enumerated",
+                            "EnumeratedList": [null, "house", "senate"]
+                        },
+                        {
+                            "Name": "number",
+                            "Required": "N",
+                            "Description": "The number that vote was assigned. Numbers reset every legislative year.",
+                            "Type": "number"
+                        },
+                        {
+                            "Name": "year",
+                            "Required": "N",
+                            "Description": "The \"legislative year\" of the vote. This is not quite the same as the calendar year - the legislative year changes at noon EST on January 3rd. A vote taken on January 1, 2013 has a \"legislative year\" of 2012.",
+                            "Type": "number"
+                        },
+                        {
+                            "Name": "congress",
+                            "Required": "N",
+                            "Description": "The Congress this vote was taken in. (e.g. 112, 113)",
+                            "Type": "number"
+                        },
+                        {
+                            "Name": "voted_at",
+                            "Required": "N",
+                            "Description": "The time the vote was taken.",
+                            "Type": "time"
+                        },
+                        {
+                            "Name": "vote_type",
+                            "Required": "N",
+                            "Description": "The type of vote being taken. This classification is imperfect and unofficial, and may change as we improve our detection.",
+                            "Type": "enumerated",
+                            "EnumeratedList": [null, "passage", "cloture", "nomination", "impeachment", "treaty", "recommit", "quorum", "leadership", "other"]
+                        },
+                        {
+                            "Name": "roll_type",
+                            "Required": "N",
+                            "Description": "The official description of the type of vote being taken.",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "required",
+                            "Required": "N",
+                            "Description": "The required ratio of Aye votes necessary to pass the legislation, in fraction form. A value of \"1/2\" actually means more than 1/2. Ties are not possible in the Senate (the Vice President casts a tie-breaker vote), and in the House, a tie vote means the vote does not pass.",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "result",
+                            "Required": "N",
+                            "Description": "The official result of the vote. This is not completely standardized (both \"Passed\" and \"Bill Passed\" may appear). In the case of a vote for Speaker of the House, the result field contains the name of the victor.",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "bill_id",
+                            "Required": "N",
+                            "Description": "If a vote is related to a bill, the bill's ID. (e.g. \"s968-112\")",
+                            "Type": "string"
                         }
                     ]
                 }
@@ -228,5 +372,3 @@
         }
     ]
 }
-
-
