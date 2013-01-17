@@ -1,0 +1,23 @@
+{
+    "openstates": {
+        "name": "Open States",
+        "protocol": "http",
+        "baseURL": "openstates.org",
+        "publicPath": "/api/v1/",
+        "headers": {
+            "User-agent": "Sunlight iodocs"
+        },
+        "auth": "key",
+        "keyParam": "apikey"
+    },
+
+    "congress": {
+        "name": "Congress",
+        "protocol": "http",
+        "baseURL": "congress.api.sunlightfoundation.com",
+        "publicPath": "/",
+        "headers": {
+            "X-APIKEY": "your_key_here"
+        }
+    }
+}
