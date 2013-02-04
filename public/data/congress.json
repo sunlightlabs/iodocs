@@ -117,7 +117,8 @@
                         {
                             "Name": "in_office",
                             "Required": "N",
-                            "Type": "boolean",
+                            "Type": "enumerated",
+                            "EnumeratedList": [ null, "true", "false" ],
                             "Description": "Whether a member is currently holding elected office in Congress."
                         },
                         {
@@ -264,7 +265,8 @@
                             "Name": "subcommittee",
                             "Required": "N",
                             "Description": "Whether or not the committee is a subcommittee.",
-                            "Type": "boolean"
+                            "Type": "enumerated",
+                            "EnumeratedList": [ null, "true", "false" ]
                         },
                         {
                             "Name": "member_ids",
@@ -276,6 +278,144 @@
                             "Name": "parent_committee_id",
                             "Required": "N",
                             "Description": "If the committee is a subcommittee, the ID of its parent committee.",
+                            "Type": "string"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Bills",
+            "methods": [
+                {
+                    "MethodName": "/bills",
+                    "Synopsis": "Search and filter bills in the House and Senate.",
+                    "HTTPMethod": "GET",
+                    "URI": "bills",
+                    "RequiresOAuth": "N",
+                    "parameters": [
+                        {
+                            "Name": "query",
+                            "Required": "N",
+                            "Description": "A string fragment to match against bills' names, summary, and keywords.",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "bill_id",
+                            "Required": "N",
+                            "Description": "A unique ID for a bill.",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "bill_type",
+                            "Required": "N",
+                            "Description": "The type of a bill.",
+                            "Type": "enumerated",
+                            "EnumeratedList": [null, "hr", "hres", "hjres", "hconres", "s", "sres", "sjres", "sconres"]
+                        },
+                        {
+                            "Name": "number",
+                            "Required": "N",
+                            "Description": "The bill's number",
+                            "Type": "number"
+                        },
+                        {
+                            "Name": "congress",
+                            "Required": "N",
+                            "Description": "The Congress in which this bill was introduced",
+                            "Type": "number"
+                        },
+                        {
+                            "Name": "chamber",
+                            "Required": "N",
+                            "Description": "The chamber of Congress in which the bill originated.",
+                            "Type": "enumerated",
+                            "EnumeratedList": [null, "house", "senate"]
+                        },
+                        {
+                            "Name": "keywords",
+                            "Required": "N",
+                            "Description": "Search through official keywords assigned by the Library of Congress.",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "history.house_passage_result",
+                            "Required": "N",
+                            "Description": "The result of the last time the House voted on passage, pre-veto.",
+                            "Type": "enumerated",
+                            "EnumeratedList": [null, "pass", "fail"]
+                        },
+                        {
+                            "Name": "history.senate_cloture_result",
+                            "Required": "N",
+                            "Description": "The result of the last time the Senate voted on cloture.",
+                            "Type": "enumerated",
+                            "EnumeratedList": [null, "pass", "fail"]
+                        },
+                        {
+                            "Name": "history.senate_passage_result",
+                            "Required": "N",
+                            "Description": "The result of the last time the Senate voted on passage, pre-veto.",
+                            "Type": "enumerated",
+                            "EnumeratedList": [null, "pass", "fail"]
+                        },
+                        {
+                            "Name": "history.vetoed",
+                            "Required": "N",
+                            "Description": "Whether the bill has been vetoed.",
+                            "Type": "enumerated",
+                            "EnumeratedList": [ null, "true", "false" ]
+                        },
+                        {
+                            "Name": "history.house_override_result",
+                            "Required": "N",
+                            "Description": "The result of the last time the House voted on passage to override a veto.",
+                            "Type": "enumerated",
+                            "EnumeratedList": [null, "pass", "fail"]
+                        },
+                        {
+                            "Name": "history.senate_override_result",
+                            "Required": "N",
+                            "Description": "The result of the last time the Senate voted on passage to override a veto.",
+                            "Type": "enumerated",
+                            "EnumeratedList": [null, "pass", "fail"]
+                        },
+                        {
+                            "Name": "history.awaiting_signature",
+                            "Required": "N",
+                            "Description": "Whether the bill is currently awaiting the President's signature.",
+                            "Type": "enumerated",
+                            "EnumeratedList": [ null, "true", "false" ]
+                        },
+                        {
+                            "Name": "history.enacted",
+                            "Required": "N",
+                            "Description": "Whether the bill has been enacted into law.",
+                            "Type": "enumerated",
+                            "EnumeratedList": [ null, "true", "false" ]
+                        },
+                        {
+                            "Name": "sponsor_id",
+                            "Required": "N",
+                            "Description": "The bioguide ID of the legislator sponsoring the bill.",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "cosponsor_ids",
+                            "Required": "N",
+                            "Description": "A bioguide ID of a legislator cosponsoring the bill.",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "withdrawn_cosponsor_ids",
+                            "Required": "N",
+                            "Description": "A bioguide ID of a legislator who has withdrawn their cosponsorship of the bill.",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "committee_ids",
+                            "Required": "N",
+                            "Description": "An ID of a committee this bill is relevant to.",
                             "Type": "string"
                         }
                     ]
