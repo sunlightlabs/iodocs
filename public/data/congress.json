@@ -289,7 +289,7 @@
             "methods": [
                 {
                     "MethodName": "/bills",
-                    "Synopsis": "Search and filter bills in the House and Senate.",
+                    "Synopsis": "Search and filter bills in the House and Senate. Below are just the fields you can filter on - responses may have many more fields.",
                     "HTTPMethod": "GET",
                     "URI": "bills",
                     "RequiresOAuth": "N",
@@ -422,7 +422,7 @@
                 },
                 {
                     "MethodName": "/bills/search",
-                    "Synopsis": "Filter and search through the full text of bills in the House and Senate. The main difference between this and the /bills method is that the 'query' parameter is now treated as a proper search query, with operators. You must also quote phrases to maintain term order.",
+                    "Synopsis": "Filter and search through the full text of bills in the House and Senate. Below are just the fields you can filter on - responses may have many more fields. The main difference between this and the /bills method is that the 'query' parameter is now treated as a proper search query, with operators. You must also quote phrases to maintain term order.",
                     "HTTPMethod": "GET",
                     "URI": "bills/search",
                     "RequiresOAuth": "N",
@@ -645,6 +645,181 @@
                             "Required": "N",
                             "Description": "If a vote is related to a bill, the bill's ID. (e.g. \"s968-112\")",
                             "Type": "string"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Floor Updates",
+            "methods": [
+                {
+                    "MethodName": "/floor_updates",
+                    "Synopsis": "Real time floor updates in the House and Senate. Below are just the fields you can filter on - responses may have many more fields.",
+                    "HTTPMethod": "GET",
+                    "URI": "floor_updates",
+                    "RequiresOAuth": "N",
+                    "parameters": [
+                        {
+                            "Name": "query",
+                            "Required": "N",
+                            "Description": "A string fragment to match against floor updates' text.",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "chamber",
+                            "Required": "N",
+                            "Description": "The chamber this update took place in.",
+                            "Type": "enumerated",
+                            "EnumeratedList": [null, "house", "senate"]
+                        },
+                        {
+                            "Name": "congress",
+                            "Required": "N",
+                            "Description": "The number of the Congress this update took place during.",
+                            "Type": "number"
+                        },
+                        {
+                            "Name": "legislative_day",
+                            "Required": "N",
+                            "Description": "The \"legislative day\" this update took place in, in YYYY-MM-DD format.",
+                            "Type": "date"
+                        },
+                        {
+                            "Name": "year",
+                            "Required": "N",
+                            "Description": "The legislative year of the update.",
+                            "Type": "number"
+                        },
+                        {
+                            "Name": "bill_ids",
+                            "Required": "N",
+                            "Description": "The ID of a bill referenced in a floor update.",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "roll_ids",
+                            "Required": "N",
+                            "Description": "The ID of a roll call vote referenced in a floor update.",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "legislator_ids",
+                            "Required": "N",
+                            "Description": "The bioguide ID of a legislator referenced in a floor update.",
+                            "Type": "string"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Hearings",
+            "methods": [
+                {
+                    "MethodName": "/hearings",
+                    "Synopsis": "Search and filter hearings in the House and Senate.Below are just the fields you can filter on - responses may have many more fields.",
+                    "HTTPMethod": "GET",
+                    "URI": "hearings",
+                    "RequiresOAuth": "N",
+                    "parameters": [
+                        {
+                            "Name": "query",
+                            "Required": "N",
+                            "Description": "A string fragment to match against hearings' descriptions.",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "committee_id",
+                            "Required": "N",
+                            "Description": "The ID of the committee holding the hearing.",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "congress",
+                            "Required": "N",
+                            "Description": "The number of the Congress the committee hearing is taking place during.",
+                            "Type": "number"
+                        },
+                        {
+                            "Name": "chamber",
+                            "Required": "N",
+                            "Description": "The chamber of the committee holding the hearing.",
+                            "Type": "enumerated",
+                            "EnumeratedList": [null, "house", "senate", "joint"]
+                        },
+                        {
+                            "Name": "dc",
+                            "Required": "N",
+                            "Description": "Whether the committee hearing is held in DC (true) or in the field (false).",
+                            "Type": "enumerated",
+                            "EnumeratedList": [null, true, false]
+                        },
+                        {
+                            "Name": "bill_ids",
+                            "Required": "N",
+                            "Description": "The IDs of a bill mentioned by or associated with the hearing.",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "hearing_type",
+                            "Required": "N",
+                            "Description": "(House only) The type of hearing this is.",
+                            "Type": "enumerated",
+                            "EnumeratedList": [null, "Hearing", "Markup", "Business Meeting", "Field Hearing"]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Upcoming Bills",
+            "methods": [
+                {
+                    "MethodName": "/upcoming_bills",
+                    "Synopsis": "Bills scheduled for upcoming debate in the House and Senate. Below are just the fields you can filter on - responses may have many more fields.",
+                    "HTTPMethod": "GET",
+                    "URI": "upcoming_bills",
+                    "RequiresOAuth": "N",
+                    "parameters": [
+                        {
+                            "Name": "legislative_day",
+                            "Required": "N",
+                            "Description": "The legislative day this bill is scheduled for. Combine with the range field to understand precision. May be null.",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "bill_id",
+                            "Required": "N",
+                            "Description": "The ID of the bill that's been scheduled for debate.",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "range",
+                            "Required": "N",
+                            "Description": "How precise this information is.",
+                            "Type": "enumerated",
+                            "EnumeratedList": [null, "day", "week"]
+                        },
+                        {
+                            "Name": "congress",
+                            "Required": "N",
+                            "Description": "The number of the Congress this bill has been scheduled in.",
+                            "Type": "number"
+                        },
+                        {
+                            "Name": "chamber",
+                            "Required": "N",
+                            "Description": "The chamber which has scheduled this bill.",
+                            "Type": "enumerated",
+                            "EnumeratedList": [null, "house", "senate"]
+                        },
+                        {
+                            "Name": "source_type",
+                            "Required": "N",
+                            "Description": "The source for this information.",
+                            "Type": "enumerated",
+                            "EnumeratedList": [null, "house_daily", "house_weekly", "senate_daily"]
                         }
                     ]
                 }
