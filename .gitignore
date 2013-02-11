@@ -1,6 +1,7 @@
 .DS_Store
 node_modules/*
 config.json
+public/data/apiconfig.json
 logs/*
 pids/*
 .*.swp
