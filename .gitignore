@@ -6,5 +6,3 @@ logs/*
 pids/*
 .*.swp
 *.rdb
-
-/public/data/apiconfig.json
