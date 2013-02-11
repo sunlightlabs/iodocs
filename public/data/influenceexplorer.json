@@ -154,7 +154,7 @@
           "MethodName": "Top Industries",
           "Synopsis": "Returns the top contributing industries, ranked by total dollars given.",
           "HTTPMethod": "GET",
-          "URI": "/aggregates/pol/:entity_id/industries.json",
+          "URI": "/aggregates/pol/:entity_id/contributors/industries.json",
           "RequiresOAuth": "N",
           "parameters": [
             {
@@ -184,7 +184,7 @@
           "MethodName": "Unknown Industries",
           "Synopsis": "Returns a contribution count and total for a politician from unknown industries.",
           "HTTPMethod": "GET",
-          "URI": "/aggregates/pol/:entity_id/industries_unknown.json",
+          "URI": "/aggregates/pol/:entity_id/contributors/industries_unknown.json",
           "RequiresOAuth": "N",
           "parameters": [
             {
@@ -432,7 +432,7 @@
             {
               "Name": "entity_id",
               "Required": "Y",
-              "Default": "a03df5d9b20e467fa0ceaefa94c4491e",
+              "Default": "e6da8b437b67418fb935776eaf969006",
               "Type": "string",
               "Description": "The TransparencyData ID of the entity to look up."
             },
@@ -462,7 +462,7 @@
             {
               "Name": "entity_id",
               "Required": "Y",
-              "Default": "a03df5d9b20e467fa0ceaefa94c4491e",
+              "Default": "e6da8b437b67418fb935776eaf969006",
               "Type": "string",
               "Description": "The TransparencyData ID of the entity to look up."
             },
@@ -492,7 +492,7 @@
             {
               "Name": "entity_id",
               "Required": "Y",
-              "Default": "a03df5d9b20e467fa0ceaefa94c4491e",
+              "Default": "e6da8b437b67418fb935776eaf969006",
               "Type": "string",
               "Description": "The TransparencyData ID of the entity to look up."
             },
