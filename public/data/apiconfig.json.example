@@ -19,5 +19,14 @@
         "headers": {
             "X-APIKEY": "your_key_here"
         }
+    },
+
+    "influenceexplorer": {
+        "name": "Influence Explorer",
+        "protocol": "http",
+        "baseURL": "transparencydata.com",
+        "publicPath": "/api/1.0",
+        "auth": "key",
+        "keyParam": "apikey"
     }
 }
