@@ -28,5 +28,16 @@
         "publicPath": "/api/1.0",
         "auth": "key",
         "keyParam": "apikey"
+    },
+
+    "capitolwords": {
+        "name": "Capitol Words",
+        "protocol": "http",
+        "baseURL": "capitolwords.org",
+        "publicPath": "/api/1/",
+        "booleanTrueVal": "true",
+        "booleanFalseVal": "false",
+        "auth": "key",
+        "keyParam": "apikey"
     }
 }

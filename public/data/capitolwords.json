@@ -1,0 +1,271 @@
+{
+    "endpoints": [
+        {
+            "name": "Capitol Words",
+            "methods": [
+                {
+                    "MethodName": "Phrase Time Series",
+                    "Synopsis": "Find the popularity of a phrase over a series of time blocks.",
+                    "HTTPMethod": "GET",
+                    "URI": "/dates.json",
+                    "parameters": [
+                        {
+                            "Name": "phrase",
+                            "Required": "Y",
+                            "Description": "The word or phrase to search for.",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "bioguide",
+                            "Description": "The Bioguide ID of a member of congress, past or present, to limit results to.",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "mincount",
+                            "Description": "A numeric minimum of mentions per returned time block.",
+                            "Type": "integer"
+                        },
+                        {
+                            "Name": "percentages",
+                            "Description": "Return the percent of this count to the total words spoken in the result object.",
+                            "Type": "boolean",
+                            "Default": true
+                        },
+                        {
+                            "Name": "granularity",
+                            "Default": "",
+                            "Description": "The size of each block in the time series.",
+                            "Type": "enumerated",
+                            "EnumeratedList": ["year", "month", "day"]
+                        },
+                        {
+                            "Name": "state",
+                            "Description": "The 2-letter postal code for a state to limit results to.",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "party",
+                            "Default": "",
+                            "Description": "A political party to limit results to.",
+                            "Type": "enumerated",
+                            "EnumeratedList": ["D", "R", "I"]
+                        },
+                        {
+                            "Name": "chamber",
+                            "Default": "",
+                            "Description": "The section of the congressional record to limit results to.",
+                            "Type": "enumerated",
+                            "EnumeratedList": ["house", "senate", "extensions"]
+                        },
+                        {
+                            "Name": "date",
+                            "Description": "A single date to limit results to, YYYY-MM-DD format.",
+                            "Type": "date"
+                        },
+                        {
+                            "Name": "start_date",
+                            "Description": "The start bound of a date range to limit results to, YYYY-MM-DD format.",
+                            "Type": "date"
+                        },
+                        {
+                            "Name": "end_date",
+                            "Description": "The end bound of a date range to limit results to, YYYY-MM-DD format.",
+                            "Type": "date"
+                        }
+                    ]
+                },
+                {
+                    "MethodName": "Top Phrases by Entity",
+                    "Synopsis": "List the top phrases for a specific entity/facet.",
+                    "HTTPMethod": "GET",
+                    "URI": "/phrases.json",
+                    "parameters": [
+                        {
+                            "Name": "entity_type",
+                            "Required": "Y",
+                            "Description": "The type of the entity to facet on.",
+                            "Type": "enumerated",
+                            "EnumeratedList": ["date", "month", "state", "legislator"]
+                        },
+                        {
+                            "Name": "entity_value",
+                            "Required": "Y",
+                            "Description": "The value of the :entity_type to facet on",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "n",
+                            "Required": "N",
+                            "Description": "The length of phrase, in words, 1 to 5.",
+                            "Type": "integer"
+                        },
+                        {
+                            "Name": "page",
+                            "Required": "N",
+                            "Default": 0,
+                            "Description": "The page of results to show, zero-indexed.",
+                            "Type": "integer"
+                        },
+                        {
+                            "Name": "sort",
+                            "Required": "N",
+                            "Default": "count desc",
+                            "Description": "The metric to sort by. A direction must also be supplied, eg. 'tfidf asc'",
+                            "Type": "string"
+                        }
+                    ]
+                },
+                {
+                    "MethodName": "Top Entities by Phrase",
+                    "Synopsis": "List the top entities in a facet for a specific phrase.",
+                    "HTTPMethod": "GET",
+                    "URI": "/phrases/:entity.json",
+                    "parameters": [
+                        {
+                            "Name": "entity",
+                            "Required": "Y",
+                            "Location": "path",
+                            "Description": "The type of facet to list entities for.",
+                            "Type": "enumerated",
+                            "EnumeratedList": ["legislator", "state", "volume", "chamber"]
+                        },
+                        {
+                            "Name": "phrase",
+                            "Required": "Y",
+                            "Description": "The word or phrase to list entities for.",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "mincount",
+                            "Description": "A numeric minimum of mentions per returned time block.",
+                            "Type": "integer"
+                        },
+                        {
+                            "Name": "page",
+                            "Default": 0,
+                            "Description": "The page of results to show, zero-indexed.",
+                            "Type": "integer"
+                        },
+                        {
+                            "Name": "per_page",
+                            "Default": 50,
+                            "Description": "The number of results to return per page. The maximum is 50.",
+                            "Type": "integer"
+                        },
+                        {
+                            "Name": "sort",
+                            "Description": "The metric on which to sort top results. Facet sorting in Solr is either lexicographical ascending, or by count descending. The only valid values here are 'count' or :entity",
+                            "Default": "count",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "state",
+                            "Description": "The 2-letter postal code for a state to limit results to.",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "party",
+                            "Default": "",
+                            "Description": "A political party to limit results to.",
+                            "Type": "enumerated",
+                            "EnumeratedList": ["D", "R", "I"]
+                        },
+                        {
+                            "Name": "chamber",
+                            "Default": "",
+                            "Description": "The section of the congressional record to limit results to.",
+                            "Type": "enumerated",
+                            "EnumeratedList": ["house", "senate", "extensions"]
+                        },
+                        {
+                            "Name": "date",
+                            "Description": "A single date to limit results to, YYYY-MM-DD format.",
+                            "Type": "date"
+                        },
+                        {
+                            "Name": "start_date",
+                            "Description": "The start bound of a date range to limit results to, YYYY-MM-DD format.",
+                            "Type": "date"
+                        },
+                        {
+                            "Name": "end_date",
+                            "Description": "The end bound of a date range to limit results to, YYYY-MM-DD format.",
+                            "Type": "date"
+                        }
+                    ]
+                },
+                {
+                    "MethodName": "Text Search",
+                    "Synopsis": "Full-text search over the entire Congressional Record back to 1996.",
+                    "HTTPMethod": "GET",
+                    "URI": "/text.json",
+                    "parameters": [
+                        {
+                            "Name": "phrase",
+                            "Required": "N",
+                            "Description": "A word or phrase to search the body of each CR document for. Required if Title is not supplied.",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "title",
+                            "Required": "N",
+                            "Description": "A word or phrase to search the title of each CR document for. Required if Phrase is not supplied.",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "bioguide",
+                            "Description": "Limit results to the member of Congress with the given Bioguide ID, eg. L000551.",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "cr_pages",
+                            "Description": "The page numbers in the Congressional Record to search.",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "page",
+                            "Required": "N",
+                            "Default": 0,
+                            "Description": "The page of results to show, zero-indexed.",
+                            "Type": "integer"
+                        },
+                        {
+                            "Name": "state",
+                            "Description": "The 2-letter postal code for a state to limit results to.",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "party",
+                            "Default": "",
+                            "Description": "A political party to limit results to.",
+                            "Type": "enumerated",
+                            "EnumeratedList": ["D", "R", "I"]
+                        },
+                        {
+                            "Name": "chamber",
+                            "Default": "",
+                            "Description": "The section of the congressional record to limit results to.",
+                            "Type": "enumerated",
+                            "EnumeratedList": ["house", "senate", "extensions"]
+                        },
+                        {
+                            "Name": "date",
+                            "Description": "A single date to limit results to, YYYY-MM-DD format.",
+                            "Type": "date"
+                        },
+                        {
+                            "Name": "start_date",
+                            "Description": "The start bound of a date range to limit results to, YYYY-MM-DD format.",
+                            "Type": "date"
+                        },
+                        {
+                            "Name": "end_date",
+                            "Description": "The end bound of a date range to limit results to, YYYY-MM-DD format.",
+                            "Type": "date"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
