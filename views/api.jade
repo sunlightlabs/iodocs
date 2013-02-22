@@ -1,6 +1,6 @@
 h1=apiInfo.name
 
-.description !{(apiInfo.description.join && apiInfo.description.join("\n")) || apiInfo.description}
+.description !{(apiInfo.description && apiInfo.description.join && apiInfo.description.join("\n")) || apiInfo.description}
 
 - if (session.authed && apiInfo.oauth && apiInfo.oauth.type =='three-legged')
     - var authed ='authed'
