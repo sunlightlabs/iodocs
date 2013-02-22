@@ -131,8 +131,8 @@
               "Name": "amount",
               "Required": "N",
               "Default": ">|1000",
-              "Type": "string",
-              "Description": "The amount of the contribution in US dollars. Prefix operators >| (greater than or equal to) and <| (less than or equal to) are supported."
+              "Type": "comparison",
+              "Description": "The amount of the contribution in US dollars."
             },
             {
               "Name": "contributor_ft",
@@ -152,15 +152,15 @@
               "Name": "cycle",
               "Required": "N",
               "Default": "2012",
-              "Type": "string",
-              "Description": "A YYYY-formatted year, 1990 up to the most recent election year. Pipe concatenation supported for OR searches, eg. 2008|2010."
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1990 up to the most recent election year."
             },
             {
               "Name": "date",
               "Required": "N",
               "Default": "",
-              "Type": "string",
-              "Description": "The date or date range of the contribution in ISO format. Start, end and range dates can be expressed like this: ><|2006-08-06|2006-09-12."
+              "Type": "comparison",
+              "Description": "The date or date range of the contribution in ISO format."
             },
             {
               "Name": "for_against",
@@ -215,6 +215,52 @@
               }
             },
             {
+              "MethodName": "Bundled Campaign Contributions",
+              "Synopsis": "Search for itemized bundlers.",
+              "HTTPMethod": "GET",
+              "URI": "/contributions/bundled.:format",
+              "RequiresOAuth": "N",
+              "parameters": [
+                {
+                  "Name": "format",
+                  "Location": "extension",
+                  "Required": "Y",
+                  "Default": "json",
+                  "Type": "enumerated",
+                  "Description": "The format of the returned data.",
+                  "EnumeratedList": [ "json", "csv", "xls" ]
+                },
+                {
+                  "Name": "page",
+                  "Required": "Y",
+                  "Type": "enumerated",
+                  "Description": "The page number of results to return",
+                  "EnumeratedList": [ "1" ]
+                },
+                {
+                  "Name": "per_page",
+                  "Required": "Y",
+                  "Type": "enumerated",
+                  "Description": "The number of results to return per page. Default is 1,000, max is 100,000",
+                  "EnumeratedList": [ "20" ]
+                },
+                {
+                  "Name": "lobbyist_name",
+                  "Required": "N",
+                  "Default": "",
+                  "Type": "string",
+                  "Description": "The name of the lobbyist bundling on behalf of the recipient."
+                },
+                {
+                  "Name": "recipient_name",
+                  "Required": "N",
+                  "Default": "",
+                  "Type": "string",
+                  "Description": "The name of the politician or committee which received the bundled contribution."
+                }
+              ]
+            },
+            {
               "Name": "transaction_namespace",
               "Required": "N",
               "Default": "",
@@ -225,6 +271,324 @@
                 "urn:fec:transaction": "federal contributions",
                 "urn:nimsp:transaction": "state contributions"
               }
+            }
+          ]
+        },
+        {
+          "MethodName": "Contractor Misconduct",
+          "Synopsis": "Search itemized contractor misconduct incident reports.",
+          "HTTPMethod": "GET",
+          "URI": "/misconduct.:format",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "format",
+              "Location": "extension",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "The format of the returned data.",
+              "EnumeratedList": [ "json", "csv", "xls" ]
+            },
+            {
+              "Name": "page",
+              "Required": "Y",
+              "Type": "enumerated",
+              "Description": "The page number of results to return",
+              "EnumeratedList": [ "1" ]
+            },
+            {
+              "Name": "per_page",
+              "Required": "Y",
+              "Type": "enumerated",
+              "Description": "The number of results to return per page. Default is 1,000, max is 100,000",
+              "EnumeratedList": [ "20" ]
+            },
+            {
+              "Name": "contractor",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "The name of the contractor to search for."
+            },
+            {
+              "Name": "contracting_party",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "The name of the agency or organization that awarded the contract."
+            },
+            {
+              "Name": "date_year",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "The year in which a date significant to the incident occurred, multiple years can be pipe-separated."
+            },
+            {
+              "Name": "enforcement_agency",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "The name of the agency responsible for the enforcement action."
+            },
+            {
+              "Name": "instance",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Full-text search on the description of the misconduct instance."
+            },
+            {
+              "Name": "penalty_amount",
+              "Required": "N",
+              "Default": "",
+              "Type": "comparison",
+              "Description": "The amount of the penalty, in dollars."
+            }
+          ]
+        },
+        {
+          "MethodName": "Earmarks",
+          "Synopsis": "Search itemized earmark requests through FY 2010.",
+          "HTTPMethod": "GET",
+          "URI": "/earmarks.:format",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "format",
+              "Location": "extension",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "The format of the returned data.",
+              "EnumeratedList": [ "json", "csv", "xls" ]
+            },
+            {
+              "Name": "page",
+              "Required": "Y",
+              "Type": "enumerated",
+              "Description": "The page number of results to return",
+              "EnumeratedList": [ "1" ]
+            },
+            {
+              "Name": "per_page",
+              "Required": "Y",
+              "Type": "enumerated",
+              "Description": "The number of results to return per page. Default is 1,000, max is 100,000",
+              "EnumeratedList": [ "20" ]
+            },
+            {
+              "Name": "amount",
+              "Required": "N",
+              "Default": "",
+              "Type": "comparison",
+              "Description": "The final amount of the earmark."
+            },
+            {
+              "Name": "bill",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "The bill, section or subsection of the earmark."
+            },
+            {
+              "Name": "city",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "The city where the money will be spent."
+            },
+            {
+              "Name": "description",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Full-text search on the description of the earmark request."
+            },
+            {
+              "Name": "member",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Full-text search on the member of Congress requesting the earmark."
+            },
+            {
+              "Name": "member_party",
+              "Required": "N",
+              "Default": "",
+              "Type": "enumerated",
+              "Description": "The party of the member requesting the earmark.",
+              "EnumeratedList": ["D", "R", "I"]
+            },
+            {
+              "Name": "member_state",
+              "Required": "N",
+              "Default": "",
+              "Type": "inclusion",
+              "Description": "The 2-letter state abbreviation of the requesting member."
+            },
+            {
+              "Name": "recipient",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Full-text search on the intended recipient, when known."
+            },
+            {
+              "Name": "year",
+              "Required": "N",
+              "Default": "",
+              "Type": "inclusion",
+              "Description": "The YYYY-formatted fiscal year for which the earmark was requested."
+            }
+          ]
+        },
+        {
+          "MethodName": "EPA ECHO",
+          "Synopsis": "Search itemized EPA enforcement actions.",
+          "HTTPMethod": "GET",
+          "URI": "/epa.:format",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "format",
+              "Location": "extension",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "The format of the returned data.",
+              "EnumeratedList": [ "json", "csv", "xls" ]
+            },
+            {
+              "Name": "page",
+              "Required": "Y",
+              "Type": "enumerated",
+              "Description": "The page number of results to return",
+              "EnumeratedList": [ "1" ]
+            },
+            {
+              "Name": "per_page",
+              "Required": "Y",
+              "Type": "enumerated",
+              "Description": "The number of results to return per page. Default is 1,000, max is 100,000",
+              "EnumeratedList": [ "20" ]
+            },
+            {
+              "Name": "case_name",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Full-text search on the name of the case."
+            },
+            {
+              "Name": "case_num",
+              "Required": "N",
+              "Default": "",
+              "Type": "inclusion",
+              "Description": "One or more specific case numbers."
+            },
+            {
+              "Name": "defendants",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Full-text search for the name(s) of the defendant companies."
+            },
+            {
+              "Name": "first_date",
+              "Required": "N",
+              "Default": "",
+              "Type": "date",
+              "Description": "Start of a date range of the most recent date of significance to the case."
+            },
+            {
+              "Name": "last_date",
+              "Required": "N",
+              "Default": "",
+              "Type": "date",
+              "Description": "End of a date range of the most recent date of significance to the case."
+            },
+            {
+              "Name": "location_addresses",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Full-text search on all addresses associated with the case."
+            },
+            {
+              "Name": "penalty",
+              "Required": "N",
+              "Default": "",
+              "Type": "comparison",
+              "Description": "Total penalties, in dollars."
+            }
+          ]
+        },
+        {
+          "MethodName": "FACA Memberships",
+          "Synopsis": "Search itemized Federal Advisory Committee memberships.",
+          "HTTPMethod": "GET",
+          "URI": "/faca.:format",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "format",
+              "Location": "extension",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "The format of the returned data.",
+              "EnumeratedList": [ "json", "csv", "xls" ]
+            },
+            {
+              "Name": "page",
+              "Required": "Y",
+              "Type": "enumerated",
+              "Description": "The page number of results to return",
+              "EnumeratedList": [ "1" ]
+            },
+            {
+              "Name": "per_page",
+              "Required": "Y",
+              "Type": "enumerated",
+              "Description": "The number of results to return per page. Default is 1,000, max is 100,000",
+              "EnumeratedList": [ "20" ]
+            },
+            {
+              "Name": "affiliation",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Full-text search on the name of the affiliated organization."
+            },
+            {
+              "Name": "agency_name",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Full-text search on the name of the agency associated with the committee."
+            },
+            {
+              "Name": "committee_name",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Full-text search on the name of the advisory committee."
+            },
+            {
+              "Name": "member_name",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Full-text search on the name of the committee member."
+            },
+            {
+              "Name": "year",
+              "Required": "N",
+              "Default": "",
+              "Type": "inclusion",
+              "Description": "The YYYY-formatted year(s) the member sat on the committee."
             }
           ]
         },
@@ -276,29 +640,29 @@
               "Name": "current_amount",
               "Required": "N",
               "Default": "",
-              "Type": "string",
-              "Description": "Current value of the contract in US dollars. Prefix operators >| (greater than or equal to) and <| (less than or equal to) are supported."
+              "Type": "comparison",
+              "Description": "Current value of the contract in US dollars."
             },
             {
               "Name": "fiscal_year",
               "Required": "N",
               "Default": "2012",
-              "Type": "string",
-              "Description": "The YYYY-formatted year in which the grant was awarded, 2006 up to the most recent election year. Pipe concatenation supported for OR searches, eg. 2008|2010."
+              "Type": "inclusion",
+              "Description": "The YYYY-formatted year in which the grant was awarded, 2006 up to the most recent election year."
             },
             {
               "Name": "maximum_amount",
               "Required": "N",
               "Default": "",
-              "Type": "string",
-              "Description": "Maximum possible value of the contract in US dollars. Prefix operators >| (greater than or equal to) and <| (less than or equal to) are supported."
+              "Type": "comparison",
+              "Description": "Maximum possible value of the contract in US dollars."
             },
             {
               "Name": "obligated_amount",
               "Required": "N",
               "Default": "",
-              "Type": "string",
-              "Description": "The amount obligated or de-obligated by the transaction in US dollars. Prefix operators >| (greater than or equal to) and <| (less than or equal to) are supported."
+              "Type": "comparison",
+              "Description": "The amount obligated or de-obligated by the transaction in US dollars."
             },
             {
               "Name": "place_district",
@@ -325,8 +689,8 @@
               "Name": "signed_date",
               "Required": "N",
               "Default": "",
-              "Type": "string",
-              "Description": "The date of contract signature in ISO format. Ranges (>|, <|, ><||) are supported."
+              "Type": "comparison",
+              "Description": "The date of contract signature in ISO format."
             },
             {
               "Name": "vendor_city",
@@ -420,8 +784,8 @@
               "Name": "amount_total",
               "Required": "N",
               "Default": "",
-              "Type": "string",
-              "Description": "Total amount of the grant in US dollars. Prefix operators >| (greater than or equal to) and <| (less than or equal to) are supported."
+              "Type": "comparison",
+              "Description": "Total amount of the grant in US dollars."
             },
             {
               "Name": "assistance_type",
@@ -447,8 +811,8 @@
               "Name": "fiscal_year",
               "Required": "N",
               "Default": "2012",
-              "Type": "string",
-              "Description": "The YYYY-formated year in which the grant was awarded, 2000 up to the most recent election year. Pipe concatenation supported for OR searches, eg. 2008|2010."
+              "Type": "inclusion",
+              "Description": "The YYYY-formated year in which the grant was awarded, 2000 up to the most recent election year."
             },
             {
               "Name": "recipient_ft",
@@ -523,8 +887,8 @@
               "Name": "amount",
               "Required": "N",
               "Default": ">|1000",
-              "Type": "string",
-              "Description": "The amount spent on lobbying in US dollars. Prefix operators >| (greater than or equal to) and <| (less than or equal to) are supported."
+              "Type": "comparison",
+              "Description": "The amount spent on lobbying in US dollars."
             },
             {
               "Name": "client_ft",
@@ -644,8 +1008,8 @@
               "Name": "year",
               "Required": "N",
               "Default": "2012",
-              "Type": "string",
-              "Description": "A YYYY-formatted year, 1999 up to the most recent election year. Pipe concatenation supported for OR searches, eg. 2008|2010."
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1999 up to the most recent election year."
             }
           ]
         }
@@ -672,8 +1036,8 @@
               "Name": "cycle",
               "Required": "N",
               "Default": "2012",
-              "Type": "string",
-              "Description": "A YYYY-formatted year, 1990 up to the most recent election year. Pipe concatenation supported for OR searches, eg. 2008|2010."
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1990 up to the most recent election year."
             }
           ]
         },
@@ -695,8 +1059,8 @@
               "Name": "cycle",
               "Required": "N",
               "Default": "2012",
-              "Type": "string",
-              "Description": "A YYYY-formatted year, 1990 up to the most recent election year. Pipe concatenation supported for OR searches, eg. 2008|2010."
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1990 up to the most recent election year."
             },
             {
               "Name": "limit",
@@ -725,8 +1089,8 @@
               "Name": "cycle",
               "Required": "N",
               "Default": "2012",
-              "Type": "string",
-              "Description": "A YYYY-formatted year, 1990 up to the most recent election year. Pipe concatenation supported for OR searches, eg. 2008|2010."
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1990 up to the most recent election year."
             },
             {
               "Name": "limit",
@@ -755,8 +1119,8 @@
               "Name": "cycle",
               "Required": "N",
               "Default": "2012",
-              "Type": "string",
-              "Description": "A YYYY-formatted year, 1990 up to the most recent election year. Pipe concatenation supported for OR searches, eg. 2008|2010."
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1990 up to the most recent election year."
             }
           ]
         },
@@ -778,8 +1142,8 @@
               "Name": "cycle",
               "Required": "N",
               "Default": "2012",
-              "Type": "string",
-              "Description": "A YYYY-formatted year, 1990 up to the most recent election year. Pipe concatenation supported for OR searches, eg. 2008|2010."
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1990 up to the most recent election year."
             },
             {
               "Name": "limit",
@@ -808,8 +1172,8 @@
               "Name": "cycle",
               "Required": "N",
               "Default": "2012",
-              "Type": "string",
-              "Description": "A YYYY-formatted year, 1990 up to the most recent election year. Pipe concatenation supported for OR searches, eg. 2008|2010."
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1990 up to the most recent election year."
             }
           ]
         },
@@ -831,8 +1195,8 @@
               "Name": "cycle",
               "Required": "N",
               "Default": "2012",
-              "Type": "string",
-              "Description": "A YYYY-formatted year, 1990 up to the most recent election year. Pipe concatenation supported for OR searches, eg. 2008|2010."
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1990 up to the most recent election year."
             }
           ]
         },
@@ -891,8 +1255,8 @@
               "Name": "cycle",
               "Required": "N",
               "Default": "2012",
-              "Type": "string",
-              "Description": "A YYYY-formatted year, 1990 up to the most recent election year. Pipe concatenation supported for OR searches, eg. 2008|2010."
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1990 up to the most recent election year."
             }
           ]
         },
@@ -914,8 +1278,8 @@
               "Name": "cycle",
               "Required": "N",
               "Default": "2012",
-              "Type": "string",
-              "Description": "A YYYY-formatted year, 1990 up to the most recent election year. Pipe concatenation supported for OR searches, eg. 2008|2010."
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1990 up to the most recent election year."
             },
             {
               "Name": "limit",
@@ -944,8 +1308,8 @@
               "Name": "cycle",
               "Required": "N",
               "Default": "2012",
-              "Type": "string",
-              "Description": "A YYYY-formatted year, 1990 up to the most recent election year. Pipe concatenation supported for OR searches, eg. 2008|2010."
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1990 up to the most recent election year."
             },
             {
               "Name": "limit",
@@ -974,8 +1338,8 @@
               "Name": "cycle",
               "Required": "N",
               "Default": "2012",
-              "Type": "string",
-              "Description": "A YYYY-formatted year, 1990 up to the most recent election year. Pipe concatenation supported for OR searches, eg. 2008|2010."
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1990 up to the most recent election year."
             }
           ]
         },
@@ -997,8 +1361,8 @@
               "Name": "cycle",
               "Required": "N",
               "Default": "2012",
-              "Type": "string",
-              "Description": "A YYYY-formatted year, 1990 up to the most recent election year. Pipe concatenation supported for OR searches, eg. 2008|2010."
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1990 up to the most recent election year."
             },
             {
               "Name": "limit",
@@ -1027,8 +1391,8 @@
               "Name": "cycle",
               "Required": "N",
               "Default": "2012",
-              "Type": "string",
-              "Description": "A YYYY-formatted year, 1990 up to the most recent election year. Pipe concatenation supported for OR searches, eg. 2008|2010."
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1990 up to the most recent election year."
             },
             {
               "Name": "limit",
@@ -1057,8 +1421,8 @@
               "Name": "cycle",
               "Required": "N",
               "Default": "2012",
-              "Type": "string",
-              "Description": "A YYYY-formatted year, 1990 up to the most recent election year. Pipe concatenation supported for OR searches, eg. 2008|2010."
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1990 up to the most recent election year."
             },
             {
               "Name": "limit",
@@ -1092,8 +1456,8 @@
               "Name": "cycle",
               "Required": "N",
               "Default": "2012",
-              "Type": "string",
-              "Description": "A YYYY-formatted year, 1990 up to the most recent election year. Pipe concatenation supported for OR searches, eg. 2008|2010."
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1990 up to the most recent election year."
             }
           ]
         },
@@ -1115,8 +1479,8 @@
               "Name": "cycle",
               "Required": "N",
               "Default": "2012",
-              "Type": "string",
-              "Description": "A YYYY-formatted year, 1990 up to the most recent election year. Pipe concatenation supported for OR searches, eg. 2008|2010."
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1990 up to the most recent election year."
             },
             {
               "Name": "limit",
@@ -1145,8 +1509,8 @@
               "Name": "cycle",
               "Required": "N",
               "Default": "2012",
-              "Type": "string",
-              "Description": "A YYYY-formatted year, 1990 up to the most recent election year. Pipe concatenation supported for OR searches, eg. 2008|2010."
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1990 up to the most recent election year."
             },
             {
               "Name": "limit",
@@ -1175,8 +1539,8 @@
               "Name": "cycle",
               "Required": "N",
               "Default": "2012",
-              "Type": "string",
-              "Description": "A YYYY-formatted year, 1990 up to the most recent election year. Pipe concatenation supported for OR searches, eg. 2008|2010."
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1990 up to the most recent election year."
             }
           ]
         },
@@ -1198,8 +1562,8 @@
               "Name": "cycle",
               "Required": "N",
               "Default": "2012",
-              "Type": "string",
-              "Description": "A YYYY-formatted year, 1990 up to the most recent election year. Pipe concatenation supported for OR searches, eg. 2008|2010."
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1990 up to the most recent election year."
             }
           ]
         },
@@ -1221,8 +1585,8 @@
               "Name": "cycle",
               "Required": "N",
               "Default": "2012",
-              "Type": "string",
-              "Description": "A YYYY-formatted year, 1990 up to the most recent election year. Pipe concatenation supported for OR searches, eg. 2008|2010."
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1990 up to the most recent election year."
             },
             {
               "Name": "limit",
@@ -1251,8 +1615,8 @@
               "Name": "cycle",
               "Required": "N",
               "Default": "2012",
-              "Type": "string",
-              "Description": "A YYYY-formatted year, 1990 up to the most recent election year. Pipe concatenation supported for OR searches, eg. 2008|2010."
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1990 up to the most recent election year."
             },
             {
               "Name": "limit",
@@ -1281,8 +1645,8 @@
               "Name": "cycle",
               "Required": "N",
               "Default": "2012",
-              "Type": "string",
-              "Description": "A YYYY-formatted year, 1990 up to the most recent election year. Pipe concatenation supported for OR searches, eg. 2008|2010."
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1990 up to the most recent election year."
             },
             {
               "Name": "limit",
@@ -1311,8 +1675,8 @@
               "Name": "cycle",
               "Required": "N",
               "Default": "2012",
-              "Type": "string",
-              "Description": "A YYYY-formatted year, 1990 up to the most recent election year. Pipe concatenation supported for OR searches, eg. 2008|2010."
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1990 up to the most recent election year."
             },
             {
               "Name": "limit",
@@ -1341,8 +1705,8 @@
               "Name": "cycle",
               "Required": "N",
               "Default": "2012",
-              "Type": "string",
-              "Description": "A YYYY-formatted year, 1990 up to the most recent election year. Pipe concatenation supported for OR searches, eg. 2008|2010."
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1990 up to the most recent election year."
             },
             {
               "Name": "limit",
@@ -1371,8 +1735,8 @@
               "Name": "cycle",
               "Required": "N",
               "Default": "2012",
-              "Type": "string",
-              "Description": "A YYYY-formatted year, 1990 up to the most recent election year. Pipe concatenation supported for OR searches, eg. 2008|2010."
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1990 up to the most recent election year."
             },
             {
               "Name": "limit",
@@ -1401,8 +1765,8 @@
               "Name": "cycle",
               "Required": "N",
               "Default": "2012",
-              "Type": "string",
-              "Description": "A YYYY-formatted year, 1990 up to the most recent election year. Pipe concatenation supported for OR searches, eg. 2008|2010."
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1990 up to the most recent election year."
             },
             {
               "Name": "limit",
@@ -1431,8 +1795,8 @@
               "Name": "cycle",
               "Required": "N",
               "Default": "2012",
-              "Type": "string",
-              "Description": "A YYYY-formatted year, 1990 up to the most recent election year. Pipe concatenation supported for OR searches, eg. 2008|2010."
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1990 up to the most recent election year."
             },
             {
               "Name": "limit",
@@ -1461,8 +1825,8 @@
               "Name": "cycle",
               "Required": "N",
               "Default": "2012",
-              "Type": "string",
-              "Description": "A YYYY-formatted year, 1990 up to the most recent election year. Pipe concatenation supported for OR searches, eg. 2008|2010."
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1990 up to the most recent election year."
             },
             {
               "Name": "limit",
@@ -1491,8 +1855,8 @@
               "Name": "cycle",
               "Required": "N",
               "Default": "2012",
-              "Type": "string",
-              "Description": "A YYYY-formatted year, 1990 up to the most recent election year. Pipe concatenation supported for OR searches, eg. 2008|2010."
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1990 up to the most recent election year."
             },
             {
               "Name": "limit",
@@ -1521,8 +1885,8 @@
               "Name": "cycle",
               "Required": "N",
               "Default": "2012",
-              "Type": "string",
-              "Description": "A YYYY-formatted year, 1990 up to the most recent election year. Pipe concatenation supported for OR searches, eg. 2008|2010."
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1990 up to the most recent election year."
             },
             {
               "Name": "limit",
@@ -1565,8 +1929,8 @@
               "Name": "cycle",
               "Required": "N",
               "Default": "2012",
-              "Type": "string",
-              "Description": "A YYYY-formatted year, 2000 up to the most recent election year. Pipe concatenation supported for OR searches, eg. 2008|2010."
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 2000 up to the most recent election year."
             },
             {
               "Name": "limit",
@@ -1595,8 +1959,8 @@
               "Name": "cycle",
               "Required": "N",
               "Default": "2012",
-              "Type": "string",
-              "Description": "A YYYY-formatted year, 1990 up to the most recent election year. Pipe concatenation supported for OR searches, eg. 2008|2010."
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1990 up to the most recent election year."
             },
             {
               "Name": "limit",
