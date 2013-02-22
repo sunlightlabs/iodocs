@@ -215,52 +215,6 @@
               }
             },
             {
-              "MethodName": "Bundled Campaign Contributions",
-              "Synopsis": "Search for itemized bundlers.",
-              "HTTPMethod": "GET",
-              "URI": "/contributions/bundled.:format",
-              "RequiresOAuth": "N",
-              "parameters": [
-                {
-                  "Name": "format",
-                  "Location": "extension",
-                  "Required": "Y",
-                  "Default": "json",
-                  "Type": "enumerated",
-                  "Description": "The format of the returned data.",
-                  "EnumeratedList": [ "json", "csv", "xls" ]
-                },
-                {
-                  "Name": "page",
-                  "Required": "Y",
-                  "Type": "enumerated",
-                  "Description": "The page number of results to return",
-                  "EnumeratedList": [ "1" ]
-                },
-                {
-                  "Name": "per_page",
-                  "Required": "Y",
-                  "Type": "enumerated",
-                  "Description": "The number of results to return per page. Default is 1,000, max is 100,000",
-                  "EnumeratedList": [ "20" ]
-                },
-                {
-                  "Name": "lobbyist_name",
-                  "Required": "N",
-                  "Default": "",
-                  "Type": "string",
-                  "Description": "The name of the lobbyist bundling on behalf of the recipient."
-                },
-                {
-                  "Name": "recipient_name",
-                  "Required": "N",
-                  "Default": "",
-                  "Type": "string",
-                  "Description": "The name of the politician or committee which received the bundled contribution."
-                }
-              ]
-            },
-            {
               "Name": "transaction_namespace",
               "Required": "N",
               "Default": "",
@@ -271,6 +225,52 @@
                 "urn:fec:transaction": "federal contributions",
                 "urn:nimsp:transaction": "state contributions"
               }
+            }
+          ]
+        },
+        {
+          "MethodName": "Bundled Campaign Contributions",
+          "Synopsis": "Search for itemized bundlers.",
+          "HTTPMethod": "GET",
+          "URI": "/contributions/bundled.:format",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "format",
+              "Location": "extension",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "The format of the returned data.",
+              "EnumeratedList": [ "json", "csv", "xls" ]
+            },
+            {
+              "Name": "page",
+              "Required": "Y",
+              "Type": "enumerated",
+              "Description": "The page number of results to return",
+              "EnumeratedList": [ "1" ]
+            },
+            {
+              "Name": "per_page",
+              "Required": "Y",
+              "Type": "enumerated",
+              "Description": "The number of results to return per page. Default is 1,000, max is 100,000",
+              "EnumeratedList": [ "20" ]
+            },
+            {
+              "Name": "lobbyist_name",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "The name of the lobbyist bundling on behalf of the recipient."
+            },
+            {
+              "Name": "recipient_name",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "The name of the politician or committee which received the bundled contribution."
             }
           ]
         },
