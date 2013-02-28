@@ -77,7 +77,7 @@ ul
                             input(type='hidden', name='oauth', value=secure)
                             input(type='hidden', name='methodUri', value=method.URI)
 
-                            span.description #{method.Synopsis}
+                            span.description !{method.Synopsis}
                             br
                             br
                             - if (method.parameters.length > 0)
