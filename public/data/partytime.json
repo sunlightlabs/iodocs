@@ -49,9 +49,16 @@
                     "MethodName": "Return event by ID",
                     "Synopsis": "Returns details about a single party, including information about contribution amounts, location, hosts and beneficiaries",
                     "HTTPMethod": "GET",
-                    "URI": "/event/31/",
+                    "URI": "/event/:event_id/",
                     "RequiresOAuth": "N",
                     "parameters": [
+  	                  {
+	                        "Name": "event_id",
+	                        "Required": "Y",
+	                        "Default": "31",
+	                        "Type": "string",
+	                        "Description": "Internal id for the event"
+	                    },
                         {
                             "Name": "format",
                             "Required": "Y",
@@ -101,9 +108,16 @@
                     "MethodName": "Return legislator by internal id",
                     "Synopsis": "Returns details about a specific legislator, including title, name, party, state, district and Center for Responsive Politics ID (CRP_ID)",
                     "HTTPMethod": "GET",
-                    "URI": "/lawmaker/12/",
+                    "URI": "/lawmaker/:lawmaker_id/",
                     "RequiresOAuth": "N",
                     "parameters": [
+                        {
+                            "Name": "lawmaker_id",
+                            "Required": "Y",
+                            "Default": "12",
+                            "Type": "integer",
+                            "Description": "Internal lawmaker id"
+                        },
                         {
                             "Name": "format",
                             "Required": "Y",
@@ -146,9 +160,16 @@
                     "MethodName": "Return host by ID",
                     "Synopsis": "Returns details about a single party, including information about contribution amounts, location, hosts and beneficiaries",
                     "HTTPMethod": "GET",
-                    "URI": "/host/19/",
+                    "URI": "/host/:host_id/",
                     "RequiresOAuth": "N",
                     "parameters": [
+                        {
+                            "Name": "host_id",
+                            "Required": "Y",
+                            "Default": "19",
+                            "Type": "integer",
+                            "Description": "Internal host id"
+                        },
                         {
                             "Name": "format",
                             "Required": "Y",
