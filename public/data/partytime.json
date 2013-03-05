@@ -1,0 +1,168 @@
+{
+    "endpoints": [
+        {
+            "name": "Event methods",
+			"return_values": [],
+            "methods": [
+                {
+                    "MethodName": "Filter events by parameter",
+                    "Synopsis": "Returns details about parties, including information about contribution amounts, location, hosts and beneficiaries",
+                    "HTTPMethod": "GET",
+                    "URI": "/event/",
+                    "RequiresOAuth": "N",
+                    "parameters": [
+                        {
+                            "Name": "format",
+                            "Required": "Y",
+                            "Default": "json",
+                            "Type": "enumerated",
+                            "Description": "Output format as JSON or XML",
+                            "EnumeratedList": [
+                                "json",
+                                "xml"
+                            ]
+                        },
+                        {
+                            "Name": "beneficiaries__crp_id",
+                            "Required": "N",
+                            "Default": "",
+                            "Type": "string",
+                            "Description": "Legislator ID assigned by the Center for Responsive politics. For the beneficiary of the party."
+                        },
+                        {
+                            "Name": "host__id",
+                            "Required": "N",
+                            "Default": "",
+                            "Type": "string",
+                            "Description": "Internal id of party host."
+                        },
+                        {
+                            "Name": "beneficiaries__state",
+                            "Required": "N",
+                            "Default": "",
+                            "Type": "string",
+                            "Description": "State represented by beneficiary--for pulling parties benefitting senators and representatives from, for example, Iowa. State should be a two-letter uppercase postal abbreviation, i.e. 'IA'"
+                        }
+                    ]
+                },
+                {
+                    "MethodName": "Return event by ID",
+                    "Synopsis": "Returns details about a single party, including information about contribution amounts, location, hosts and beneficiaries",
+                    "HTTPMethod": "GET",
+                    "URI": "/event/31/",
+                    "RequiresOAuth": "N",
+                    "parameters": [
+                        {
+                            "Name": "format",
+                            "Required": "Y",
+                            "Default": "json",
+                            "Type": "enumerated",
+                            "Description": "Output format as JSON or XML",
+                            "EnumeratedList": [
+                                "json",
+                                "xml"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Legislator methods",
+            "methods": [
+                {
+                    "MethodName": "Filter legislators by parameter",
+                    "Synopsis": "Returns details about legislators including title, name, party, state, district and Center for Responsive Politics ID (CRP_ID)",
+                    "HTTPMethod": "GET",
+                    "URI": "/lawmaker/",
+                    "RequiresOAuth": "N",
+                    "parameters": [
+                        {
+                            "Name": "format",
+                            "Required": "Y",
+                            "Default": "json",
+                            "Type": "enumerated",
+                            "Description": "Output format as JSON or XML",
+                            "EnumeratedList": [
+                                "json",
+                                "xml"
+                            ]
+                        },
+                        {
+                            "Name": "crp_id",
+                            "Required": "N",
+                            "Default": "",
+                            "Type": "string",
+                            "Description": "Legislator ID assigned by the Center for Responsive politics."
+                        }
+                    ]
+                },
+                {
+                    "MethodName": "Return legislator by internal id",
+                    "Synopsis": "Returns details about a specific legislator, including title, name, party, state, district and Center for Responsive Politics ID (CRP_ID)",
+                    "HTTPMethod": "GET",
+                    "URI": "/lawmaker/12/",
+                    "RequiresOAuth": "N",
+                    "parameters": [
+                        {
+                            "Name": "format",
+                            "Required": "Y",
+                            "Default": "json",
+                            "Type": "enumerated",
+                            "Description": "Output format as JSON or XML",
+                            "EnumeratedList": [
+                                "json",
+                                "xml"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Host methods",
+            "methods": [
+                {
+                    "MethodName": "Return hosts",
+                    "Synopsis": "Returns details about all hosts",
+                    "HTTPMethod": "GET",
+                    "URI": "/host/",
+                    "RequiresOAuth": "N",
+                    "parameters": [
+                        {
+                            "Name": "format",
+                            "Required": "Y",
+                            "Default": "json",
+                            "Type": "enumerated",
+                            "Description": "Output format as JSON or XML",
+                            "EnumeratedList": [
+                                "json",
+                                "xml"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "MethodName": "Return host by ID",
+                    "Synopsis": "Returns details about a single party, including information about contribution amounts, location, hosts and beneficiaries",
+                    "HTTPMethod": "GET",
+                    "URI": "/host/19/",
+                    "RequiresOAuth": "N",
+                    "parameters": [
+                        {
+                            "Name": "format",
+                            "Required": "Y",
+                            "Default": "json",
+                            "Type": "enumerated",
+                            "Description": "Output format as JSON or XML",
+                            "EnumeratedList": [
+                                "json",
+                                "xml"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

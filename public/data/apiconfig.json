@@ -1,4 +1,12 @@
 {
+	"partytime": {
+	    "name": "Political Party Time API",
+	    "protocol": "http",
+	    "baseURL": "politicalpartytime.org",
+	    "publicPath": "/api/v1",
+		"auth": "key",
+		"keyParam": "apikey"
+	},
     "klout": {
         "name": "Klout API",
         "protocol": "http",
