@@ -30,6 +30,13 @@
                             "Description": "Legislator ID assigned by the Center for Responsive politics. For the beneficiary of the party."
                         },
                         {
+                            "Name": "start_date__gt",
+                            "Required": "N",
+                            "Default": "",
+                            "Type": "string",
+                            "Description": "Only include events that start after the given date, which must be in YYYY-MM-DD format."
+                        },
+                        {
                             "Name": "host__id",
                             "Required": "N",
                             "Default": "",
