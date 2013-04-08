@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block container %}
+    <div class="row">
+        <div class="span12 content">
+            {# {% include "includes/messages.html" %} #}
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+{% endblock %}

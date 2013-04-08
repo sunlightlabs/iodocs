@@ -1,0 +1,235 @@
+{% extends "base_full.html" %}
+
+{% block css %}
+    <link rel="stylesheet" href="/stylesheets/prettify.css">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+{% endblock css %}
+
+{% block js %}
+    <script type="text/javascript" src="/javascripts/json2.js"></script>
+    <script type="text/javascript" src="/javascripts/prettify.js"></script>
+    <script type="text/javascript" src="/javascripts/utilities.js"></script>
+    <script type="text/javascript" src="/javascripts/livedocs.js"></script>
+    <script type="text/javascript" src="/javascripts/docs.js"></script>
+{% endblock js %}
+
+{% block content %}
+    <h1>{{apiInfo.name}}</h1>
+
+    <div class="description">{{apiInfo.description|raw|join("")}}</div>
+
+    {% set authed = '' %}
+    {% if session.authed %}
+        {% if apiInfo.oauth %}
+            {% if apiInfo.oauth.type == 'three-legged' %}
+                {% set authed = 'authed' %}
+            {% endif %}
+        {% endif %}
+    {% endif %}
+
+    <form id="credentials">
+        <input type="hidden" name="apiName" value="{{apiInfo.shortname}}">
+
+        {% if apiInfo.auth %}
+            <section class="credentials {{authed}}">
+                {% if authed and apiInfo.oauth %}
+                    <span>Authenticated with OAuth</span>
+                    <img src="/images/accept.png">
+                {% else %}
+                    <h2>API Credentials</h2>
+                    <img src="/images/key.png">
+
+                    {% if apiInfo.oauth %}
+                        <input type="hidden" name="oauth" value="authrequired">
+                    {% endif %}
+
+                    {% if apiInfo.auth.defaultKey %}
+                        {% set defaultKey = apiInfo.auth.defaultKey %}
+                    {% else %}
+                        {% set defaultKey = '' %}
+                    {% endif %}
+
+                    {% if apiInfo.auth.defaultSecret %}
+                        {% set defaultSecret = apiInfo.auth.defaultSecret %}
+                    {% else %}
+                        {% set defaultSecret = '' %}
+                    {% endif %}
+
+                    <div>
+                        <label for="key">API Key</label>
+                        <input id="key" name="key" value="{{defaultKey}}">
+                    </div>
+                    <div>
+                        {% if apiInfo.oauth or apiInfo.signature %}
+                            <label for="secret">Shared Secret</label>
+                            <input id="secret" name="secret" value="{{defaultSecret}}">
+                        {% endif %}
+                    </div>
+                    {% if apiInfo.oauth and apiInfo.oauth.type != 'two-legged' %}
+                        <div>
+                            <input name="oauth" id="oauth-auth"
+                                   value="Authenticate with OAuth"
+                                   type="submit">
+                        </div>
+                    {% endif %}
+                {% endif %}
+            </section>
+        {% endif %}
+    </form>
+
+    <div id="controls">
+        <ul>
+            <li><a id="toggle-endpoints" href="#">Toggle All Endpoints</a></li>
+            <li><a id="toggle-methods" href="#">Toggle All Methods</a></li>
+        </ul>
+    </div>
+
+    <ul>
+        {% for endpoint in apiDefinition.endpoints %}
+        <li class="endpoint">
+            <h3 class="title">
+                <span class="name">{{endpoint.name}}</span>
+                <ul class="actions">
+                    <li class="list-methods"><a href="#">List Methods</a></li>
+                    <li class="expand-methods"><a href="#">Expand Methods</a></li>
+                </ul>
+            </h3>
+            {% if endpoint.methods.length %}
+            <ul class="methods hidden">
+                {% for method in endpoint.methods %}
+                    {% set httpmethod = method.HTTPMethod|lower %}
+                    {% if method.RequiresOAuth === 'Y' || method.RequiresOAuth === true %}
+                        {% set secure = 'authrequired' %}
+                    {% else %}
+                        {% set secure = '' %}
+                    {% endif %}
+                    <li class="method {{httpmethod}} secure">
+                        <div class="title">
+                            <span class="http-method">{{method.HTTPMethod}}</span>
+                            <span class="name">{{method.MethodName}}</span>
+                            <span class="uri">{{method.URI}}</span>
+                        </div>
+                        <form class="hidden">
+                            <input type="hidden" name="httpMethod" value="{{method.HTTPMethod}}">
+                            <input type="hidden" name="oauth" value="{{secure}}">
+                            <input type="hidden" name="methodUri" value="{{method.URI}}">
+
+                            <span class="description">{{method.Synopsis}}</span>
+                            <br>
+                            <br>
+                            {% if method.parameters.length > 0 %}
+                                <table class="parameters">
+                                    <thead>
+                                        <tr>
+                                            <th>Parameter</th>
+                                            <th>Value</th>
+                                            <th>Type</th>
+                                            <th>Location</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for parameter in method.parameters %}
+                                        <div id="param{{loop.index0}}">
+                                            {% if parameter.Required == 'Y' %}
+                                                {% set required = true %}
+                                                {% set className = 'required' %}
+                                            {% else %}
+                                                {% set required = false %}
+                                                {% set className = '' %}
+                                            {% endif %}
+                                            <tr class="{{className}}">
+                                                <td class="name">{{parameter.Name}} {% if parameter.MultipleAllowed == 'Y' %}<button class="duplicate-parameter">+</button>{% endif %}</td>
+                                                <td class="parameter">
+                                                    {% if parameter.Type == 'enumerated' %}
+                                                    <select name="params[{{parameter.Name}}]" placeholder="{{className}}">
+                                                        {% if parameter.Default == '' %}
+                                                        <option value=""></option>
+                                                        {% endif %}
+                                                        {% for choice in parameter.EnumeratedList %}
+                                                            {% if parameter.Default == choice %}
+                                                            <option value="{{choice}}" selected="selected">{{choice}}</option>
+                                                            {% else %}
+                                                            <option value="{{choice}}">{{choice}}</option>
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    </select>
+                                                    {% else %}
+                                                        {% if parameter.Type == 'boolean' %}
+                                                        <select name="params[{{parameter.Name}}]" placeholder="{{className}}">
+                                                            {% if parameter.Default == '' %}
+                                                            <option value=""></option>
+                                                            {% endif %}
+                                                            <option value="{{apiInfo.booleanTrueVal}}" {% if parameter.Default == apiInfo.booleanTrueVal %}selected="selected"{% endif %}>
+                                                            <option value="{{apiInfo.booleanFalseVal}}" {% if parameter.Default == apiInfo.booleanFalseVal %}selected="selected"{% endif %}>
+                                                        </select>
+                                                        {% else %}
+                                                        <input name="params[{{parameter.Name}}]" value="{{parameter.Default|eat_null}}" placeholder="{{className}}">
+                                                        <input type="hidden" name="locations[{{parameter.Name}}]" value="{{parameter.Location|eat_null}}">
+                                                        {% endif %}
+                                                    {% endif %}
+                                                </td>
+                                                <td class="type">{{parameter.Type}}</td>
+                                                <td class="location"><p>{{parameter.Location}}</p></td>
+                                                <td class="description">
+                                                    <p>{{parameter.Description|if_empty('No Description')}}</p>
+                                                    {% if parameter.Type == 'enumerated' and parameter.EnumeratedDescription %}
+                                                        <dl class="clearfix">
+                                                            {% for enumChoice in parameter.EnumeratedDescription %}
+                                                            <dd>{{enumChoice}}</dt>
+                                                            {% endfor %}
+                                                        </dl>
+                                                    {% endif %}
+                                                </td>
+                                            </tr>
+                                        </div>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            {% endif %}
+
+                            {% if method.headers and method.headers.length > 0 %}
+                                <div class="headers">
+                                    <h4 class="title">
+                                        <div class="indicator"></div>
+                                        <span>Headers</span>
+                                    </h4>
+                                    <div class="fields">
+                                        <table>
+                                            <colgroup>
+                                                <col class="name"></col>
+                                                <col class="value"></col>
+                                                <col class="remove"></col>
+                                            </colgroup>
+                                            <thead>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th colspan="2">Value</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td><input name="headerNames[]" placeholder="Name"></td>
+                                                    <td><input name="headerValues[]" placeholder="Value"></td>
+                                                    <td><a class="remove" href="#">Remove</a></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <a href="#" class="add-headers">Add Header</a>
+                                    </div>
+                                </div>
+                            {% endif %}
+
+                            <input type="submit" id="{{method.MethodName}}" value="Try it!">
+                        </form>
+                    </li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+
+{% endblock content %}
+
+

@@ -25,6 +25,8 @@
 // Module dependencies
 //
 var express     = require('express'),
+    consolidate = require('consolidate'),
+    swig        = require('swig'),
     util        = require('util'),
     fs          = require('fs'),
     OAuth       = require('oauth').OAuth,
@@ -73,6 +75,9 @@ var apisConfig;
 fs.readFile(__dirname +'/public/data/apiconfig.json', 'utf-8', function(err, data) {
     if (err) throw err;
     apisConfig = JSON.parse(data);
+    for (var key in apisConfig) {
+        apisConfig[key]['shortname'] = key;
+    }
     if (config.debug) {
          console.log(util.inspect(apisConfig));
     }
@@ -88,8 +93,13 @@ if (process.env.REDISTOGO_URL) {
 }
 
 app.configure(function() {
+    swig.init({
+        root: __dirname + '/views',
+        allowErrors: true,
+        'filters': require('./filters')
+    });
     app.set('views', __dirname + '/views');
-    app.set('view engine', 'jade');
+    app.set('view engine', 'swig');
     app.use(express.logger());
     app.use(express.bodyParser());
     app.use(express.methodOverride());
@@ -107,6 +117,7 @@ app.configure(function() {
     app.use(app.router);
 
     app.use(express.static(__dirname + '/public'));
+    app.use(express.static(__dirname + '/sfcom_static'));
 });
 
 app.configure('development', function() {
@@ -681,7 +692,8 @@ app.dynamicHelpers({
 //
 app.get('/', function(req, res) {
     res.render('listAPIs', {
-        title: config.title
+        title: config.title,
+        layout: false
     });
 });
 
@@ -715,7 +727,9 @@ app.post('/upload', function(req, res) {
 // API shortname, all lowercase
 app.get('/:api([^\.]+)', function(req, res) {
     req.params.api=req.params.api.replace(/\/$/,'');
-    res.render('api');
+    res.render('api', {
+        layout: false
+    });
 });
 
 // Only listen on $ node app.js

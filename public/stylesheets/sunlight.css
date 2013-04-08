@@ -25,3 +25,16 @@ form#credentials { position: relative; }
     right: 0;
 }
 
+div.description,
+li.method form span.description,
+li.method form td.description {
+    float: none;
+    width: auto;
+}
+
+table.parameters td.description p {
+    display: block;
+    max-width: none;
+}
+
+<
