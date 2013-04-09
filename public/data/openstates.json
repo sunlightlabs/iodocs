@@ -21,14 +21,13 @@
                         {
                             "Name": "state",
                             "Required": "Y",
-                            "Default": "dc",
                             "Type": "enumerated",
                             "EnumeratedList": [
                                 "al", "ak", "az", "ar", "ca", "co", "ct", "de",
                                 "dc", "fl", "ga", "hi", "id", "il", "in", "ia",
                                 "ks", "ky", "la", "me", "md", "ma", "mi", "mn",
                                 "ms", "mo", "mt", "ne", "nv", "nh", "nj", "nm",
-                                "ny", "nc", "nd", "oh", "ok", "or", "pa", "ri",
+                                "ny", "nc", "nd", "oh", "ok", "or", "pa", "pr", "ri",
                                 "sc", "sd", "tn", "tx", "ut", "vt", "va", "wa",
                                 "wv", "wi", "wy"
                             ]
@@ -47,20 +46,48 @@
                     "URI": "/bills/",
                     "RequiresOAuth": "N",
                     "parameters": [
+                        { "Name": "state", "Required": "N", "Default": null, "Type": "enumerated", "EnumeratedList": [ "al", "ak", "az", "ar", "ca", "co", "ct", "de", "dc", "fl", "ga", "hi", "id", "il", "in", "ia", "ks", "ky", "la", "me", "md", "ma", "mi", "mn", "ms", "mo", "mt", "ne", "nv", "nh", "nj", "nm", "ny", "nc", "nd", "oh", "ok", "or", "pa", "pr", "ri", "sc", "sd", "tn", "tx", "ut", "vt", "va", "wa", "wv", "wi", "wy" ],
+                            "Description": "Filter by state"
+                        },
+                        { "Name": "chamber",
+                            "Required": "N", "Default": null, "Type": "enumerated", "EnumeratedList": ["upper", "lower"] ,
+                            "Description": "Filter by chamber"
+                        },
+                        { "Name": "subject", 
+                            "Required": "N", "Default": null, "Type": "enumerated", "EnumeratedList": [ "Agriculture and Food", "Animal Rights and Wildlife Issues", "Arts and Humanities", "Budget, Spending, and Taxes", "Business and Consumers", "Campaign Finance and Election Issues", "Civil Liberties and Civil Rights", "Commerce", "Crime", "Drugs", "Education", "Energy", "Environmental", "Executive Branch", "Family and Children Issues", "Federal, State, and Local Relations", "Gambling and Gaming", "Government Reform", "Guns", "Health", "Housing and Property", "Immigration", "Indigenous Peoples", "Insurance", "Judiciary", "Labor and Employment", "Legal Issues", "Legislative Affairs", "Military", "Municipal and County Issues", "Nominations", "Other", "Public Services", "Recreation", "Reproductive Issues", "Resolutions", "Science and Medical Research", "Senior Issues", "Sexual Orientation and Gender Issues", "Social Issues", "State Agencies", "Technology and Communication", "Trade", "Transportation", "Welfare and Poverty" ],
+                            "Description": "Filter by bills that are about a given subject. If multiple subject parameters are supplied then only bills that match all of them will be returned." 
+                        },
+                        { "Name": "status",
+                            "Required": "N", "Default": null, "Type": "enumerated", "EnumeratedList": ["passed_upper", "passed_lower", "signed" ],
+                            "Description": "Filter by bills with a specific status"
+                        },
                         {
-                            "Name": "state",
+                            "Name": "sponsor_id",
                             "Required": "N",
                             "Default": null,
-                            "Type": "enumerated",
-                            "EnumeratedList": [
-                                "al", "ak", "az", "ar", "ca", "co", "ct", "de",
-                                "dc", "fl", "ga", "hi", "id", "il", "in", "ia",
-                                "ks", "ky", "la", "me", "md", "ma", "mi", "mn",
-                                "ms", "mo", "mt", "ne", "nv", "nh", "nj", "nm",
-                                "ny", "nc", "nd", "oh", "ok", "or", "pa", "ri",
-                                "sc", "sd", "tn", "tx", "ut", "vt", "va", "wa",
-                                "wv", "wi", "wy"
-                            ]
+                            "Type": "string",
+                            "Description": "Only return bills sponsored by the legislator with the given id (corresponds to leg_id)"
+                        },
+                        {
+                            "Name": "type",
+                            "Required": "N",
+                            "Default": null,
+                            "Type": "string",
+                            "Description": "Filter by bills with a specific type (bill, resolution, etc.)"
+                        },
+                        {
+                            "Name": "bill_id",
+                            "Required": "N",
+                            "Default": null,
+                            "Type": "string",
+                            "Description": "Filter by bills with a given id (eg., SB7, HB33)"
+                        },
+                        {
+                            "Name": "bill_id__in",
+                            "Required": "N",
+                            "Default": null,
+                            "Type": "string",
+                            "Description": "Filter by bills with any of a number of ids, pipe delimited. (eg. SB7|HB33)"
                         },
                         {
                             "Name": "search_window",
@@ -70,20 +97,6 @@
                             "Description": "a string representing what time period to search across. Pass 'session' to search bills from the state's current or most recent legislative session, 'term' to search the current or most recent term, 'all' to search as far back as Open States has data for, or supply 'session:SESSION_NAME' or 'term:TERM_NAME' (e.g. 'session:2009' or 'term:2009-2010') to search a specific session or term."
                         },
                         {
-                            "Name": "chamber",
-                            "Required": "N",
-                            "Default": null,
-                            "Type": "enumerated",
-                            "EnumeratedList": ["upper", "lower"]
-                        },
-                        {
-                            "Name": "search_window",
-                            "Required": "N",
-                            "Default": null,
-                            "Type": "string",
-                            "Description": "Return all bills with ids in a set of bill ids that are pipe | separated (ex. HB 1|HB 2|SB 10)."
-                        },
-                        {
                             "Name": "updated_since",
                             "Required": "N",
                             "Default": null,
@@ -91,38 +104,13 @@
                             "Description": "Only return bills that have been updated since a given date, YYYY-MM-DD format."
                         },
                         {
-                            "Name": "sudject",
-                            "Required": "N",
-                            "Default": null,
-                            "Type": "enumerated",
-                            "EnumeratedList": [
-                                "Agriculture and Food", "Animal Rights and Wildlife Issues",
-                                "Arts and Humanities", "Budget, Spending, and Taxes",
-                                "Business and Consumers", "Campaign Finance and Election Issues",
-                                "Civil Liberties and Civil Rights", "Commerce", "Crime",
-                                "Drugs", "Education", "Energy", "Environmental",
-                                "Executive Branch", "Family and Children Issues",
-                                "Federal, State, and Local Relations", "Gambling and Gaming",
-                                "Government Reform", "Guns", "Health", "Housing and Property",
-                                "Immigration", "Indigenous Peoples", "Insurance",
-                                "Judiciary", "Labor and Employment", "Legal Issues",
-                                "Legislative Affairs", "Military",
-                                "Municipal and County Issues", "Nominations", "Other",
-                                "Public Services", "Recreation", "Reproductive Issues",
-                                "Resolutions", "Science and Medical Research", "Senior Issues",
-                                "Sexual Orientation and Gender Issues", "Social Issues",
-                                "State Agencies", "Technology and Communication", "Trade",
-                                "Transportation", "Welfare and Poverty"
-                            ],
-                            "Description": "Filter by bills that are about a given subject. If multiple subject parameters are supplied then only bills that match all of them will be returned."
-                        },
-                        {
-                            "Name": "sponsor_id",
+                            "Name": "last_action_since",
                             "Required": "N",
                             "Default": null,
                             "Type": "string",
-                            "Description": "Only return bills sponsored by the legislator with the given id (corresponds to leg_id)"
+                            "Description": "Only return bills that have an action since a given date, YYYY-MM-DD format."
                         }
+
                     ]
                 },
                 {
@@ -142,7 +130,7 @@
                                 "dc", "fl", "ga", "hi", "id", "il", "in", "ia",
                                 "ks", "ky", "la", "me", "md", "ma", "mi", "mn",
                                 "ms", "mo", "mt", "ne", "nv", "nh", "nj", "nm",
-                                "ny", "nc", "nd", "oh", "ok", "or", "pa", "ri",
+                                "ny", "nc", "nd", "oh", "ok", "or", "pa", "pr", "ri",
                                 "sc", "sd", "tn", "tx", "ut", "vt", "va", "wa",
                                 "wv", "wi", "wy"
                             ]
@@ -162,9 +150,190 @@
                     ]
                 }
             ]
+        },
+        {
+            "name": "Legislators",
+            "methods": [
+                {
+                    "MethodName": "Legislator Search",
+                    "Synopsis": "Get a list of legislators, filtered by state, name, or other properties.",
+                    "HTTPMethod": "GET",
+                    "URI": "/legislators/",
+                    "RequiresOAuth": "N",
+                    "parameters": [
+                        { "Name": "state", "Required": "N", "Default": null, "Type": "enumerated", "EnumeratedList": [ "al", "ak", "az", "ar", "ca", "co", "ct", "de", "dc", "fl", "ga", "hi", "id", "il", "in", "ia", "ks", "ky", "la", "me", "md", "ma", "mi", "mn", "ms", "mo", "mt", "ne", "nv", "nh", "nj", "nm", "ny", "nc", "nd", "oh", "ok", "or", "pa", "pr", "ri", "sc", "sd", "tn", "tx", "ut", "vt", "va", "wa", "wv", "wi", "wy" ],
+                            "Description": "Filter by state"
+                        },
+                        { "Name": "chamber",
+                            "Required": "N", "Default": null, "Type": "enumerated", "EnumeratedList": ["upper", "lower"] ,
+                            "Description": "Filter by current chamber."
+                        },
+                        { "Name": "active",
+                            "Required": "N", "Default": "true", "Type": "enumerated", "EnumeratedList": ["true", "false"] ,
+                            "Description": "Filter to only include active legislators (defaults to true)"
+                        },
+                        { "Name": "first_name",
+                            "Required": "N", "Default": null, "Type": "string",
+                            "Description": "Filter by first name."
+                        },
+                        { "Name": "last_name",
+                            "Required": "N", "Default": null, "Type": "string",
+                            "Description": "Filter by last name."
+                        },
+                        { "Name": "term",
+                            "Required": "N", "Default": null, "Type": "string",
+                            "Description": "Filter by term served."
+                        },
+                        { "Name": "district",
+                            "Required": "N", "Default": null, "Type": "string",
+                            "Description": "Filter by district."
+                        },
+                        { "Name": "party",
+                            "Required": "N", "Default": null, "Type": "string",
+                            "Description": "Filter by party."
+                        }
+                    ]
+                },
+                {
+                    "MethodName": "Legislator Lookup",
+                    "Synopsis": "Lookup full details on a legislator by id",
+                    "HTTPMethod": "GET",
+                    "URI": "/legislators/:legislator_id/",
+                    "RequiresOAuth": "N",
+                    "parameters": [
+                        { "Name": "legislator_id", "Required": "Y", "Default": null, "Type": "string",
+                            "Description": "Open States Legislator id."
+                        }
+                    ]
+                },
+                {
+                    "MethodName": "Legislator Geo Lookup",
+                    "Synopsis": "Lookup all legislators that serve districts containing a given geographical point.",
+                    "HTTPMethod": "GET",
+                    "URI": "/legislators/geo/",
+                    "RequiresOAuth": "N",
+                    "parameters": [
+                        { "Name": "lat", "Required": "Y", "Default": null, "Type": "string",
+                            "Description": "Latitude of point."
+                        },
+                        { "Name": "long", "Required": "Y", "Default": null, "Type": "string",
+                            "Description": "Longitude of point."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Committees",
+            "methods": [
+                {
+                    "MethodName": "Committee Search",
+                    "Synopsis": "Get a list of committees, filtered by state, name, or chamber.",
+                    "HTTPMethod": "GET",
+                    "URI": "/committees/",
+                    "RequiresOAuth": "N",
+                    "parameters": [
+                        { "Name": "state", "Required": "N", "Default": null, "Type": "enumerated", "EnumeratedList": [ "al", "ak", "az", "ar", "ca", "co", "ct", "de", "dc", "fl", "ga", "hi", "id", "il", "in", "ia", "ks", "ky", "la", "me", "md", "ma", "mi", "mn", "ms", "mo", "mt", "ne", "nv", "nh", "nj", "nm", "ny", "nc", "nd", "oh", "ok", "or", "pa", "pr", "ri", "sc", "sd", "tn", "tx", "ut", "vt", "va", "wa", "wv", "wi", "wy" ],
+                            "Description": "Filter by state"
+                        },
+                        { "Name": "chamber",
+                            "Required": "N", "Default": null, "Type": "enumerated", "EnumeratedList": ["upper", "lower"] ,
+                            "Description": "Filter by chamber."
+                        },
+                        { "Name": "committee",
+                            "Required": "N", "Default": "true", "Type": "enumerated", "EnumeratedList": ["true", "false"] ,
+                            "Description": "Filter by name of committee (or parent committee if subcommittee is specified"
+                        },
+                        { "Name": "subcommittee",
+                            "Required": "N", "Default": "true", "Type": "enumerated", "EnumeratedList": ["true", "false"] ,
+                            "Description": "Filter by name of subcommittee"
+                        }
+                    ]
+                },
+                {
+                    "MethodName": "Committee Lookup",
+                    "Synopsis": "Lookup full details on a committee (including its members) by id",
+                    "HTTPMethod": "GET",
+                    "URI": "/committee/:committee_id/",
+                    "RequiresOAuth": "N",
+                    "parameters": [
+                        { "Name": "committee_id", "Required": "Y", "Default": null, "Type": "string",
+                            "Description": "Open States Committee id."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Events",
+            "methods": [
+                {
+                    "MethodName": "Event Search",
+                    "Synopsis": "Get a list of events, filtered by type and/or state.",
+                    "HTTPMethod": "GET",
+                    "URI": "/events/",
+                    "RequiresOAuth": "N",
+                    "parameters": [
+                        { "Name": "state", "Required": "N", "Default": null, "Type": "enumerated", "EnumeratedList": [ "al", "ak", "az", "ar", "ca", "co", "ct", "de", "dc", "fl", "ga", "hi", "id", "il", "in", "ia", "ks", "ky", "la", "me", "md", "ma", "mi", "mn", "ms", "mo", "mt", "ne", "nv", "nh", "nj", "nm", "ny", "nc", "nd", "oh", "ok", "or", "pa", "pr", "ri", "sc", "sd", "tn", "tx", "ut", "vt", "va", "wa", "wv", "wi", "wy" ],
+                            "Description": "Filter by state"
+                        },
+                        { "Name": "type",
+                            "Required": "N", "Default": null, "Type": "string",
+                            "Description": "Filter by type"
+                        },
+                        { "Name": "format",
+                            "Required": "N", "Type": "enumerated", "Default": "json", "EnumeratedList": ["json", "rss", "ics"] ,
+                            "Description": "Response type (JSON by default but RSS and ical available)"
+                        }
+                    ]
+                },
+                {
+                    "MethodName": "Event Lookup",
+                    "Synopsis": "Lookup full details on a event by id",
+                    "HTTPMethod": "GET",
+                    "URI": "/event/:event_id/",
+                    "RequiresOAuth": "N",
+                    "parameters": [
+                        { "Name": "event_id", "Required": "Y", "Default": null, "Type": "string",
+                            "Description": "Open States event id."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Districts",
+            "methods": [
+                {
+                    "MethodName": "District Search",
+                    "Synopsis": "Get a list of districts within a state.",
+                    "HTTPMethod": "GET",
+                    "URI": "/districts/:state/:chamber/",
+                    "RequiresOAuth": "N",
+                    "parameters": [
+                        { "Name": "state", "Required": "Y", "Default": null, "Type": "enumerated", "EnumeratedList": [ "al", "ak", "az", "ar", "ca", "co", "ct", "de", "dc", "fl", "ga", "hi", "id", "il", "in", "ia", "ks", "ky", "la", "me", "md", "ma", "mi", "mn", "ms", "mo", "mt", "ne", "nv", "nh", "nj", "nm", "ny", "nc", "nd", "oh", "ok", "or", "pa", "pr", "ri", "sc", "sd", "tn", "tx", "ut", "vt", "va", "wa", "wv", "wi", "wy" ],
+                            "Description": "state"
+                        },
+                        { "Name": "chamber",
+                            "Required": "N", "Default": null, "Type": "enumerated", "EnumeratedList": ["upper", "lower"] ,
+                            "Description": "Filter by chamber"
+                        }
+                    ]
+                },
+                {
+                    "MethodName": "District Boundary Lookup",
+                    "Synopsis": "Lookup boundary for a district by special boundary id",
+                    "HTTPMethod": "GET",
+                    "URI": "/districts/boundary/:boundary_id/",
+                    "RequiresOAuth": "N",
+                    "parameters": [
+                        { "Name": "boundary_id", "Required": "Y", "Default": null, "Type": "string",
+                            "Description": "Boundary id as returned by District Search method"
+                        }
+                    ]
+                }
+            ]
         }
     ]
 }
-
-
 
