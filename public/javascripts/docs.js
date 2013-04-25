@@ -17,6 +17,7 @@
     // Toggle show/hide of method details, form, and results
     $('li.method > div.title').click(function() {
         $('form', this.parentNode).slideToggle();
+	$(this).find('span.expand').toggleClass('expanded');
     })
 
     // Toggle an endpoint

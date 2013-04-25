@@ -1,10 +1,5 @@
 {% extends "base_full.html" %}
 
-{% block css %}
-    <link rel="stylesheet" href="/stylesheets/prettify.css">
-    <link rel="stylesheet" href="/stylesheets/style.css">
-{% endblock css %}
-
 {% block js %}
     <script type="text/javascript" src="/javascripts/json2.js"></script>
     <script type="text/javascript" src="/javascripts/prettify.js"></script>
@@ -27,7 +22,7 @@
         {% endif %}
     {% endif %}
 
-    <form id="credentials">
+    <form id="credentials" class="section">
         <input type="hidden" name="apiName" value="{{apiInfo.shortname}}">
 
         {% if apiInfo.auth %}
@@ -36,7 +31,7 @@
                     <span>Authenticated with OAuth</span>
                     <img src="/images/accept.png">
                 {% else %}
-                    <h2>API Credentials</h2>
+                    <h2 id="ignoretypekit">API Credentials</h2>
                     <img src="/images/key.png">
 
                     {% if apiInfo.oauth %}
@@ -57,7 +52,7 @@
 
                     <div>
                         <label for="key">API Key</label>
-                        <input id="key" name="key" value="{{defaultKey}}">
+                        <input id="key" name="key" value="{{defaultKey}}" placeholder="Your API key">
                     </div>
                     <div>
                         {% if apiInfo.oauth or apiInfo.signature %}
@@ -78,9 +73,9 @@
     </form>
 
     <div id="controls">
-        <ul>
-            <li><a id="toggle-endpoints" href="#">Toggle All Endpoints</a></li>
-            <li><a id="toggle-methods" href="#">Toggle All Methods</a></li>
+        <ul class="btn-group">
+            <li><button id="toggle-endpoints" class="btn" href="#">Toggle All Endpoints</button></li>
+            <li><button id="toggle-methods" class="btn" href="#">Toggle All Methods</button></li>
         </ul>
     </div>
 
@@ -108,6 +103,7 @@
                             <span class="http-method">{{method.HTTPMethod}}</span>
                             <span class="name">{{method.MethodName}}</span>
                             <span class="uri">{{method.URI}}</span>
+                            <span class="expand textReplace">expand</span>
                         </div>
                         <form class="hidden">
                             <input type="hidden" name="httpMethod" value="{{method.HTTPMethod}}">
@@ -220,7 +216,7 @@
                                 </div>
                             {% endif %}
 
-                            <input type="submit" id="{{method.MethodName}}" value="Try it!">
+                            <button class="btn" type="submit" id="{{method.MethodName}}" value="Try it!">Try it!</button>
                         </form>
                     </li>
                 {% endfor %}
