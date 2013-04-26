@@ -17,6 +17,7 @@
     // Toggle show/hide of method details, form, and results
     $('li.method > div.title').click(function() {
         $('form', this.parentNode).slideToggle();
+	$(this).find('span.expand').toggleClass('expanded');
     })
 
     // Toggle an endpoint
@@ -240,7 +241,7 @@
                 .addClass('response prettyprint'));
         }
 
-        console.log(params);
+        //console.log(params);
 
         $.post('/processReq', params, function(result, text) {
             // If we get passed a signin property, open a window to allow the user to signin/link their account

@@ -1,0 +1,1977 @@
+{
+  "endpoints": [
+    {
+      "name": "Entity Lookups",
+      "methods": [
+        {
+          "MethodName": "Search By Name",
+          "Synopsis": "Search for entities&mdash;politicians, individuals or organizations&mdash; with the given name. Returns basic information about the contributions to and from each entity, as well as an ID that can be used in other API methods to retrieve more information.",
+          "HTTPMethod": "GET",
+          "URI": "/entities.json",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "search",
+              "Required": "Y",
+              "Default": "",
+              "Type": "string",
+              "Description": "The query string. Spaces should be URLEncoded or represented as +. There are no logic operators or grouping."
+            },
+            {
+              "Name": "type",
+              "Required": "N",
+              "Default": "",
+              "Type": "enumerated",
+              "Description": "The entity type to search for",
+              "EnumeratedList": [ "politician", "organization", "individual", "industry" ]
+            }
+          ]
+        },
+        {
+          "MethodName": "ID Lookup",
+          "Synopsis": "Look up an entity ID from a different dataset. Currently we provide a mapping from the ID schemes used by Center for Responsive Politics (CRP) and the National Institute for Money in State Politics (NIMSP), as well as a few others. The result is a JSON object listing the TransparencyData IDs matching the given External ID.",
+          "HTTPMethod": "GET",
+          "URI": "/entities/id_lookup.json",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "namespace",
+              "Required": "N",
+              "Default": "",
+              "Type": "enumerated",
+              "Description": "The dataset and data type of the ID.",
+              "EnumeratedList": [ "urn:crp:individual", "urn:crp:organization", "urn:crp:recipient", "urn:crp:industry", "urn:crp:subindustry", "urn:nimsp:organization", "urn:nimsp:recipient", "urn:nimsp:subindustry", "urn:sunlight:lobbyist_registration_tracker_url" ],
+              "EnumeratedDescription": {
+                "urn:crp:individual": "A CRP ID for an individual contributor or lobbyist. Begins with U or C.",
+                "urn:crp:organization": "A CRP ID for an organization. Begins with D.",
+                "urn:crp:recipient": "A CRP ID for a politician. Begins with N.",
+                "urn:crp:industry": "CRP's 3-letter category order.",
+                "urn:crp:subindustry": "CRP's 5-letter category code.",
+                "urn:nimsp:organization": "A NIMSP ID for an organization. Integer-valued.",
+                "urn:nimsp:recipient": "A NIMSP ID for a politician. Integer-valued.",
+                "urn:nimsp:subindustry": "NIMSP's 5-letter category code.",
+                "urn:sunlight: lobbyist_registration_ tracker_url": "URL of Sunlight's lobbyist registration tracker page"
+              }
+            },
+            {
+              "Name": "id",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "The ID of the entity in the given namespace. Used with the namespace parameter."
+            },
+            {
+              "Name": "bioguide_id",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "The ID of a member of congress in the <a href='http://bioguide.congress.gov/biosearch/biosearch.asp'>Congressional Bioguide</a>. Mutually exclusive to the <code>id</code>/<code>namespace</code> parameters."
+            }
+          ]
+        },
+        {
+          "MethodName": "Entity Overview",
+          "Synopsis": "Returns general information about a particular entity.",
+          "HTTPMethod": "GET",
+          "URI": "/entities/:entity_id.json",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "entity_id",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "The TransparencyData ID of the entity."
+            },
+            {
+              "Name": "cycle",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Limit contribution totals to the given election cycle."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Search Methods (Itemized)",
+      "methods": [
+        {
+          "MethodName": "Campaign Contributions",
+          "Synopsis": "Search for itemized campaign contributions at the federal (FEC) or state (NIMSP) level.",
+          "HTTPMethod": "GET",
+          "URI": "/contributions.:format",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "format",
+              "Location": "extension",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "The format of the returned data.",
+              "EnumeratedList": [ "json", "csv", "xls" ]
+            },
+            {
+              "Name": "page",
+              "Required": "Y",
+              "Type": "enumerated",
+              "Description": "The page number of results to return.",
+              "EnumeratedList": [ "1" ]
+            },
+            {
+              "Name": "per_page",
+              "Required": "Y",
+              "Type": "enumerated",
+              "Description": "The number of results to return per page. Default is 1,000, max is 100,000.",
+              "EnumeratedList": [ "20" ]
+            },
+            {
+              "Name": "amount",
+              "Required": "N",
+              "Default": ">|1000",
+              "Type": "comparison",
+              "Description": "The amount of the contribution in US dollars."
+            },
+            {
+              "Name": "contributor_ft",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Full-text search on the name of the contributing individual, PAC, organization or employer."
+            },
+            {
+              "Name": "contributor_state",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "The two-letter state abbreviation of the state from which the contribution was made, eg. DC."
+            },
+            {
+              "Name": "cycle",
+              "Required": "N",
+              "Default": "2012",
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1990 up to the most recent election year."
+            },
+            {
+              "Name": "date",
+              "Required": "N",
+              "Default": "",
+              "Type": "comparison",
+              "Description": "The date or date range of the contribution in ISO format."
+            },
+            {
+              "Name": "for_against",
+              "Required": "N",
+              "Default": "",
+              "Type": "enumerated",
+              "EnumeratedList": [ "for", "against" ],
+              "Description": "When organizations run ads against a candidate, they are counted as independent expenditures with the opposed candidate as the recipient. This parameter can be used to filter contributions meant for the candidate from those meant to be against the candidate."
+            },
+            {
+              "Name": "organization_ft",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Full-text search on the name of the contributing employer, organization or parent organization."
+            },
+            {
+              "Name": "recipient_ft",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Full-text search on the name of the PAC or candidate receiving the contribution."
+            },
+            {
+              "Name": "recipient_state",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "The two-letter state abbreviation of the state in which the candidate receiving the contribution is running, eg. VA."
+            },
+            {
+              "Name": "seat",
+              "Required": "N",
+              "Default": "",
+              "Type": "enumerated",
+              "Description": "The type of office being sought. In API calls, pipe characters can be used to include multiple options.",
+              "EnumeratedList": [
+                "federal:senate",
+                "federal:house",
+                "federal:president",
+                "state:upper",
+                "state:lower",
+                "state:governor"
+              ],
+              "EnumeratedDescription": {
+                "federal:senate": "US Senate",
+                "federal:house": "US House of Representatives",
+                "federal:president": "US President",
+                "state:upper": "upper chamber of state legislature",
+                "state:lower": "lower chamber of state legislature",
+                "state:governor": "state governor"
+              }
+            },
+            {
+              "Name": "transaction_namespace",
+              "Required": "N",
+              "Default": "",
+              "Type": "enumerated",
+              "Description": "Filters results to federal- or state-only contributions.",
+              "EnumeratedList": [ "urn:fec:transaction", "urn:nimsp:transaction" ],
+              "EnumeratedDescription": {
+                "urn:fec:transaction": "federal contributions",
+                "urn:nimsp:transaction": "state contributions"
+              }
+            }
+          ]
+        },
+        {
+          "MethodName": "Bundled Campaign Contributions",
+          "Synopsis": "Search for itemized bundlers.",
+          "HTTPMethod": "GET",
+          "URI": "/contributions/bundled.:format",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "format",
+              "Location": "extension",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "The format of the returned data.",
+              "EnumeratedList": [ "json", "csv", "xls" ]
+            },
+            {
+              "Name": "page",
+              "Required": "Y",
+              "Type": "enumerated",
+              "Description": "The page number of results to return",
+              "EnumeratedList": [ "1" ]
+            },
+            {
+              "Name": "per_page",
+              "Required": "Y",
+              "Type": "enumerated",
+              "Description": "The number of results to return per page. Default is 1,000, max is 100,000",
+              "EnumeratedList": [ "20" ]
+            },
+            {
+              "Name": "lobbyist_name",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "The name of the lobbyist bundling on behalf of the recipient."
+            },
+            {
+              "Name": "recipient_name",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "The name of the politician or committee which received the bundled contribution."
+            }
+          ]
+        },
+        {
+          "MethodName": "Contractor Misconduct",
+          "Synopsis": "Search itemized contractor misconduct incident reports.",
+          "HTTPMethod": "GET",
+          "URI": "/misconduct.:format",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "format",
+              "Location": "extension",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "The format of the returned data.",
+              "EnumeratedList": [ "json", "csv", "xls" ]
+            },
+            {
+              "Name": "page",
+              "Required": "Y",
+              "Type": "enumerated",
+              "Description": "The page number of results to return",
+              "EnumeratedList": [ "1" ]
+            },
+            {
+              "Name": "per_page",
+              "Required": "Y",
+              "Type": "enumerated",
+              "Description": "The number of results to return per page. Default is 1,000, max is 100,000",
+              "EnumeratedList": [ "20" ]
+            },
+            {
+              "Name": "contractor",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "The name of the contractor to search for."
+            },
+            {
+              "Name": "contracting_party",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "The name of the agency or organization that awarded the contract."
+            },
+            {
+              "Name": "date_year",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "The year in which a date significant to the incident occurred, multiple years can be pipe-separated."
+            },
+            {
+              "Name": "enforcement_agency",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "The name of the agency responsible for the enforcement action."
+            },
+            {
+              "Name": "instance",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Full-text search on the description of the misconduct instance."
+            },
+            {
+              "Name": "penalty_amount",
+              "Required": "N",
+              "Default": "",
+              "Type": "comparison",
+              "Description": "The amount of the penalty, in dollars."
+            }
+          ]
+        },
+        {
+          "MethodName": "Earmarks",
+          "Synopsis": "Search itemized earmark requests through FY 2010.",
+          "HTTPMethod": "GET",
+          "URI": "/earmarks.:format",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "format",
+              "Location": "extension",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "The format of the returned data.",
+              "EnumeratedList": [ "json", "csv", "xls" ]
+            },
+            {
+              "Name": "page",
+              "Required": "Y",
+              "Type": "enumerated",
+              "Description": "The page number of results to return",
+              "EnumeratedList": [ "1" ]
+            },
+            {
+              "Name": "per_page",
+              "Required": "Y",
+              "Type": "enumerated",
+              "Description": "The number of results to return per page. Default is 1,000, max is 100,000",
+              "EnumeratedList": [ "20" ]
+            },
+            {
+              "Name": "amount",
+              "Required": "N",
+              "Default": "",
+              "Type": "comparison",
+              "Description": "The final amount of the earmark."
+            },
+            {
+              "Name": "bill",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "The bill, section or subsection of the earmark."
+            },
+            {
+              "Name": "city",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "The city where the money will be spent."
+            },
+            {
+              "Name": "description",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Full-text search on the description of the earmark request."
+            },
+            {
+              "Name": "member",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Full-text search on the member of Congress requesting the earmark."
+            },
+            {
+              "Name": "member_party",
+              "Required": "N",
+              "Default": "",
+              "Type": "enumerated",
+              "Description": "The party of the member requesting the earmark.",
+              "EnumeratedList": ["D", "R", "I"]
+            },
+            {
+              "Name": "member_state",
+              "Required": "N",
+              "Default": "",
+              "Type": "inclusion",
+              "Description": "The 2-letter state abbreviation of the requesting member."
+            },
+            {
+              "Name": "recipient",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Full-text search on the intended recipient, when known."
+            },
+            {
+              "Name": "year",
+              "Required": "N",
+              "Default": "",
+              "Type": "inclusion",
+              "Description": "The YYYY-formatted fiscal year for which the earmark was requested."
+            }
+          ]
+        },
+        {
+          "MethodName": "EPA ECHO",
+          "Synopsis": "Search itemized EPA enforcement actions.",
+          "HTTPMethod": "GET",
+          "URI": "/epa.:format",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "format",
+              "Location": "extension",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "The format of the returned data.",
+              "EnumeratedList": [ "json", "csv", "xls" ]
+            },
+            {
+              "Name": "page",
+              "Required": "Y",
+              "Type": "enumerated",
+              "Description": "The page number of results to return",
+              "EnumeratedList": [ "1" ]
+            },
+            {
+              "Name": "per_page",
+              "Required": "Y",
+              "Type": "enumerated",
+              "Description": "The number of results to return per page. Default is 1,000, max is 100,000",
+              "EnumeratedList": [ "20" ]
+            },
+            {
+              "Name": "case_name",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Full-text search on the name of the case."
+            },
+            {
+              "Name": "case_num",
+              "Required": "N",
+              "Default": "",
+              "Type": "inclusion",
+              "Description": "One or more specific case numbers."
+            },
+            {
+              "Name": "defendants",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Full-text search for the name(s) of the defendant companies."
+            },
+            {
+              "Name": "first_date",
+              "Required": "N",
+              "Default": "",
+              "Type": "date",
+              "Description": "Start of a date range of the most recent date of significance to the case."
+            },
+            {
+              "Name": "last_date",
+              "Required": "N",
+              "Default": "",
+              "Type": "date",
+              "Description": "End of a date range of the most recent date of significance to the case."
+            },
+            {
+              "Name": "location_addresses",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Full-text search on all addresses associated with the case."
+            },
+            {
+              "Name": "penalty",
+              "Required": "N",
+              "Default": "",
+              "Type": "comparison",
+              "Description": "Total penalties, in dollars."
+            }
+          ]
+        },
+        {
+          "MethodName": "FACA Memberships",
+          "Synopsis": "Search itemized Federal Advisory Committee memberships.",
+          "HTTPMethod": "GET",
+          "URI": "/faca.:format",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "format",
+              "Location": "extension",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "The format of the returned data.",
+              "EnumeratedList": [ "json", "csv", "xls" ]
+            },
+            {
+              "Name": "page",
+              "Required": "Y",
+              "Type": "enumerated",
+              "Description": "The page number of results to return",
+              "EnumeratedList": [ "1" ]
+            },
+            {
+              "Name": "per_page",
+              "Required": "Y",
+              "Type": "enumerated",
+              "Description": "The number of results to return per page. Default is 1,000, max is 100,000",
+              "EnumeratedList": [ "20" ]
+            },
+            {
+              "Name": "affiliation",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Full-text search on the name of the affiliated organization."
+            },
+            {
+              "Name": "agency_name",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Full-text search on the name of the agency associated with the committee."
+            },
+            {
+              "Name": "committee_name",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Full-text search on the name of the advisory committee."
+            },
+            {
+              "Name": "member_name",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Full-text search on the name of the committee member."
+            },
+            {
+              "Name": "year",
+              "Required": "N",
+              "Default": "",
+              "Type": "inclusion",
+              "Description": "The YYYY-formatted year(s) the member sat on the committee."
+            }
+          ]
+        },
+        {
+          "MethodName": "Federal Contracts",
+          "Synopsis": "Search itemized federal contracts awarded.",
+          "HTTPMethod": "GET",
+          "URI": "/contracts.:format",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "format",
+              "Location": "extension",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "The format of the returned data. CSV is not supported with this endpoint.",
+              "EnumeratedList": [ "json", "xls" ]
+            },
+            {
+              "Name": "page",
+              "Required": "Y",
+              "Type": "enumerated",
+              "Description": "The page number of results to return",
+              "EnumeratedList": [ "1" ]
+            },
+            {
+              "Name": "per_page",
+              "Required": "Y",
+              "Type": "enumerated",
+              "Description": "The number of results to return per page. Default is 1,000, max is 100,000",
+              "EnumeratedList": [ "20" ]
+            },
+            {
+              "Name": "agency_id",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "The FIPS code for the agency, eg. 51013."
+            },
+            {
+              "Name": "contracting_agency_id",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "The FIPS code for the contracting agency, eg. 51013."
+            },
+            {
+              "Name": "current_amount",
+              "Required": "N",
+              "Default": "",
+              "Type": "comparison",
+              "Description": "Current value of the contract in US dollars."
+            },
+            {
+              "Name": "fiscal_year",
+              "Required": "N",
+              "Default": "2012",
+              "Type": "inclusion",
+              "Description": "The YYYY-formatted year in which the grant was awarded, 2006 up to the most recent election year."
+            },
+            {
+              "Name": "maximum_amount",
+              "Required": "N",
+              "Default": "",
+              "Type": "comparison",
+              "Description": "Maximum possible value of the contract in US dollars."
+            },
+            {
+              "Name": "obligated_amount",
+              "Required": "N",
+              "Default": "",
+              "Type": "comparison",
+              "Description": "The amount obligated or de-obligated by the transaction in US dollars."
+            },
+            {
+              "Name": "place_district",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "The congressional district in which the contract action will be performed."
+            },
+            {
+              "Name": "place_state",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "The FIPS code for the state in which the contract action will be performed, eg. 50"
+            },
+            {
+              "Name": "requesting_agency_id",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "The FIPS code for the requesting agency, eg. 50103"
+            },
+            {
+              "Name": "signed_date",
+              "Required": "N",
+              "Default": "",
+              "Type": "comparison",
+              "Description": "The date of contract signature in ISO format."
+            },
+            {
+              "Name": "vendor_city",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Full-text search on the name of the primary city in which the contractor does business."
+            },
+            {
+              "Name": "vendor_district",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "The primary congressional district in which the contractor does business."
+            },
+            {
+              "Name": "vendor_duns",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "The Dun & Bradstreet number assigned to the contractor."
+            },
+            {
+              "Name": "vendor_name",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Full-text search on the name of the contractor."
+            },
+            {
+              "Name": "vendor_parent_duns",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "The Dun & Bradstreet number assigned to the corporate parent of the contractor."
+            },
+            {
+              "Name": "vendor_state",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "The primary state in which the contractor does business, eg. NY."
+            },
+            {
+              "Name": "vendor_zipcode",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "The primary zipcode in which the contractor does business, eg. 20036."
+            }
+          ]
+        },
+        {
+          "MethodName": "Federal Grants",
+          "Synopsis": "Search for itemized federal grants.",
+          "HTTPMethod": "GET",
+          "URI": "/grants.:format",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "format",
+              "Location": "extension",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "The format of the returned data. CSV is not supported with this endpoint.",
+              "EnumeratedList": [ "json", "xls" ]
+            },
+            {
+              "Name": "page",
+              "Required": "Y",
+              "Type": "enumerated",
+              "Description": "The page number of results to return",
+              "EnumeratedList": [ "1" ]
+            },
+            {
+              "Name": "per_page",
+              "Required": "Y",
+              "Type": "enumerated",
+              "Description": "The number of results to return per page. Default is 1,000, max is 100,000",
+              "EnumeratedList": [ "20" ]
+            },
+            {
+              "Name": "agency_ft",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Full-text search on the reported name of the federal agency awarding the grant."
+            },
+            {
+              "Name": "amount_total",
+              "Required": "N",
+              "Default": "",
+              "Type": "comparison",
+              "Description": "Total amount of the grant in US dollars."
+            },
+            {
+              "Name": "assistance_type",
+              "Required": "N",
+              "Default": "",
+              "Type": "enumerated",
+              "Description": "A general code for the type of grant awarded.",
+              "EnumeratedList": [ "02", "03", "04", "05", "06", "07", "08", "09", "10", "11" ],
+              "EnumeratedDescription": {
+                "02": "Block grant",
+                "03": "Formula grant",
+                "04": "Project grant",
+                "05": "Cooperative agreement",
+                "06": "Direct payment, as a subsidy or other non-reimbursable direct financial aid",
+                "07": "Direct loan",
+                "08": "Guaranteed/insured loan",
+                "09": "Insurance",
+                "10": "Direct payment with unrestricted use",
+                "11": "Other reimbursable, contingent, intangible or indirect financial assistance"
+              }
+            },
+            {
+              "Name": "fiscal_year",
+              "Required": "N",
+              "Default": "2012",
+              "Type": "inclusion",
+              "Description": "The YYYY-formated year in which the grant was awarded, 2000 up to the most recent election year."
+            },
+            {
+              "Name": "recipient_ft",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Full-text search on the reported name of the grant recipient."
+            },
+            {
+              "Name": "recipient_state",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Two-letter abbreviation of the state in which the grant was awarded, eg. MD."
+            },
+            {
+              "Name": "recipient_type",
+              "Required": "N",
+              "Default": "",
+              "Type": "enumerated",
+              "Description": "The type of entity that received the grant",
+              "EnumeratedList": [ "00", "01", "02", "04", "05", "06", "11", "12", "20", "21", "22", "23", "25" ],
+              "EnumeratedDescription": {
+                "00": "State government",
+                "01": "County government",
+                "02": "City or township government",
+                "04": "Special district government",
+                "05": "Independent school district",
+                "06": "State-controlled institution of higher education",
+                "11": "Indian tribe",
+                "12": "Other nonprofit",
+                "20": "Private higher education",
+                "21": "Individual",
+                "22": "Profit organization",
+                "23": "Small business",
+                "25": "Other"
+              }
+            }
+          ]
+        },
+        {
+          "MethodName": "Lobbying Registrations",
+          "Synopsis": "Search for itemized federal lobbying disclosures.",
+          "HTTPMethod": "GET",
+          "URI": "/lobbying.:format",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "format",
+              "Location": "extension",
+              "Required": "Y",
+              "Default": "json",
+              "Type": "enumerated",
+              "Description": "The format of the returned data. CSV is not supported with this endpoint.",
+              "EnumeratedList": [ "json", "xls" ]
+            },
+            {
+              "Name": "page",
+              "Required": "Y",
+              "Type": "enumerated",
+              "Description": "The page number of results to return",
+              "EnumeratedList": [ "1" ]
+            },
+            {
+              "Name": "per_page",
+              "Required": "Y",
+              "Type": "enumerated",
+              "Description": "The number of results to return per page. Default is 1,000, max is 100,000",
+              "EnumeratedList": [ "20" ]
+            },
+            {
+              "Name": "amount",
+              "Required": "N",
+              "Default": ">|1000",
+              "Type": "comparison",
+              "Description": "The amount spent on lobbying in US dollars."
+            },
+            {
+              "Name": "client_ft",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Full-text search on the name of the client for which the lobbyist is working."
+            },
+            {
+              "Name": "client_parent_ft",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Full-text search on the name of the parent organization of the client."
+            },
+            {
+              "Name": "filing_type",
+              "Required": "N",
+              "Default": "",
+              "Type": "enumerated",
+              "Description": "The type of filing as identified by CRP. CRP recommends you observe the following rules:<br><br>Do not total 'e' records unless they are larger than the associated 's' record.<br><br>Count 'c' records in both total and industry when filing_included_nsfs is 'n'. Don't count it in total or industry when filing_included_nsfs is 'y'.<br><br>Count 'b' records in both total and industry when filing_included_nsfs is 'n'. Exclude from total, and include in industry&mdash;but subtract it from the total of the parent&mdash;when filing_included_nsfs is 'y'.",
+              "EnumeratedList": [ "n", "m", "x", "p", "i", "s", "e", "c", "b" ],
+              "EnumeratedDescription": {
+                "n": "non self filer parent",
+                "m": "non self filer subsidiary for a non self filer parent",
+                "x": "self filer subsidiary for a non self filer parent",
+                "p": "self filer parent",
+                "i": "non self filer for a self filer parent that has same catorder as the parent",
+                "s": "self filer subsidiary for a self filer parent",
+                "e": "non self filer subsidiary for a self filer subsidiary",
+                "c": "non self filer subsidiary for a self filer parent with same catorder",
+                "b": "non self filer subsidiary for a self filer parent that has different catorder"
+                }
+            },
+            {
+              "Name": "lobbyist_ft",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Full-text search on the name of the lobbyist involved in the lobbying activity."
+            },
+            {
+              "Name": "registrant_ft",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Full-text search on the name of the person or organization filing the lobbyist registration. This is typically the firm that employs the lobbyists. Use the registrant_is_firm field in the response object to filter on firms v. individuals"
+            },
+            {
+              "Name": "transaction_id",
+              "Required": "N",
+              "Default": "",
+              "Type": "string",
+              "Description": "Report ID given by the Senate Office of Public Records"
+            },
+            {
+              "Name": "transaction_type",
+              "Required": "N",
+              "Default": "",
+              "Type": "enumerated",
+              "Description": "The type of filing as reported by the Senate Office of Public Records.",
+              "EnumeratedList": [ "e", "ea", "ean", "en", "ent", "er", "eran", "et", "eta", "etl", "etn", "m", "ma", "man", "mn", "mt", "mta", "mtan", "mtl", "mtn", "q1", "q1a", "q1an", "q1n", "q1t", "q1ta", "q1tn", "q2", "q2a", "q2an", "q2n", "q2qn", "q2t", "q2ta", "q2tn", "q3", "q3a", "q3an", "q3n", "q3t", "q3ta", "q3tn", "q4", "q4a", "q4an", "q4n", "q4t", "q4ta", "q4tn", "ra" ],
+              "EnumeratedDescription": {
+                "e": " ",
+                "ea": "Year-end Amendment",
+                "ean": "Year-end Amendment (No Activity)",
+                "en": "Year-end (No Activity)",
+                "ent": "",
+                "er": "Year-end Report",
+                "eran": "Year-end Termination Amendment (No Activity)",
+                "et": "Year-end Termination",
+                "eta": "Year-end Termination Amendment",
+                "etl": "Year-end Termination Letter",
+                "etn": "Year-end Termination (No Activity)",
+                "m": "Mid-year Report",
+                "ma": "Mid-year Amendment",
+                "man": "Mid-year Amendment (No Activity)",
+                "mn": "Mid-year (No Activity)",
+                "mt": "Mid-year Termination",
+                "mta": "Mid-year Termination Amendment",
+                "mtan": "Mid-year Termination Amendment (No Activity)",
+                "mtl": "Mid-year Termination Letter",
+                "mtn": "Mid-year Termination (No Activity)",
+                "q1": "First Quarter Report",
+                "q1a": "First Quarter Amendment",
+                "q1an": "First Quarter Amendment (No Activity); First Quarter Termination Amendment (No Activity)",
+                "q1n": "First Quarter (No Activity)",
+                "q1t": "First Quarter Termination",
+                "q1ta": "First Quarter Termination Amendment",
+                "q1tn": "First Quarter Termination (No Activity)",
+                "q2": "Second Quarter Report",
+                "q2a": "Second Quarter Amendment",
+                "q2an": "Second Quarter Termination Amendment (No Activity)",
+                "q2n": "Second Quarter (No Activity)",
+                "q2qn": "Second Quarter Amendment (No Activity)",
+                "q2t": "Second Quarter Termination",
+                "q2ta": "Second Quarter Termination Amendment",
+                "q2tn": "Second Quarter Termination (No Activity)",
+                "q3": "Third Quarter Report",
+                "q3a": "Third Quarter Amendment",
+                "q3an": "Third Quarter Amendment (No Activity);third Quarter Termination Amendment (No Activity)",
+                "q3n": "Third Quarter (No Activity)",
+                "q3t": "Third Quarter Termination",
+                "q3ta": "Third Quarter Termination Amendment",
+                "q3tn": "Third Quarter Termination (No Activity)",
+                "q4": "Fourth Quarter Report",
+                "q4a": "Fourth Quarter Amendment",
+                "q4an": "Fourth Quarter Amendment (No Activity);fourth Quarter Termination Amendment (No Activity)",
+                "q4n": "Fourth Quarter (No Activity)",
+                "q4t": "Fourth Quarter Termination",
+                "q4ta": "Fourth Quarter Termination Amendment",
+                "q4tn": "Fourth Quarter Termination (No Activity)",
+                "ra": "Registration Amendment"
+              }
+            },
+            {
+              "Name": "year",
+              "Required": "N",
+              "Default": "2012",
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1999 up to the most recent election year."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Politician Methods (Aggregate)",
+      "methods": [
+        {
+          "MethodName": "Top Politicians by Contributions Received",
+          "Synopsis": "Returns the top n politicians, ranked by total dollars received.",
+          "HTTPMethod": "GET",
+          "URI": "/aggregates/pols/top_:limit.json",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "limit",
+              "Required": "Y",
+              "Default": "10",
+              "Type": "string",
+              "Description": "The number of results to return."
+            },
+            {
+              "Name": "cycle",
+              "Required": "N",
+              "Default": "2012",
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1990 up to the most recent election year."
+            }
+          ]
+        },
+        {
+          "MethodName": "Top Contributors",
+          "Synopsis": "Returns the top contributing organizations, ranked by total dollars given. An organization's giving is broken down into money given directly (by the organization's PAC) versus money given by individuals employed by or associated with the organization.",
+          "HTTPMethod": "GET",
+          "URI": "/aggregates/pol/:entity_id/contributors.json",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "entity_id",
+              "Required": "Y",
+              "Default": "4148b26f6f1c437cb50ea9ca4699417a",
+              "Type": "string",
+              "Description": "The TransparencyData ID of the entity to look up."
+            },
+            {
+              "Name": "cycle",
+              "Required": "N",
+              "Default": "2012",
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1990 up to the most recent election year."
+            },
+            {
+              "Name": "limit",
+              "Required": "N",
+              "Default": "10",
+              "Type": "string",
+              "Description": "The number of results to return."
+            }
+          ]
+        },
+        {
+          "MethodName": "Top Industries",
+          "Synopsis": "Returns the top contributing industries, ranked by total dollars given.",
+          "HTTPMethod": "GET",
+          "URI": "/aggregates/pol/:entity_id/contributors/industries.json",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "entity_id",
+              "Required": "Y",
+              "Default": "4148b26f6f1c437cb50ea9ca4699417a",
+              "Type": "string",
+              "Description": "The TransparencyData ID of the entity to look up."
+            },
+            {
+              "Name": "cycle",
+              "Required": "N",
+              "Default": "2012",
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1990 up to the most recent election year."
+            },
+            {
+              "Name": "limit",
+              "Required": "N",
+              "Default": "10",
+              "Type": "string",
+              "Description": "The number of results to return."
+            }
+          ]
+        },
+        {
+          "MethodName": "Unknown Industries",
+          "Synopsis": "Returns a contribution count and total for a politician from unknown industries.",
+          "HTTPMethod": "GET",
+          "URI": "/aggregates/pol/:entity_id/contributors/industries_unknown.json",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "entity_id",
+              "Required": "Y",
+              "Default": "4148b26f6f1c437cb50ea9ca4699417a",
+              "Type": "string",
+              "Description": "The TransparencyData ID of the entity to look up."
+            },
+            {
+              "Name": "cycle",
+              "Required": "N",
+              "Default": "2012",
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1990 up to the most recent election year."
+            }
+          ]
+        },
+        {
+          "MethodName": "Top Sectors",
+          "Synopsis": "Returns what each sector gave to the politician. Sectors are codified by letter: A: Agribusiness, B: Communications/Electronics, C: Construction, D: Defense, E: Energy/Natural Resources, F: Finance/Insurance/Real Estate, H: Health, K: Lawyers and Lobbyists, M: Transportation, N: Misc. Business, Q: Ideology/Single Issue, P: Labor, W: Other, Y: Unknown, Z: Administrative Use",
+          "HTTPMethod": "GET",
+          "URI": "/aggregates/pol/:entity_id/contributors/sectors.json",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "entity_id",
+              "Required": "Y",
+              "Default": "4148b26f6f1c437cb50ea9ca4699417a",
+              "Type": "string",
+              "Description": "The TransparencyData ID of the entity to look up."
+            },
+            {
+              "Name": "cycle",
+              "Required": "N",
+              "Default": "2012",
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1990 up to the most recent election year."
+            },
+            {
+              "Name": "limit",
+              "Required": "N",
+              "Default": "10",
+              "Type": "string",
+              "Description": "The number of results to return."
+            }
+          ]
+        },
+        {
+          "MethodName": "Local Breakdown",
+          "Synopsis": "Returns a breakdown of how much of the money raised was from contributors in the politician's state versus outside the politician's state.",
+          "HTTPMethod": "GET",
+          "URI": "/aggregates/pol/:entity_id/contributors/local_breakdown.json",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "entity_id",
+              "Required": "Y",
+              "Default": "4148b26f6f1c437cb50ea9ca4699417a",
+              "Type": "string",
+              "Description": "The TransparencyData ID of the entity to look up."
+            },
+            {
+              "Name": "cycle",
+              "Required": "N",
+              "Default": "2012",
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1990 up to the most recent election year."
+            }
+          ]
+        },
+        {
+          "MethodName": "Contributor Type Breakdown",
+          "Synopsis": "Returns a breakdown of how much of the money raised came from individuals versus organizations (PACs).",
+          "HTTPMethod": "GET",
+          "URI": "/aggregates/pol/:entity_id/contributors/type_breakdown.json",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "entity_id",
+              "Required": "Y",
+              "Default": "4148b26f6f1c437cb50ea9ca4699417a",
+              "Type": "string",
+              "Description": "The TransparencyData ID of the entity to look up."
+            },
+            {
+              "Name": "cycle",
+              "Required": "N",
+              "Default": "2012",
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1990 up to the most recent election year."
+            }
+          ]
+        },
+        {
+          "MethodName": "FEC Summary",
+          "Synopsis": "Returns the latest figures from the FEC's summary report, current cycle only.",
+          "HTTPMethod": "GET",
+          "URI": "/aggregates/pol/:entity_id/fec_summary.json",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "entity_id",
+              "Required": "Y",
+              "Default": "4148b26f6f1c437cb50ea9ca4699417a",
+              "Type": "string",
+              "Description": "The TransparencyData ID of the entity to look up."
+            }
+          ]
+        },
+        {
+          "MethodName": "FEC Independent Expenditures",
+          "Synopsis": "Returns top independent expenditures for and against a politician.",
+          "HTTPMethod": "GET",
+          "URI": "/aggregates/pol/:entity_id/fec_indexp.json",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "entity_id",
+              "Required": "Y",
+              "Default": "4148b26f6f1c437cb50ea9ca4699417a",
+              "Type": "string",
+              "Description": "The TransparencyData ID of the entity to look up."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Individual Methods (Aggregate)",
+      "methods": [
+        {
+          "MethodName": "Top Individuals by Contributions Given",
+          "Synopsis": "Returns the top n individual contributors, ranked by total dollars given.",
+          "HTTPMethod": "GET",
+          "URI": "/aggregates/indivs/top_:limit.json",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "limit",
+              "Required": "Y",
+              "Default": "10",
+              "Type": "string",
+              "Description": "The number of results to return."
+            },
+            {
+              "Name": "cycle",
+              "Required": "N",
+              "Default": "2012",
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1990 up to the most recent election year."
+            }
+          ]
+        },
+        {
+          "MethodName": "Top Recipient Organizations",
+          "Synopsis": "Returns the top organizations to which this individual has given money.",
+          "HTTPMethod": "GET",
+          "URI": "/aggregates/indiv/:entity_id/recipient_orgs.json",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "entity_id",
+              "Required": "Y",
+              "Default": "a03df5d9b20e467fa0ceaefa94c4491e",
+              "Type": "string",
+              "Description": "The TransparencyData ID of the entity to look up."
+            },
+            {
+              "Name": "cycle",
+              "Required": "N",
+              "Default": "2012",
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1990 up to the most recent election year."
+            },
+            {
+              "Name": "limit",
+              "Required": "N",
+              "Default": "10",
+              "Type": "string",
+              "Description": "The number of results to return."
+            }
+          ]
+        },
+        {
+          "MethodName": "Top Recipient Politicians",
+          "Synopsis": "Returns the top politicians to which this individual has given money.",
+          "HTTPMethod": "GET",
+          "URI": "/aggregates/indiv/:entity_id/recipient_pols.json",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "entity_id",
+              "Required": "Y",
+              "Default": "a03df5d9b20e467fa0ceaefa94c4491e",
+              "Type": "string",
+              "Description": "The TransparencyData ID of the entity to look up."
+            },
+            {
+              "Name": "cycle",
+              "Required": "N",
+              "Default": "2012",
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1990 up to the most recent election year."
+            },
+            {
+              "Name": "limit",
+              "Required": "N",
+              "Default": "10",
+              "Type": "string",
+              "Description": "The number of results to return."
+            }
+          ]
+        },
+        {
+          "MethodName": "Party Breakdown",
+          "Synopsis": "Returns how much this individual gave to each party.",
+          "HTTPMethod": "GET",
+          "URI": "/aggregates/indiv/:entity_id/recipients/party_breakdown.json",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "entity_id",
+              "Required": "Y",
+              "Default": "a03df5d9b20e467fa0ceaefa94c4491e",
+              "Type": "string",
+              "Description": "The TransparencyData ID of the entity to look up."
+            },
+            {
+              "Name": "cycle",
+              "Required": "N",
+              "Default": "2012",
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1990 up to the most recent election year."
+            }
+          ]
+        },
+        {
+          "MethodName": "Lobbying Registrants",
+          "Synopsis": "Returns lobbying firms that employed an individual.",
+          "HTTPMethod": "GET",
+          "URI": "/aggregates/indiv/:entity_id/registrants.json",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "entity_id",
+              "Required": "Y",
+              "Default": "e6da8b437b67418fb935776eaf969006",
+              "Type": "string",
+              "Description": "The TransparencyData ID of the entity to look up."
+            },
+            {
+              "Name": "cycle",
+              "Required": "N",
+              "Default": "2012",
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1990 up to the most recent election year."
+            },
+            {
+              "Name": "limit",
+              "Required": "N",
+              "Default": "10",
+              "Type": "string",
+              "Description": "The number of results to return."
+            }
+          ]
+        },
+        {
+          "MethodName": "Lobbying Clients",
+          "Synopsis": "Returns clients a lobbyist was contracted to work for.",
+          "HTTPMethod": "GET",
+          "URI": "/aggregates/indiv/:entity_id/clients.json",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "entity_id",
+              "Required": "Y",
+              "Default": "e6da8b437b67418fb935776eaf969006",
+              "Type": "string",
+              "Description": "The TransparencyData ID of the entity to look up."
+            },
+            {
+              "Name": "cycle",
+              "Required": "N",
+              "Default": "2012",
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1990 up to the most recent election year."
+            },
+            {
+              "Name": "limit",
+              "Required": "N",
+              "Default": "10",
+              "Type": "string",
+              "Description": "The number of results to return."
+            }
+          ]
+        },
+        {
+          "MethodName": "Lobbying Issues",
+          "Synopsis": "Returns issue areas a lobbyist has worked on.",
+          "HTTPMethod": "GET",
+          "URI": "/aggregates/indiv/:entity_id/issues.json",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "entity_id",
+              "Required": "Y",
+              "Default": "e6da8b437b67418fb935776eaf969006",
+              "Type": "string",
+              "Description": "The TransparencyData ID of the entity to look up."
+            },
+            {
+              "Name": "cycle",
+              "Required": "N",
+              "Default": "2012",
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1990 up to the most recent election year."
+            },
+            {
+              "Name": "limit",
+              "Required": "N",
+              "Default": "10",
+              "Type": "string",
+              "Description": "The number of results to return."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Organization Methods (Aggregate)",
+      "methods": [
+        {
+          "MethodName": "Top Organizations by Contributions Given",
+          "Synopsis": "Returns the top n organizations, ranked by total dollars given.",
+          "HTTPMethod": "GET",
+          "URI": "/aggregates/orgs/top_:limit.json",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "limit",
+              "Required": "Y",
+              "Default": "10",
+              "Type": "string",
+              "Description": "The number of results to return."
+            },
+            {
+              "Name": "cycle",
+              "Required": "N",
+              "Default": "2012",
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1990 up to the most recent election year."
+            }
+          ]
+        },
+        {
+          "MethodName": "Top Recipients",
+          "Synopsis": "Returns the top recipients of money from this organization.",
+          "HTTPMethod": "GET",
+          "URI": "/aggregates/org/:entity_id/recipients.json",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "entity_id",
+              "Required": "Y",
+              "Default": "1b8fea7e453d4e75841eac48ff9df550",
+              "Type": "string",
+              "Description": "The TransparencyData ID of the entity to look up."
+            },
+            {
+              "Name": "cycle",
+              "Required": "N",
+              "Default": "2012",
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1990 up to the most recent election year."
+            },
+            {
+              "Name": "limit",
+              "Required": "N",
+              "Default": "10",
+              "Type": "string",
+              "Description": "The number of results to return."
+            }
+          ]
+        },
+        {
+          "MethodName": "PAC Recipients",
+          "Synopsis": "Returns the top PACs receiving money from this organization.",
+          "HTTPMethod": "GET",
+          "URI": "/aggregates/org/:entity_id/recipient_pacs.json",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "entity_id",
+              "Required": "Y",
+              "Default": "1b8fea7e453d4e75841eac48ff9df550",
+              "Type": "string",
+              "Description": "The TransparencyData ID of the entity to look up."
+            },
+            {
+              "Name": "cycle",
+              "Required": "N",
+              "Default": "2012",
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1990 up to the most recent election year."
+            },
+            {
+              "Name": "limit",
+              "Required": "N",
+              "Default": "10",
+              "Type": "string",
+              "Description": "The number of results to return."
+            }
+          ]
+        },
+        {
+          "MethodName": "Party Breakdown",
+          "Synopsis": "Returns the portion of giving that went to each party.",
+          "HTTPMethod": "GET",
+          "URI": "/aggregates/org/:entity_id/recipients/party_breakdown.json",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "entity_id",
+              "Required": "Y",
+              "Default": "1b8fea7e453d4e75841eac48ff9df550",
+              "Type": "string",
+              "Description": "The TransparencyData ID of the entity to look up."
+            },
+            {
+              "Name": "cycle",
+              "Required": "N",
+              "Default": "2012",
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1990 up to the most recent election year."
+            }
+          ]
+        },
+        {
+          "MethodName": "State/Federal Breakdown",
+          "Synopsis": "Returns the portion of giving that went to state versus federal candidates.",
+          "HTTPMethod": "GET",
+          "URI": "/aggregates/org/:entity_id/recipients/level_breakdown.json",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "entity_id",
+              "Required": "Y",
+              "Default": "1b8fea7e453d4e75841eac48ff9df550",
+              "Type": "string",
+              "Description": "The TransparencyData ID of the entity to look up."
+            },
+            {
+              "Name": "cycle",
+              "Required": "N",
+              "Default": "2012",
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1990 up to the most recent election year."
+            }
+          ]
+        },
+        {
+          "MethodName": "Lobbying Registrants",
+          "Synopsis": "Returns lobbying firms hired by an organization.",
+          "HTTPMethod": "GET",
+          "URI": "/aggregates/org/:entity_id/registrants.json",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "entity_id",
+              "Required": "Y",
+              "Default": "9070ecd132f44963a369479e91950283",
+              "Type": "string",
+              "Description": "The TransparencyData ID of the entity to look up."
+            },
+            {
+              "Name": "cycle",
+              "Required": "N",
+              "Default": "2012",
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1990 up to the most recent election year."
+            },
+            {
+              "Name": "limit",
+              "Required": "N",
+              "Default": "10",
+              "Type": "string",
+              "Description": "The number of results to return."
+            }
+          ]
+        },
+        {
+          "MethodName": "Lobbying Issues",
+          "Synopsis": "Returns issue areas an organization has hired lobbyists for.",
+          "HTTPMethod": "GET",
+          "URI": "/aggregates/org/:entity_id/issues.json",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "entity_id",
+              "Required": "Y",
+              "Default": "9070ecd132f44963a369479e91950283",
+              "Type": "string",
+              "Description": "The TransparencyData ID of the entity to look up."
+            },
+            {
+              "Name": "cycle",
+              "Required": "N",
+              "Default": "2012",
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1990 up to the most recent election year."
+            },
+            {
+              "Name": "limit",
+              "Required": "N",
+              "Default": "10",
+              "Type": "string",
+              "Description": "The number of results to return."
+            }
+          ]
+        },
+        {
+          "MethodName": "Bills",
+          "Synopsis": "Returns bills an organization has lobbied on.",
+          "HTTPMethod": "GET",
+          "URI": "/aggregates/org/:entity_id/bills.json",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "entity_id",
+              "Required": "Y",
+              "Default": "9070ecd132f44963a369479e91950283",
+              "Type": "string",
+              "Description": "The TransparencyData ID of the entity to look up."
+            },
+            {
+              "Name": "cycle",
+              "Required": "N",
+              "Default": "2012",
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1990 up to the most recent election year."
+            },
+            {
+              "Name": "limit",
+              "Required": "N",
+              "Default": "10",
+              "Type": "string",
+              "Description": "The number of results to return."
+            }
+          ]
+        },
+        {
+          "MethodName": "Lobbyists",
+          "Synopsis": "Returns lobbyists hired by an organization.",
+          "HTTPMethod": "GET",
+          "URI": "/aggregates/org/:entity_id/lobbyists.json",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "entity_id",
+              "Required": "Y",
+              "Default": "9070ecd132f44963a369479e91950283",
+              "Type": "string",
+              "Description": "The TransparencyData ID of the entity to look up."
+            },
+            {
+              "Name": "cycle",
+              "Required": "N",
+              "Default": "2012",
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1990 up to the most recent election year."
+            },
+            {
+              "Name": "limit",
+              "Required": "N",
+              "Default": "10",
+              "Type": "string",
+              "Description": "The number of results to return."
+            }
+          ]
+        },
+        {
+          "MethodName": "Registrant Clients",
+          "Synopsis": "If organization is a lobbying firm, returns clients that hired them.",
+          "HTTPMethod": "GET",
+          "URI": "/aggregates/org/:entity_id/registrant/clients.json",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "entity_id",
+              "Required": "Y",
+              "Default": "52a1620b2ff543ebb74718fbff742529",
+              "Type": "string",
+              "Description": "The TransparencyData ID of the entity to look up."
+            },
+            {
+              "Name": "cycle",
+              "Required": "N",
+              "Default": "2012",
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1990 up to the most recent election year."
+            },
+            {
+              "Name": "limit",
+              "Required": "N",
+              "Default": "10",
+              "Type": "string",
+              "Description": "The number of results to return."
+            }
+          ]
+        },
+        {
+          "MethodName": "Registrant Issues",
+          "Synopsis": "If organization is a lobbying firm, returns issue areas they've lobbied on.",
+          "HTTPMethod": "GET",
+          "URI": "/aggregates/org/:entity_id/registrant/issues.json",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "entity_id",
+              "Required": "Y",
+              "Default": "52a1620b2ff543ebb74718fbff742529",
+              "Type": "string",
+              "Description": "The TransparencyData ID of the entity to look up."
+            },
+            {
+              "Name": "cycle",
+              "Required": "N",
+              "Default": "2012",
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1990 up to the most recent election year."
+            },
+            {
+              "Name": "limit",
+              "Required": "N",
+              "Default": "10",
+              "Type": "string",
+              "Description": "The number of results to return."
+            }
+          ]
+        },
+        {
+          "MethodName": "Registrant Bills",
+          "Synopsis": "If organization is a lobbying firm, returns bills they've lobbied on.",
+          "HTTPMethod": "GET",
+          "URI": "/aggregates/org/:entity_id/registrant/bills.json",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "entity_id",
+              "Required": "Y",
+              "Default": "52a1620b2ff543ebb74718fbff742529",
+              "Type": "string",
+              "Description": "The TransparencyData ID of the entity to look up."
+            },
+            {
+              "Name": "cycle",
+              "Required": "N",
+              "Default": "2012",
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1990 up to the most recent election year."
+            },
+            {
+              "Name": "limit",
+              "Required": "N",
+              "Default": "10",
+              "Type": "string",
+              "Description": "The number of results to return."
+            }
+          ]
+        },
+        {
+          "MethodName": "Registrant Lobbyists",
+          "Synopsis": "If organization is a lobbying firm, returns lobbyists they've employed.",
+          "HTTPMethod": "GET",
+          "URI": "/aggregates/org/:entity_id/registrant/lobbyists.json",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "entity_id",
+              "Required": "Y",
+              "Default": "52a1620b2ff543ebb74718fbff742529",
+              "Type": "string",
+              "Description": "The TransparencyData ID of the entity to look up."
+            },
+            {
+              "Name": "cycle",
+              "Required": "N",
+              "Default": "2012",
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1990 up to the most recent election year."
+            },
+            {
+              "Name": "limit",
+              "Required": "N",
+              "Default": "10",
+              "Type": "string",
+              "Description": "The number of results to return."
+            }
+          ]
+        },
+        {
+          "MethodName": "Mentions in Regulations",
+          "Synopsis": "Returns regulatory dockets that most frequently mention an organization.",
+          "HTTPMethod": "GET",
+          "URI": "/aggregates/org/:entity_id/regulations_text.json",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "entity_id",
+              "Required": "Y",
+              "Default": "9070ecd132f44963a369479e91950283",
+              "Type": "string",
+              "Description": "The TransparencyData ID of the entity to look up."
+            },
+            {
+              "Name": "cycle",
+              "Required": "N",
+              "Default": "2012",
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1990 up to the most recent election year."
+            },
+            {
+              "Name": "limit",
+              "Required": "N",
+              "Default": "10",
+              "Type": "string",
+              "Description": "The number of results to return."
+            }
+          ]
+        },
+        {
+          "MethodName": "Regulatory Submissions",
+          "Synopsis": "Returns regulatory dockets with the most submissions from an organization.",
+          "HTTPMethod": "GET",
+          "URI": "/aggregates/org/:entity_id/regulations_submitter.json",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "entity_id",
+              "Required": "Y",
+              "Default": "9070ecd132f44963a369479e91950283",
+              "Type": "string",
+              "Description": "The TransparencyData ID of the entity to look up."
+            },
+            {
+              "Name": "cycle",
+              "Required": "N",
+              "Default": "2012",
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1990 up to the most recent election year."
+            },
+            {
+              "Name": "limit",
+              "Required": "N",
+              "Default": "10",
+              "Type": "string",
+              "Description": "The number of results to return."
+            }
+          ]
+        },
+        {
+          "MethodName": "FACA Memberships",
+          "Synopsis": "Returns employee memberships on federal advisory committees for an organization.",
+          "HTTPMethod": "GET",
+          "URI": "/aggregates/org/:entity_id/faca.json",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "entity_id",
+              "Required": "Y",
+              "Default": "52a1620b2ff543ebb74718fbff742529",
+              "Type": "string",
+              "Description": "The TransparencyData ID of the entity to look up."
+            },
+            {
+              "Name": "cycle",
+              "Required": "N",
+              "Default": "2012",
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1990 up to the most recent election year."
+            },
+            {
+              "Name": "limit",
+              "Required": "N",
+              "Default": "10",
+              "Type": "string",
+              "Description": "The number of results to return."
+            }
+          ]
+        },
+        {
+          "MethodName": "FEC Summary",
+          "Synopsis": "Returns latest figures for an organization from the FEC's summary report, current election cycle only.",
+          "HTTPMethod": "GET",
+          "URI": "/aggregates/org/:entity_id/fec_summary.json",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "entity_id",
+              "Required": "Y",
+              "Default": "52a1620b2ff543ebb74718fbff742529",
+              "Type": "string",
+              "Description": "The TransparencyData ID of the entity to look up."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Industry Methods (Aggregate)",
+      "methods": [
+        {
+          "MethodName": "Top Industries",
+          "Synopsis": "Returns top industries by the amount contributed.",
+          "HTTPMethod": "GET",
+          "URI": "/aggregates/industries/top_:limit.json",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "cycle",
+              "Required": "N",
+              "Default": "2012",
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 2000 up to the most recent election year."
+            },
+            {
+              "Name": "limit",
+              "Required": "N",
+              "Default": "10",
+              "Type": "string",
+              "Description": "The number of results to return."
+            }
+          ]
+        },
+        {
+          "MethodName": "Top Organizations",
+          "Synopsis": "Top organizations in an industry by dollars contributed.",
+          "HTTPMethod": "GET",
+          "URI": "/aggregates/industry/:entity_id/orgs.json",
+          "RequiresOAuth": "N",
+          "parameters": [
+            {
+              "Name": "entity_id",
+              "Required": "Y",
+              "Default": "165d820dd48441e1befdc47f3fa3d236",
+              "Type": "string",
+              "Description": "The TransparencyData ID of the entity to look up."
+            },
+            {
+              "Name": "cycle",
+              "Required": "N",
+              "Default": "2012",
+              "Type": "inclusion",
+              "Description": "A YYYY-formatted year, 1990 up to the most recent election year."
+            },
+            {
+              "Name": "limit",
+              "Required": "N",
+              "Default": "10",
+              "Type": "string",
+              "Description": "The number of results to return."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

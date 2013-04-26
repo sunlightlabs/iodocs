@@ -1,0 +1,829 @@
+{
+    "endpoints": [
+        {
+            "name": "Legislators",
+            "methods": [
+                {
+                    "MethodName": "/legislators/locate",
+                    "Synopsis": "Find members of Congress by a latitude and longitude, or by a zip code. All Senators or Representatives who may represent the given location or zip are returned.",
+                    "HTTPMethod": "GET",
+                    "URI": "legislators/locate",
+                    "RequiresOAuth": "N",
+                    "parameters": [
+                        {
+                            "Name": "latitude",
+                            "Required": "N",
+                            "Description": "The latitude of the location.",
+                            "Type": "lat/long"
+                        },
+                        {
+                            "Name": "longitude",
+                            "Required": "N",
+                            "Description": "The longitude of the location.",
+                            "Type": "lat/long"
+                        },
+                        {
+                            "Name": "zip",
+                            "Required": "N",
+                            "Description": "Zip code of the location.",
+                            "Type": "number"
+                        }
+                    ]
+                },
+                {
+                    "MethodName": "/legislators",
+                    "Synopsis": "Search and filter for members of Congress. Below are just the fields you can filter on - responses may have many more fields.",
+                    "HTTPMethod": "GET",
+                    "URI": "legislators",
+                    "RequiresOAuth": "N",
+                    "parameters": [
+                        {
+                            "Name": "query",
+                            "Required": "N",
+                            "Description": "A string fragment to match against members' name fields.",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "title",
+                            "Required": "N",
+                            "Description": "Title of this member. \"Sen\", \"Rep\", \"Del\", or \"Com\".",
+                            "Type": "enumerated",
+                            "EnumeratedList": [null, "Sen", "Rep", "Del", "Com"]
+                        },
+                        {
+                            "Name": "chamber",
+                            "Required": "N",
+                            "Description": "Chamber the member is in. \"senate\" or \"house\".",
+                            "Type": "enumerated",
+                            "EnumeratedList": [null, "senate", "house"]
+                        },
+
+
+                        {
+                            "Name": "first_name",
+                            "Required": "N",
+                            "Description": "The member's first name. This may or may not be the name they are usually called.",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "nickname", 
+                            "Required": "N",
+                            "Description": "The member's nickname. If present, usually safe to assume this is the name they go by.",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "middle_name",
+                            "Required": "N",
+                            "Type": "string",
+                            "Description": "The member's middle name, if they have one."
+                        },
+                        {
+                            "Name": "last_name",
+                            "Required": "N",
+                            "Type": "string",
+                            "Description": "The member's last name."
+                        },
+                        {
+                            "Name": "name_suffix",
+                            "Required": "N",
+                            "Type": "string",
+                            "Description": "A name suffix, if the member uses one. For example, \"Jr.\" or \"III\"."
+                        },
+                        {
+                            "Name": "party",
+                            "Required": "N",
+                            "Type": "enumerated",
+                            "EnumeratedList": [null, "R", "D", "I"],
+                            "Description": "First letter of the party this member belongs to. \"R\", \"D\", or \"I\". "
+                        },
+                        {                        
+                            "Name": "state",
+                            "Required": "N",
+                            "Description": "Two-letter code of the state this member represents.",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "state_name",
+                            "Required": "N",
+                            "Description": "The full state name of the state this member represents.",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "district",
+                            "Required": "N",
+                            "Type": "number",
+                            "Description": "The number of the district that a House member represents. Is null for senators."
+                        },
+                        {
+                            "Name": "in_office",
+                            "Required": "N",
+                            "Type": "enumerated",
+                            "EnumeratedList": [ null, "true", "false" ],
+                            "Description": "Whether a member is currently holding elected office in Congress."
+                        },
+                        {
+                            "Name": "gender",
+                            "Required": "N",
+                            "Type": "enumerated",
+                            "EnumeratedList": [ null, "M", "F" ],
+                            "Description": "First letter of this member's current gender. \"M\" or \"F\"."
+                        },
+                        {
+                            "Name": "birthdate",
+                            "Required": "N",
+                            "Type": "string",
+                            "Description": "Date of the member's birth in YYYY-MM-DD format."
+                        },
+                        {
+                            "Name": "term_start",
+                            "Required": "N",
+                            "Type": "string",
+                            "Description": "The date a member's current term started, in YYYY-MM-DD format."
+                        },
+                        {
+                            "Name": "term_end",
+                            "Required": "N",
+                            "Type": "string",
+                            "Description": "The date a member's current term ended, in YYYY-MM-DD format."
+                        },
+                        {
+                            "Name": "senate_class",
+                            "Required": "N",
+                            "Type": "number",
+                            "EnumeratedList": [null, 1, 2, 3],
+                            "Description": "Which senate \"class\" the member belongs to (1, 2, or 3). Every 2 years, a separate one third of the Senate is elected to a 6-year term. Senators of the same class face election in the same year. Blank for members of the House."
+                        },
+                        {
+                            "Name": "bioguide_id",
+                            "Required": "N",
+                            "Type": "string",
+                            "Description": "Identifier for this member in various Congressional sources. Originally taken from the Congressional Biographical Directory, but used in many places. If you're going to pick one ID as a Congressperson's unique ID, use this."
+                        },
+                         {
+                            "Name": "thomas_id",
+                            "Required": "N",
+                            "Type": "string",
+                            "Description": "Identifier for this member as it appears on THOMAS.gov and Congress.gov."
+                        },
+                        {
+                            "Name": "lis_id",
+                            "Required": "N",
+                            "Type": "string",
+                            "Description": "Identifier for this member as it appears on some of Congress' data systems (namely Senate votes)."
+                        },
+                        {
+                            "Name": "votesmart_id",
+                            "Required": "N",
+                            "Type": "string",
+                            "Description": "Identifier for this member as it appears on Project Vote Smart."
+                        },
+                        {
+                            "Name": "fec_ids",
+                            "Required": "N",
+                            "Type": "string",
+                            "Description": "Identifier for this member as they appear in filings at the Federal Election Commission."
+                        },
+                        {
+                            "Name": "govtrack_id",
+                            "Required": "N",
+                            "Type": "string",
+                            "Description": "Identifier for this member as it appears on GovTrack.us."
+                        },
+                        {
+                            "Name": "crp_id",
+                            "Required": "N",
+                            "Type": "string",
+                            "Description": "Identifier for this member as it appears on CRP's OpenSecrets."
+                        }
+                      
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Districts",
+            "methods": [
+                {
+                    "MethodName": "/districts/locate",
+                    "Synopsis": "Find congressional districts by a latitude and longitude, or a zip code.",
+                    "HTTPMethod": "GET",
+                    "URI": "districts/locate",
+                    "RequiresOAuth": "N",
+                    "parameters": [
+                        {
+                            "Name": "latitude",
+                            "Required": "N",
+                            "Description": "The latitude of the location.",
+                            "Type": "lat/long"
+                        },
+                        {
+                            "Name": "longitude",
+                            "Required": "N",
+                            "Description": "The longitude of the location.",
+                            "Type": "lat/long"
+                        },
+                        {
+                            "Name": "zip",
+                            "Required": "N",
+                            "Type": "string",
+                            "Description": "A zip code may intersect multiple Congressional districts, so it is not as precise as using a latitude and longitude."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Committees",
+            "methods": [
+                {
+                    "MethodName": "/committees",
+                    "Synopsis": "Search and filter committees and subcommittees in the House and Senate.",
+                    "HTTPMethod": "GET",
+                    "URI": "committees",
+                    "RequiresOAuth": "N",
+                    "parameters": [
+                        {
+                            "Name": "query",
+                            "Required": "N",
+                            "Description": "A string fragment to match against committees' names.",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "committee_id",
+                            "Required": "N",
+                            "Description": "Official ID of the committee, as it appears in various official sources (Senate, House, and Library of Congress).",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "chamber",
+                            "Required": "N",
+                            "Description": "The chamber this committee is part of. \"house\", \"senate\", or \"joint\".",
+                            "Type": "enumerated",
+                            "EnumeratedList": [null, "house", "senate", "joint"]
+                        },
+                        {
+                            "Name": "subcommittee",
+                            "Required": "N",
+                            "Description": "Whether or not the committee is a subcommittee.",
+                            "Type": "enumerated",
+                            "EnumeratedList": [ null, "true", "false" ]
+                        },
+                        {
+                            "Name": "member_ids",
+                            "Required": "N",
+                            "Description": "Enter a member's bioguide ID to find all committees/subcommittees that member is on.",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "parent_committee_id",
+                            "Required": "N",
+                            "Description": "If the committee is a subcommittee, the ID of its parent committee.",
+                            "Type": "string"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Bills",
+            "methods": [
+                {
+                    "MethodName": "/bills",
+                    "Synopsis": "Search and filter bills in the House and Senate. Below are just the fields you can filter on - responses may have many more fields.",
+                    "HTTPMethod": "GET",
+                    "URI": "bills",
+                    "RequiresOAuth": "N",
+                    "parameters": [
+                        {
+                            "Name": "query",
+                            "Required": "N",
+                            "Description": "A string fragment to match against bills' names, summary, and keywords.",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "bill_id",
+                            "Required": "N",
+                            "Description": "A unique ID for a bill.",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "bill_type",
+                            "Required": "N",
+                            "Description": "The type of a bill.",
+                            "Type": "enumerated",
+                            "EnumeratedList": [null, "hr", "hres", "hjres", "hconres", "s", "sres", "sjres", "sconres"]
+                        },
+                        {
+                            "Name": "number",
+                            "Required": "N",
+                            "Description": "The bill's number",
+                            "Type": "number"
+                        },
+                        {
+                            "Name": "congress",
+                            "Required": "N",
+                            "Description": "The Congress in which this bill was introduced",
+                            "Type": "number"
+                        },
+                        {
+                            "Name": "chamber",
+                            "Required": "N",
+                            "Description": "The chamber of Congress in which the bill originated.",
+                            "Type": "enumerated",
+                            "EnumeratedList": [null, "house", "senate"]
+                        },
+                        {
+                            "Name": "keywords",
+                            "Required": "N",
+                            "Description": "Search through official keywords assigned by the Library of Congress.",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "history.house_passage_result",
+                            "Required": "N",
+                            "Description": "The result of the last time the House voted on passage, pre-veto.",
+                            "Type": "enumerated",
+                            "EnumeratedList": [null, "pass", "fail"]
+                        },
+                        {
+                            "Name": "history.senate_cloture_result",
+                            "Required": "N",
+                            "Description": "The result of the last time the Senate voted on cloture.",
+                            "Type": "enumerated",
+                            "EnumeratedList": [null, "pass", "fail"]
+                        },
+                        {
+                            "Name": "history.senate_passage_result",
+                            "Required": "N",
+                            "Description": "The result of the last time the Senate voted on passage, pre-veto.",
+                            "Type": "enumerated",
+                            "EnumeratedList": [null, "pass", "fail"]
+                        },
+                        {
+                            "Name": "history.vetoed",
+                            "Required": "N",
+                            "Description": "Whether the bill has been vetoed.",
+                            "Type": "enumerated",
+                            "EnumeratedList": [ null, "true", "false" ]
+                        },
+                        {
+                            "Name": "history.house_override_result",
+                            "Required": "N",
+                            "Description": "The result of the last time the House voted on passage to override a veto.",
+                            "Type": "enumerated",
+                            "EnumeratedList": [null, "pass", "fail"]
+                        },
+                        {
+                            "Name": "history.senate_override_result",
+                            "Required": "N",
+                            "Description": "The result of the last time the Senate voted on passage to override a veto.",
+                            "Type": "enumerated",
+                            "EnumeratedList": [null, "pass", "fail"]
+                        },
+                        {
+                            "Name": "history.awaiting_signature",
+                            "Required": "N",
+                            "Description": "Whether the bill is currently awaiting the President's signature.",
+                            "Type": "enumerated",
+                            "EnumeratedList": [ null, "true", "false" ]
+                        },
+                        {
+                            "Name": "history.enacted",
+                            "Required": "N",
+                            "Description": "Whether the bill has been enacted into law.",
+                            "Type": "enumerated",
+                            "EnumeratedList": [ null, "true", "false" ]
+                        },
+                        {
+                            "Name": "sponsor_id",
+                            "Required": "N",
+                            "Description": "The bioguide ID of the legislator sponsoring the bill.",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "cosponsor_ids",
+                            "Required": "N",
+                            "Description": "A bioguide ID of a legislator cosponsoring the bill.",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "withdrawn_cosponsor_ids",
+                            "Required": "N",
+                            "Description": "A bioguide ID of a legislator who has withdrawn their cosponsorship of the bill.",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "committee_ids",
+                            "Required": "N",
+                            "Description": "An ID of a committee this bill is relevant to.",
+                            "Type": "string"
+                        }
+                    ]
+                },
+                {
+                    "MethodName": "/bills/search",
+                    "Synopsis": "Filter and search through the full text of bills in the House and Senate. Below are just the fields you can filter on - responses may have many more fields. The main difference between this and the /bills method is that the 'query' parameter is now treated as a proper search query, with operators. You must also quote phrases to maintain term order.",
+                    "HTTPMethod": "GET",
+                    "URI": "bills/search",
+                    "RequiresOAuth": "N",
+                    "parameters": [
+                        {
+                            "Name": "query",
+                            "Required": "N",
+                            "Description": "A query string to match against bills' names, summary, keywords, and full text. Can include wildcards (*). Quote phrases to maintain term order.",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "highlight",
+                            "Required": "N",
+                            "Description": "Include highlighted excerpts of results.",
+                            "Type": "enumerated",
+                            "EnumeratedList": [null, "true", "false"]
+                        },
+                        {
+                            "Name": "bill_id",
+                            "Required": "N",
+                            "Description": "A unique ID for a bill.",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "bill_type",
+                            "Required": "N",
+                            "Description": "The type of a bill.",
+                            "Type": "enumerated",
+                            "EnumeratedList": [null, "hr", "hres", "hjres", "hconres", "s", "sres", "sjres", "sconres"]
+                        },
+                        {
+                            "Name": "number",
+                            "Required": "N",
+                            "Description": "The bill's number",
+                            "Type": "number"
+                        },
+                        {
+                            "Name": "congress",
+                            "Required": "N",
+                            "Description": "The Congress in which this bill was introduced",
+                            "Type": "number"
+                        },
+                        {
+                            "Name": "chamber",
+                            "Required": "N",
+                            "Description": "The chamber of Congress in which the bill originated.",
+                            "Type": "enumerated",
+                            "EnumeratedList": [null, "house", "senate"]
+                        },
+                        {
+                            "Name": "keywords",
+                            "Required": "N",
+                            "Description": "Search through official keywords assigned by the Library of Congress.",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "history.house_passage_result",
+                            "Required": "N",
+                            "Description": "The result of the last time the House voted on passage, pre-veto.",
+                            "Type": "enumerated",
+                            "EnumeratedList": [null, "pass", "fail"]
+                        },
+                        {
+                            "Name": "history.senate_cloture_result",
+                            "Required": "N",
+                            "Description": "The result of the last time the Senate voted on cloture.",
+                            "Type": "enumerated",
+                            "EnumeratedList": [null, "pass", "fail"]
+                        },
+                        {
+                            "Name": "history.senate_passage_result",
+                            "Required": "N",
+                            "Description": "The result of the last time the Senate voted on passage, pre-veto.",
+                            "Type": "enumerated",
+                            "EnumeratedList": [null, "pass", "fail"]
+                        },
+                        {
+                            "Name": "history.vetoed",
+                            "Required": "N",
+                            "Description": "Whether the bill has been vetoed.",
+                            "Type": "enumerated",
+                            "EnumeratedList": [ null, "true", "false" ]
+                        },
+                        {
+                            "Name": "history.house_override_result",
+                            "Required": "N",
+                            "Description": "The result of the last time the House voted on passage to override a veto.",
+                            "Type": "enumerated",
+                            "EnumeratedList": [null, "pass", "fail"]
+                        },
+                        {
+                            "Name": "history.senate_override_result",
+                            "Required": "N",
+                            "Description": "The result of the last time the Senate voted on passage to override a veto.",
+                            "Type": "enumerated",
+                            "EnumeratedList": [null, "pass", "fail"]
+                        },
+                        {
+                            "Name": "history.awaiting_signature",
+                            "Required": "N",
+                            "Description": "Whether the bill is currently awaiting the President's signature.",
+                            "Type": "enumerated",
+                            "EnumeratedList": [ null, "true", "false" ]
+                        },
+                        {
+                            "Name": "history.enacted",
+                            "Required": "N",
+                            "Description": "Whether the bill has been enacted into law.",
+                            "Type": "enumerated",
+                            "EnumeratedList": [ null, "true", "false" ]
+                        },
+                        {
+                            "Name": "sponsor_id",
+                            "Required": "N",
+                            "Description": "The bioguide ID of the legislator sponsoring the bill.",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "cosponsor_ids",
+                            "Required": "N",
+                            "Description": "A bioguide ID of a legislator cosponsoring the bill.",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "withdrawn_cosponsor_ids",
+                            "Required": "N",
+                            "Description": "A bioguide ID of a legislator who has withdrawn their cosponsorship of the bill.",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "committee_ids",
+                            "Required": "N",
+                            "Description": "An ID of a committee this bill is relevant to.",
+                            "Type": "string"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Votes",
+            "methods": [
+                {
+                    "MethodName": "/votes",
+                    "Synopsis": "Search and filter votes in the House and Senate. Generally current within an hour of the vote taking place. Below are just the fields you can filter on - responses may have many more fields.",
+                    "HTTPMethod": "GET",
+                    "URI": "votes",
+                    "RequiresOAuth": "N",
+                    "parameters": [
+                        {
+                            "Name": "query",
+                            "Required": "N",
+                            "Description": "A string fragment to match against votes' question fields.",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "roll_id",
+                            "Required": "N",
+                            "Description": "A unique identifier for a roll call vote. Made from the first letter of the chamber, the vote number, and the legislative year (e.g. \"h24-2012\").",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "chamber",
+                            "Required": "N",
+                            "Description": "The chamber the vote was taken in. \"house\" or \"senate\".",
+                            "Type": "enumerated",
+                            "EnumeratedList": [null, "house", "senate"]
+                        },
+                        {
+                            "Name": "number",
+                            "Required": "N",
+                            "Description": "The number that vote was assigned. Numbers reset every legislative year.",
+                            "Type": "number"
+                        },
+                        {
+                            "Name": "year",
+                            "Required": "N",
+                            "Description": "The \"legislative year\" of the vote. This is not quite the same as the calendar year - the legislative year changes at noon EST on January 3rd. A vote taken on January 1, 2013 has a \"legislative year\" of 2012.",
+                            "Type": "number"
+                        },
+                        {
+                            "Name": "congress",
+                            "Required": "N",
+                            "Description": "The Congress this vote was taken in. (e.g. 112, 113)",
+                            "Type": "number"
+                        },
+                        {
+                            "Name": "voted_at",
+                            "Required": "N",
+                            "Description": "The time the vote was taken.",
+                            "Type": "time"
+                        },
+                        {
+                            "Name": "vote_type",
+                            "Required": "N",
+                            "Description": "The type of vote being taken. This classification is imperfect and unofficial, and may change as we improve our detection.",
+                            "Type": "enumerated",
+                            "EnumeratedList": [null, "passage", "cloture", "nomination", "impeachment", "treaty", "recommit", "quorum", "leadership", "other"]
+                        },
+                        {
+                            "Name": "roll_type",
+                            "Required": "N",
+                            "Description": "The official description of the type of vote being taken.",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "required",
+                            "Required": "N",
+                            "Description": "The required ratio of Aye votes necessary to pass the legislation, in fraction form. A value of \"1/2\" actually means more than 1/2. Ties are not possible in the Senate (the Vice President casts a tie-breaker vote), and in the House, a tie vote means the vote does not pass.",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "result",
+                            "Required": "N",
+                            "Description": "The official result of the vote. This is not completely standardized (both \"Passed\" and \"Bill Passed\" may appear). In the case of a vote for Speaker of the House, the result field contains the name of the victor.",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "bill_id",
+                            "Required": "N",
+                            "Description": "If a vote is related to a bill, the bill's ID. (e.g. \"s968-112\")",
+                            "Type": "string"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Floor Updates",
+            "methods": [
+                {
+                    "MethodName": "/floor_updates",
+                    "Synopsis": "Real time floor updates in the House and Senate. Below are just the fields you can filter on - responses may have many more fields.",
+                    "HTTPMethod": "GET",
+                    "URI": "floor_updates",
+                    "RequiresOAuth": "N",
+                    "parameters": [
+                        {
+                            "Name": "query",
+                            "Required": "N",
+                            "Description": "A string fragment to match against floor updates' text.",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "chamber",
+                            "Required": "N",
+                            "Description": "The chamber this update took place in.",
+                            "Type": "enumerated",
+                            "EnumeratedList": [null, "house", "senate"]
+                        },
+                        {
+                            "Name": "congress",
+                            "Required": "N",
+                            "Description": "The number of the Congress this update took place during.",
+                            "Type": "number"
+                        },
+                        {
+                            "Name": "legislative_day",
+                            "Required": "N",
+                            "Description": "The \"legislative day\" this update took place in, in YYYY-MM-DD format.",
+                            "Type": "date"
+                        },
+                        {
+                            "Name": "year",
+                            "Required": "N",
+                            "Description": "The legislative year of the update.",
+                            "Type": "number"
+                        },
+                        {
+                            "Name": "bill_ids",
+                            "Required": "N",
+                            "Description": "The ID of a bill referenced in a floor update.",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "roll_ids",
+                            "Required": "N",
+                            "Description": "The ID of a roll call vote referenced in a floor update.",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "legislator_ids",
+                            "Required": "N",
+                            "Description": "The bioguide ID of a legislator referenced in a floor update.",
+                            "Type": "string"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Hearings",
+            "methods": [
+                {
+                    "MethodName": "/hearings",
+                    "Synopsis": "Search and filter hearings in the House and Senate.Below are just the fields you can filter on - responses may have many more fields.",
+                    "HTTPMethod": "GET",
+                    "URI": "hearings",
+                    "RequiresOAuth": "N",
+                    "parameters": [
+                        {
+                            "Name": "query",
+                            "Required": "N",
+                            "Description": "A string fragment to match against hearings' descriptions.",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "committee_id",
+                            "Required": "N",
+                            "Description": "The ID of the committee holding the hearing.",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "congress",
+                            "Required": "N",
+                            "Description": "The number of the Congress the committee hearing is taking place during.",
+                            "Type": "number"
+                        },
+                        {
+                            "Name": "chamber",
+                            "Required": "N",
+                            "Description": "The chamber of the committee holding the hearing.",
+                            "Type": "enumerated",
+                            "EnumeratedList": [null, "house", "senate", "joint"]
+                        },
+                        {
+                            "Name": "dc",
+                            "Required": "N",
+                            "Description": "Whether the committee hearing is held in DC (true) or in the field (false).",
+                            "Type": "enumerated",
+                            "EnumeratedList": [null, true, false]
+                        },
+                        {
+                            "Name": "bill_ids",
+                            "Required": "N",
+                            "Description": "The IDs of a bill mentioned by or associated with the hearing.",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "hearing_type",
+                            "Required": "N",
+                            "Description": "(House only) The type of hearing this is.",
+                            "Type": "enumerated",
+                            "EnumeratedList": [null, "Hearing", "Markup", "Business Meeting", "Field Hearing"]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Upcoming Bills",
+            "methods": [
+                {
+                    "MethodName": "/upcoming_bills",
+                    "Synopsis": "Bills scheduled for upcoming debate in the House and Senate. Below are just the fields you can filter on - responses may have many more fields.",
+                    "HTTPMethod": "GET",
+                    "URI": "upcoming_bills",
+                    "RequiresOAuth": "N",
+                    "parameters": [
+                        {
+                            "Name": "legislative_day",
+                            "Required": "N",
+                            "Description": "The legislative day this bill is scheduled for. Combine with the range field to understand precision. May be null.",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "bill_id",
+                            "Required": "N",
+                            "Description": "The ID of the bill that's been scheduled for debate.",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "range",
+                            "Required": "N",
+                            "Description": "How precise this information is.",
+                            "Type": "enumerated",
+                            "EnumeratedList": [null, "day", "week"]
+                        },
+                        {
+                            "Name": "congress",
+                            "Required": "N",
+                            "Description": "The number of the Congress this bill has been scheduled in.",
+                            "Type": "number"
+                        },
+                        {
+                            "Name": "chamber",
+                            "Required": "N",
+                            "Description": "The chamber which has scheduled this bill.",
+                            "Type": "enumerated",
+                            "EnumeratedList": [null, "house", "senate"]
+                        },
+                        {
+                            "Name": "source_type",
+                            "Required": "N",
+                            "Description": "The source for this information.",
+                            "Type": "enumerated",
+                            "EnumeratedList": [null, "house_daily", "house_weekly", "senate_daily"]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

@@ -1,5 +1,16 @@
 {
-	"partytime": {
+    "openstates": {
+        "name": "Open States",
+        "protocol": "http",
+        "baseURL": "openstates.org",
+        "publicPath": "/api/v1/",
+        "headers": {
+            "User-agent": "Sunlight iodocs"
+        },
+        "auth": "key",
+        "keyParam": "apikey"
+    },
+     "partytime": {
 	    "name": "Political Party Time API",
 	    "protocol": "http",
 	    "baseURL": "politicalpartytime.org",
@@ -7,44 +18,44 @@
 		"auth": "key",
 		"keyParam": "apikey"
 	},
-    "klout": {
-        "name": "Klout API",
+
+    "congress": {
+        "name": "Congress",
         "protocol": "http",
-        "baseURL": "api.klout.com",
-        "publicPath": "/1",
-        "headers" : {},
+        "baseURL": "congress.api.sunlightfoundation.com",
+        "publicPath": "/",
+        "headers": {
+            "X-APIKEY": "your_key_here"
+        }
+    },
+
+    "influenceexplorer": {
+        "name": "Influence Explorer",
+        "description": [
+            "<h2>Custom Parameter Types</h2>",
+            "<p>Some custom parameter types are referenced in this documentation. Each denotes a set of supported behaviors:</p>",
+            "<dl class='clearfix'>",
+            "<dt><code>inclusion</code></dt>",
+            "<dd>Inclusion fields support pipe-separated <code>OR</code> searching, such as <code>MD|VA|DC</code> or <code>2010|2012</code></dd>",
+            "<dt><code>comparison</code></dt>",
+            "<dd>Comparison fields support range and comparison operators using greater/less than and pipes, for example: <code>&gt;|2000</code> (greater than or equal to 2000), <code>&gt;&lt|1000|5000</code> (between 1000 and 5000).</dd>",
+            "</dl><br/>"
+        ],
+        "protocol": "http",
+        "baseURL": "transparencydata.com",
+        "publicPath": "/api/1.0",
         "auth": "key",
-        "keyParam": "key"
+        "keyParam": "apikey"
     },
-    "usatoday": {
-        "name": "USA TODAY Census API",
+
+    "capitolwords": {
+        "name": "Capitol Words",
         "protocol": "http",
-        "baseURL": "api.usatoday.com",
-        "publicPath": "/open",
+        "baseURL": "capitolwords.org",
+        "publicPath": "/api/1/",
+        "booleanTrueVal": "true",
+        "booleanFalseVal": "false",
         "auth": "key",
-        "keyParam": "api_key"
-    },
-    "linkedin": {
-        "name": "LinkedIn",
-        "protocol": "http",
-        "baseURL": "api.linkedin.com",
-        "publicPath": "",
-        "privatePath": "/v1",
-        "auth": "oauth",
-        "oauth": {
-            "type": "three-legged",
-            "requestURL": "https://api.linkedin.com/uas/oauth/requestToken",
-            "signinURL":  "https://api.linkedin.com/uas/oauth/authorize?oauth_token=",
-            "accessURL":  "https://api.linkedin.com/uas/oauth/accessToken",
-            "version": "1.0",
-            "crypt": "HMAC-SHA1"
-        },
-        "keyParam":""
-    },
-    "requestbin": {
-        "name": "Requestb.in",
-        "protocol": "http",
-        "baseURL": "requestb.in",
-        "publicPath": "/"
+        "keyParam": "apikey"
     }
 }

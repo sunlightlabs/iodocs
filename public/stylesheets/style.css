@@ -279,7 +279,7 @@ html {
 
 body {
   width: 960px;
-  margin: 15px auto;
+  margin: 0 auto;
   padding-bottom: 20px;
 }
 
@@ -438,9 +438,9 @@ li {
   border: 0;
 }
 
-.methods {
+/*.methods {
   display: none;
-}
+}*/
 
 .method {
   font-size: 14px;
