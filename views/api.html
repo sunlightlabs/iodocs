@@ -81,16 +81,16 @@
 
     <ul>
         {% for endpoint in apiDefinition.endpoints %}
-        <li class="endpoint">
+        <li class="endpoint expanded">
             <h3 class="title">
                 <span class="name">{{endpoint.name}}</span>
                 <ul class="actions">
-                    <li class="list-methods"><a href="#">List Methods</a></li>
+                    <li class="list-methods"><a href="#">Collapse Methods</a></li>
                     <li class="expand-methods"><a href="#">Expand Methods</a></li>
                 </ul>
             </h3>
             {% if endpoint.methods.length %}
-            <ul class="methods hidden">
+            <ul class="methods">
                 {% for method in endpoint.methods %}
                     {% set httpmethod = method.HTTPMethod|lower %}
                     {% if method.RequiresOAuth === 'Y' || method.RequiresOAuth === true %}

@@ -96,6 +96,11 @@ div.title{
 	background-color: rgba(247, 250, 249, 0.5);
 }
 .expand{
+	background: url(http://assets.sunlightfoundation.com.s3.amazonaws.com/site/img/bg_arrow_expand-collapse.png) center top no-repeat;
+	width: 20px;
+	height: 14px;
+}
+.expand.expanded{
 	background: url(http://assets.sunlightfoundation.com.s3.amazonaws.com/site/img/bg_arrow_expand-collapse.png) center bottom no-repeat;
 	width: 20px;
 	height: 14px;
