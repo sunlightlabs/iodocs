@@ -21,7 +21,7 @@
         }
 
         if (window.history) {
-            $('li.method > div.title').click(function(){
+/*            $('li.method > div.title').click(function(){
                 var endpoint = $(this).parents('li.endpoint').find('span.name').first().text();
                 var method_name = $('span.name', this).text();
                 var new_state = [endpoint, method_name];
@@ -33,7 +33,8 @@
             });
 
             window.addEventListener("popstate", function(event){
-                $('.expanded').removeClass('expanded');
+//                $('.expanded').removeClass('expanded');
+		//this is getting called on page load, negating the default open endpoint state
                 if (event.state) {
                     var endpoint = null,
                         method_name = null;
@@ -57,7 +58,7 @@
                         $(method_sel)[0].scrollIntoView(true);
                     }
                 }
-            });
+            });*/
         }
     });
 })();

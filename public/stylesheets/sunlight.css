@@ -1,10 +1,9 @@
 
 body{
     color: #65615f;
-    font-size: 80%;
+    font-size: 14px;
     line-height: 22px;
-    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-    background-color: #ECECEC;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 h1.logo a { width: 357px; height: 64px; display: block; text-indent: -9999em; background: url(../images/logo.jpg) top left no-repeat;}
@@ -15,13 +14,167 @@ form#credentials > section.credentials input
 { display: inline-block; margin: 10px; }
 form#credentials > section.credentials label[for="saveKey"]
 { margin-left: 30px; }
-form#credentials > section.credentials input[type="checkbox"]
-{ width: 20px; padding: 0; }
+form#credentials > section.credentials input[type="checkbox"]{ 
+	width: 20px; 
+	padding: 0;
+	margin-top: 5px; 
+}
 
 form#credentials { position: relative; }
-#__formsaver_container {
-    position: absolute;
-    bottom: 0;
-    right: 0;
+
+div.description,
+li.method form span.description,
+li.method form td.description {
+    float: none;
+    width: auto;
 }
+
+table.parameters td.description p {
+    display: block;
+    max-width: none;
+}
+
+h1{
+	font-size: 343.36%;
+	margin-bottom: 0.4em;
+	font-family: "prenton-condensed","Helvetica Neue","Helvetica","Arial",sans-serif;
+	line-height: 1.1em;
+	text-transform: uppercase;
+	font-weight: 200;
+}
+h2, h2#ignoretypekit { 
+	font-family: Georgia, "Times New Roman", Times, serif; 
+	font-size: 194.88%; 
+	line-height: 29px; 
+	text-transform: inherit; 
+}
+
+.credentials{
+	background-color: #f9f8f8;
+	border: 1px solid #f0eded;
+	border-radius: 0;
+}
+.section {
+	border-bottom: 1px dashed #d6d3d2;
+	border-top: none;
+}
+#controls {
+	border: 0;
+}
+#controls li{
+	width: 50%;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	text-align: center;
+	display: none;
+}
+#controls li button {
+	float: none;
+}
+.methods li.method {
+	border: 0;
+	border-bottom: 1px dashed #d6d3d2;
+	border-top: 1px dashed #d6d3d2;
+}
+.get{
+	background: #ffffff;
+}
+.get th, .get td{
+	border-bottom: none;
+}
+.get th {
+	border-bottom: 3px solid #d6d3d2;
+}
+h3.title {
+	max-width: 100%;
+}
+div.title{
+	border-bottom: 1px dashed #d6d3d2;
+}
+.method .title:hover {
+	background-color: rgba(247, 250, 249, 0.5);
+}
+.expand{
+	background: url(http://assets.sunlightfoundation.com.s3.amazonaws.com/site/img/bg_arrow_expand-collapse.png) center top no-repeat;
+	width: 20px;
+	height: 14px;
+}
+.expand.expanded{
+	background: url(http://assets.sunlightfoundation.com.s3.amazonaws.com/site/img/bg_arrow_expand-collapse.png) center bottom no-repeat;
+	width: 20px;
+	height: 14px;
+}
+.method .title span.expand {
+	float: right;
+	margin-top: 10px;
+}
+.parameters select, .parameters input {
+	width: 100%;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	padding: 15px 7px;
+}
+.method .title .http-method {
+	font-family: "prenton-condensed","Helvetica Neue","Helvetica","Arial",sans-serif;
+	font-size: 170%;
+	font-weight: 200;
+	background-color: rgba(247, 250, 249, 1);
+	color: #635f5c;
+}
+.method .title:hover .method .title .http-method{
+	background-color: rgba(247, 250, 249, 0.5);
+}
+.credentials h2 {
+	float: left;
+	margin-top: 5px;
+}
+.credentials img{
+	float: left;
+	margin-top: 10px;
+	margin-right: 10px;
+}
+input#key{
+	width: 530px;
+}
+
+form#credentials > section.credentials label, form#credentials > section.credentials input {
+	margin: 0;
+	display: block;
+	float: left;
+}
+form#credentials > section.credentials label[for="key"] {
+	display: none;
+	margin: 0 10px;
+}
+#__formsaver_container {
+	position: relative;
+	float: right;
+	margin-top: 9px;
+}
+
+.endpoint {
+	background-color: #f9f8f8;
+}
+label {
+	color: #65615f;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

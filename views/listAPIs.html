@@ -1,0 +1,14 @@
+{% extends "base_full.html" %}
+
+{% block content %}
+    <h1>{{title}}</h1>
+
+    <h2>Choose an API</h2>
+
+    <ul>
+        {% for api in apiInfo %}
+        <li><a href="/{{api.shortname}}">{{api.name}}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock content %}
+

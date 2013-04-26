@@ -1,0 +1,86 @@
+.zipcode-form label { font-weight: bold; }
+.zipcode-form input { margin-left: 15px; width: 80px;}
+.zipcode-form #submitBtn { margin-top: 25px;}
+
+ul.contacts li {
+	margin-bottom: 3em;
+	width: 240px;
+}
+
+ul.contacts li img.avatar {
+	background-color: #FFF;
+	border: 1px solid #D4CFC2;
+	float: left;
+	margin: 0 1em 1em 0;
+	padding: 2px;
+	width: 80px;
+	-webkit-box-shadow: 2px 2px 2px #DDD;
+	-moz-box-shadow: 2px 2px 2px #DDD;
+	box-shadow: 2px 2px 2px #DDD;
+}
+
+ul.contacts li p {
+	font-size: 120%;
+	margin: 1em 0;
+}
+
+ul.contacts li a.callnow {
+    background: url(../images/btn_call.png) left top no-repeat;
+	display: block;
+	margin-top: 1em;
+	text-indent: -9999em;
+	width: 240px;
+	height: 54px;
+}
+ul.contacts li a.callnow:hover {
+	background: url(../images/btn_call.png) left bottom no-repeat;
+}
+ul.contacts li a.callnow:active {
+	background-color: #902A01;
+	text-shadow: #902A01 0 0 0;
+}
+ul.contacts li.called a.callnow {
+    background: url(../images/btn_called.png) left top no-repeat;
+}
+
+.call-steps .orderedNumbers { font-size: 300%; width: 35px; margin-left: -20px; padding-top: 10px;}
+#sidebarInterior .orderedNumbers { margin-left: 0;}
+
+ol.call-steps li { margin: 4em 0; list-style-type: none;}
+ol.call-steps li span.phone { font-weight: bold; }
+ol.call-steps li blockquote {
+	background-color: #FFF;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 120%;
+}
+ol.call-steps li blockquote p { padding: 1em 1em 1em 0.3em; }
+ol.call-steps form li { margin: 1em 0; }
+ol.call-steps form label {
+	display: block;
+	float: left;
+	font-weight: bold;
+	width: 110px;
+}
+ol.call-steps form fieldset {
+	border-top: 1px solid #DDD;
+	margin: 2em 0;
+	padding: 1em 0 0 0;
+	width: 500px;
+}
+ol.call-steps form fieldset ul { margin: 0 0 0 3em; }
+ol.call-steps form legend {
+	font-family: serif;
+	font-size: 120%;
+	font-style: oblique;
+	margin-left: 2em;
+}
+
+#sidebarInterior .call-steps { margin-top: 80px;}
+
+.sideFormSm input, .sideFormSm textarea { width: 225px;}
+.sideFormSm select { font-size: 100%;}
+
+ul.script li { margin: 1em 0 1em 1.2em; }
+
+ol.complete-steps li { margin: 3em 0; }
+ol.complete-steps li h3 a { text-decoration: underline; }
