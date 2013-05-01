@@ -33,7 +33,7 @@
                         },
                         {
                             "Name": "granularity",
-                            "Default": "",
+                            "Default": "year",
                             "Description": "The size of each block in the time series.",
                             "Type": "enumerated",
                             "EnumeratedList": ["year", "month", "day"]

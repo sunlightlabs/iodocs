@@ -111,11 +111,14 @@ div.title{
 }
 .parameters select, .parameters input {
 	width: 100%;
+}
+.parameters input {
 	box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	padding: 15px 7px;
 }
+
 .method .title .http-method {
 	font-family: "prenton-condensed","Helvetica Neue","Helvetica","Arial",sans-serif;
 	font-size: 170%;
@@ -136,7 +139,7 @@ div.title{
 	margin-right: 10px;
 }
 input#key{
-	width: 530px;
+	width: 500px;
 }
 
 form#credentials > section.credentials label, form#credentials > section.credentials input {

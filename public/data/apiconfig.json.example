@@ -3,19 +3,27 @@
         "name": "Open States",
         "protocol": "http",
         "baseURL": "openstates.org",
-        "publicPath": "/api/v1/",
+        "publicPath": "/api/v1",
         "headers": {
             "User-agent": "Sunlight iodocs"
         },
         "auth": "key",
         "keyParam": "apikey"
     },
+     "partytime": {
+	    "name": "Political Party Time",
+	    "protocol": "http",
+	    "baseURL": "politicalpartytime.org",
+	    "publicPath": "/api/v1",
+		"auth": "key",
+		"keyParam": "apikey"
+	},
 
     "congress": {
         "name": "Congress",
         "protocol": "http",
         "baseURL": "congress.api.sunlightfoundation.com",
-        "publicPath": "/",
+        "publicPath": "",
         "headers": {
             "X-APIKEY": "your_key_here"
         }
@@ -44,7 +52,7 @@
         "name": "Capitol Words",
         "protocol": "http",
         "baseURL": "capitolwords.org",
-        "publicPath": "/api/1/",
+        "publicPath": "/api/1",
         "booleanTrueVal": "true",
         "booleanFalseVal": "false",
         "auth": "key",
