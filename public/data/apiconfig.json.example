@@ -24,9 +24,8 @@
         "protocol": "http",
         "baseURL": "congress.api.sunlightfoundation.com",
         "publicPath": "",
-        "headers": {
-            "X-APIKEY": "your_key_here"
-        }
+        "auth": "key",
+        "keyParam": "apikey"
     },
 
     "influenceexplorer": {
