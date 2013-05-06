@@ -46,8 +46,10 @@ FormSaver = function (optmap) {
             var $field = $(field);
             var field_name = $field.attr('name');
             if (field_name !== '__formsaver_toggle') {
-                var value = ($field.attr('type') == 'checkbox') ? $field.is(':checked') : $field.val();
-                fields_to_save[field_name] = value;
+                if (options['ignore'].indexOf(field_name) === -1) {
+                    var value = ($field.attr('type') == 'checkbox') ? $field.is(':checked') : $field.val();
+                    fields_to_save[field_name] = value;
+                }
             }
         });
 
@@ -67,9 +69,11 @@ FormSaver = function (optmap) {
         }
         for (var name in stored_fields) {
             if (stored_fields.hasOwnProperty(name)) {
-                var field_selector = '*[name="NAME"]'.replace('NAME', name);
-                $(field_selector, $form).val(stored_fields[name]);
-                $('input[name="__formsaver_toggle"]', $form).prop('checked', true);
+                if (options['ignore'].indexOf(name) === -1) {
+                    var field_selector = '*[name="NAME"]'.replace('NAME', name);
+                    $(field_selector, $form).val(stored_fields[name]);
+                    $('input[name="__formsaver_toggle"]', $form).prop('checked', true);
+                }
             }
         }
     };
