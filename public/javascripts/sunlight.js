@@ -1,6 +1,6 @@
 (function(){
     $(document).ready(function(){
-        var formsaver = new FormSaver({form: 'form#credentials', target: 'section.credentials'});
+        var formsaver = new FormSaver({form: 'form#credentials', target: 'section.credentials', 'ignore': ['password', 'pw', 'pass', 'apiName']});
 
         if (window.location.hash) {
             var target = window.location.hash.substr(1).split('.'),
