@@ -156,8 +156,8 @@
                                                             {% if parameter.Default == '' %}
                                                             <option value=""></option>
                                                             {% endif %}
-                                                            <option value="{{apiInfo.booleanTrueVal}}" {% if parameter.Default == apiInfo.booleanTrueVal %}selected="selected"{% endif %}>
-                                                            <option value="{{apiInfo.booleanFalseVal}}" {% if parameter.Default == apiInfo.booleanFalseVal %}selected="selected"{% endif %}>
+                                                            <option value="{{apiInfo.booleanTrueVal}}" {% if parameter.Default == apiInfo.booleanTrueVal %}selected="selected"{% endif %}>{{ apiInfo.booleanTrueVal }}</option>
+                                                            <option value="{{apiInfo.booleanFalseVal}}" {% if parameter.Default == apiInfo.booleanFalseVal %}selected="selected"{% endif %}>{{ apiInfo.booleanFalseVal }}</option>
                                                         </select>
                                                         {% else %}
                                                         <input name="params[{{parameter.Name}}]" value="{{parameter.Default|eat_null}}" placeholder="{{className}}">
