@@ -116,7 +116,8 @@ div.title{
 	box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
-	padding: 15px 7px;
+	padding: 7px 7px;
+    height: 39px;
 }
 
 .method .title .http-method {
