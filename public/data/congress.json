@@ -66,7 +66,7 @@
                             "Type": "string"
                         },
                         {
-                            "Name": "nickname", 
+                            "Name": "nickname",
                             "Required": "N",
                             "Description": "The member's nickname. If present, usually safe to assume this is the name they go by.",
                             "Type": "string"
@@ -96,10 +96,10 @@
                             "EnumeratedList": [null, "R", "D", "I"],
                             "Description": "First letter of the party this member belongs to. \"R\", \"D\", or \"I\". "
                         },
-                        {                        
+                        {
                             "Name": "state",
                             "Required": "N",
-                            "Description": "Two-letter code of the state this member represents.",
+                            "Description": "Two-letter code (uppercase) of the state this member represents.",
                             "Type": "string"
                         },
                         {
@@ -195,7 +195,7 @@
                             "Type": "string",
                             "Description": "Identifier for this member as it appears on CRP's OpenSecrets."
                         }
-                      
+
                     ]
                 }
             ]
