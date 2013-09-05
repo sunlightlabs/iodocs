@@ -23,6 +23,7 @@
                             "Required": "Y",
                             "Type": "enumerated",
                             "EnumeratedList": [
+                                "",
                                 "al", "ak", "az", "ar", "ca", "co", "ct", "de",
                                 "dc", "fl", "ga", "hi", "id", "il", "in", "ia",
                                 "ks", "ky", "la", "me", "md", "ma", "mi", "mn",
@@ -46,19 +47,26 @@
                     "URI": "/bills/",
                     "RequiresOAuth": "N",
                     "parameters": [
-                        { "Name": "state", "Required": "N", "Default": null, "Type": "enumerated", "EnumeratedList": [ "al", "ak", "az", "ar", "ca", "co", "ct", "de", "dc", "fl", "ga", "hi", "id", "il", "in", "ia", "ks", "ky", "la", "me", "md", "ma", "mi", "mn", "ms", "mo", "mt", "ne", "nv", "nh", "nj", "nm", "ny", "nc", "nd", "oh", "ok", "or", "pa", "pr", "ri", "sc", "sd", "tn", "tx", "ut", "vt", "va", "wa", "wv", "wi", "wy" ],
+                        {
+                            "Name": "q",
+                            "Required": "N",
+                            "Default": null,
+                            "Type": "string",
+                            "Description": "Do a keyword search against bill content."
+                        },
+                        { "Name": "state", "Required": "N", "Default": null, "Type": "enumerated", "EnumeratedList": [ "", "al", "ak", "az", "ar", "ca", "co", "ct", "de", "dc", "fl", "ga", "hi", "id", "il", "in", "ia", "ks", "ky", "la", "me", "md", "ma", "mi", "mn", "ms", "mo", "mt", "ne", "nv", "nh", "nj", "nm", "ny", "nc", "nd", "oh", "ok", "or", "pa", "pr", "ri", "sc", "sd", "tn", "tx", "ut", "vt", "va", "wa", "wv", "wi", "wy" ],
                             "Description": "Filter by state"
                         },
                         { "Name": "chamber",
-                            "Required": "N", "Default": null, "Type": "enumerated", "EnumeratedList": ["upper", "lower"] ,
+                            "Required": "N", "Default": null, "Type": "enumerated", "EnumeratedList": ["", "upper", "lower"] ,
                             "Description": "Filter by chamber"
                         },
                         { "Name": "subject", 
-                            "Required": "N", "Default": null, "Type": "enumerated", "EnumeratedList": [ "Agriculture and Food", "Animal Rights and Wildlife Issues", "Arts and Humanities", "Budget, Spending, and Taxes", "Business and Consumers", "Campaign Finance and Election Issues", "Civil Liberties and Civil Rights", "Commerce", "Crime", "Drugs", "Education", "Energy", "Environmental", "Executive Branch", "Family and Children Issues", "Federal, State, and Local Relations", "Gambling and Gaming", "Government Reform", "Guns", "Health", "Housing and Property", "Immigration", "Indigenous Peoples", "Insurance", "Judiciary", "Labor and Employment", "Legal Issues", "Legislative Affairs", "Military", "Municipal and County Issues", "Nominations", "Other", "Public Services", "Recreation", "Reproductive Issues", "Resolutions", "Science and Medical Research", "Senior Issues", "Sexual Orientation and Gender Issues", "Social Issues", "State Agencies", "Technology and Communication", "Trade", "Transportation", "Welfare and Poverty" ],
+                            "Required": "N", "Default": null, "Type": "enumerated", "EnumeratedList": [ "", "Agriculture and Food", "Animal Rights and Wildlife Issues", "Arts and Humanities", "Budget, Spending, and Taxes", "Business and Consumers", "Campaign Finance and Election Issues", "Civil Liberties and Civil Rights", "Commerce", "Crime", "Drugs", "Education", "Energy", "Environmental", "Executive Branch", "Family and Children Issues", "Federal, State, and Local Relations", "Gambling and Gaming", "Government Reform", "Guns", "Health", "Housing and Property", "Immigration", "Indigenous Peoples", "Insurance", "Judiciary", "Labor and Employment", "Legal Issues", "Legislative Affairs", "Military", "Municipal and County Issues", "Nominations", "Other", "Public Services", "Recreation", "Reproductive Issues", "Resolutions", "Science and Medical Research", "Senior Issues", "Sexual Orientation and Gender Issues", "Social Issues", "State Agencies", "Technology and Communication", "Trade", "Transportation", "Welfare and Poverty" ],
                             "Description": "Filter by bills that are about a given subject. If multiple subject parameters are supplied then only bills that match all of them will be returned." 
                         },
                         { "Name": "status",
-                            "Required": "N", "Default": null, "Type": "enumerated", "EnumeratedList": ["passed_upper", "passed_lower", "signed" ],
+                            "Required": "N", "Default": null, "Type": "enumerated", "EnumeratedList": ["", "passed_upper", "passed_lower", "signed" ],
                             "Description": "Filter by bills with a specific status"
                         },
                         {
@@ -126,7 +134,7 @@
                             "Default": null,
                             "Type": "enumerated",
                             "EnumeratedList": [
-                                "al", "ak", "az", "ar", "ca", "co", "ct", "de",
+                                "", "al", "ak", "az", "ar", "ca", "co", "ct", "de",
                                 "dc", "fl", "ga", "hi", "id", "il", "in", "ia",
                                 "ks", "ky", "la", "me", "md", "ma", "mi", "mn",
                                 "ms", "mo", "mt", "ne", "nv", "nh", "nj", "nm",
@@ -161,15 +169,15 @@
                     "URI": "/legislators/",
                     "RequiresOAuth": "N",
                     "parameters": [
-                        { "Name": "state", "Required": "N", "Default": null, "Type": "enumerated", "EnumeratedList": [ "al", "ak", "az", "ar", "ca", "co", "ct", "de", "dc", "fl", "ga", "hi", "id", "il", "in", "ia", "ks", "ky", "la", "me", "md", "ma", "mi", "mn", "ms", "mo", "mt", "ne", "nv", "nh", "nj", "nm", "ny", "nc", "nd", "oh", "ok", "or", "pa", "pr", "ri", "sc", "sd", "tn", "tx", "ut", "vt", "va", "wa", "wv", "wi", "wy" ],
+                        { "Name": "state", "Required": "N", "Default": null, "Type": "enumerated", "EnumeratedList": [ "", "al", "ak", "az", "ar", "ca", "co", "ct", "de", "dc", "fl", "ga", "hi", "id", "il", "in", "ia", "ks", "ky", "la", "me", "md", "ma", "mi", "mn", "ms", "mo", "mt", "ne", "nv", "nh", "nj", "nm", "ny", "nc", "nd", "oh", "ok", "or", "pa", "pr", "ri", "sc", "sd", "tn", "tx", "ut", "vt", "va", "wa", "wv", "wi", "wy" ],
                             "Description": "Filter by state"
                         },
                         { "Name": "chamber",
-                            "Required": "N", "Default": null, "Type": "enumerated", "EnumeratedList": ["upper", "lower"] ,
+                            "Required": "N", "Default": null, "Type": "enumerated", "EnumeratedList": ["", "upper", "lower"] ,
                             "Description": "Filter by current chamber."
                         },
                         { "Name": "active",
-                            "Required": "N", "Default": "true", "Type": "enumerated", "EnumeratedList": ["true", "false"] ,
+                            "Required": "N", "Default": "true", "Type": "enumerated", "EnumeratedList": ["", "true", "false"] ,
                             "Description": "Filter to only include active legislators (defaults to true)"
                         },
                         { "Name": "first_name",
@@ -233,19 +241,19 @@
                     "URI": "/committees/",
                     "RequiresOAuth": "N",
                     "parameters": [
-                        { "Name": "state", "Required": "N", "Default": null, "Type": "enumerated", "EnumeratedList": [ "al", "ak", "az", "ar", "ca", "co", "ct", "de", "dc", "fl", "ga", "hi", "id", "il", "in", "ia", "ks", "ky", "la", "me", "md", "ma", "mi", "mn", "ms", "mo", "mt", "ne", "nv", "nh", "nj", "nm", "ny", "nc", "nd", "oh", "ok", "or", "pa", "pr", "ri", "sc", "sd", "tn", "tx", "ut", "vt", "va", "wa", "wv", "wi", "wy" ],
+                        { "Name": "state", "Required": "N", "Default": null, "Type": "enumerated", "EnumeratedList": ["", "al", "ak", "az", "ar", "ca", "co", "ct", "de", "dc", "fl", "ga", "hi", "id", "il", "in", "ia", "ks", "ky", "la", "me", "md", "ma", "mi", "mn", "ms", "mo", "mt", "ne", "nv", "nh", "nj", "nm", "ny", "nc", "nd", "oh", "ok", "or", "pa", "pr", "ri", "sc", "sd", "tn", "tx", "ut", "vt", "va", "wa", "wv", "wi", "wy" ],
                             "Description": "Filter by state"
                         },
                         { "Name": "chamber",
-                            "Required": "N", "Default": null, "Type": "enumerated", "EnumeratedList": ["upper", "lower"] ,
+                            "Required": "N", "Default": null, "Type": "enumerated", "EnumeratedList": ["", "upper", "lower"] ,
                             "Description": "Filter by chamber."
                         },
                         { "Name": "committee",
-                            "Required": "N", "Default": "true", "Type": "enumerated", "EnumeratedList": ["true", "false"] ,
+                            "Required": "N", "Default": "true", "Type": "enumerated", "EnumeratedList": ["", "true", "false"] ,
                             "Description": "Filter by name of committee (or parent committee if subcommittee is specified"
                         },
                         { "Name": "subcommittee",
-                            "Required": "N", "Default": "true", "Type": "enumerated", "EnumeratedList": ["true", "false"] ,
+                            "Required": "N", "Default": "true", "Type": "enumerated", "EnumeratedList": ["", "true", "false"] ,
                             "Description": "Filter by name of subcommittee"
                         }
                     ]
@@ -274,7 +282,7 @@
                     "URI": "/events/",
                     "RequiresOAuth": "N",
                     "parameters": [
-                        { "Name": "state", "Required": "N", "Default": null, "Type": "enumerated", "EnumeratedList": [ "al", "ak", "az", "ar", "ca", "co", "ct", "de", "dc", "fl", "ga", "hi", "id", "il", "in", "ia", "ks", "ky", "la", "me", "md", "ma", "mi", "mn", "ms", "mo", "mt", "ne", "nv", "nh", "nj", "nm", "ny", "nc", "nd", "oh", "ok", "or", "pa", "pr", "ri", "sc", "sd", "tn", "tx", "ut", "vt", "va", "wa", "wv", "wi", "wy" ],
+                        { "Name": "state", "Required": "N", "Default": null, "Type": "enumerated", "EnumeratedList": ["", "al", "ak", "az", "ar", "ca", "co", "ct", "de", "dc", "fl", "ga", "hi", "id", "il", "in", "ia", "ks", "ky", "la", "me", "md", "ma", "mi", "mn", "ms", "mo", "mt", "ne", "nv", "nh", "nj", "nm", "ny", "nc", "nd", "oh", "ok", "or", "pa", "pr", "ri", "sc", "sd", "tn", "tx", "ut", "vt", "va", "wa", "wv", "wi", "wy" ],
                             "Description": "Filter by state"
                         },
                         { "Name": "type",
@@ -282,7 +290,7 @@
                             "Description": "Filter by type"
                         },
                         { "Name": "format",
-                            "Required": "N", "Type": "enumerated", "Default": "json", "EnumeratedList": ["json", "rss", "ics"] ,
+                            "Required": "N", "Type": "enumerated", "Default": "json", "EnumeratedList": ["", "json", "rss", "ics"] ,
                             "Description": "Response type (JSON by default but RSS and ical available)"
                         }
                     ]
@@ -311,11 +319,11 @@
                     "URI": "/districts/:state/:chamber/",
                     "RequiresOAuth": "N",
                     "parameters": [
-                        { "Name": "state", "Required": "Y", "Default": null, "Type": "enumerated", "EnumeratedList": [ "al", "ak", "az", "ar", "ca", "co", "ct", "de", "dc", "fl", "ga", "hi", "id", "il", "in", "ia", "ks", "ky", "la", "me", "md", "ma", "mi", "mn", "ms", "mo", "mt", "ne", "nv", "nh", "nj", "nm", "ny", "nc", "nd", "oh", "ok", "or", "pa", "pr", "ri", "sc", "sd", "tn", "tx", "ut", "vt", "va", "wa", "wv", "wi", "wy" ],
+                        { "Name": "state", "Required": "Y", "Default": null, "Type": "enumerated", "EnumeratedList": [ "", "al", "ak", "az", "ar", "ca", "co", "ct", "de", "dc", "fl", "ga", "hi", "id", "il", "in", "ia", "ks", "ky", "la", "me", "md", "ma", "mi", "mn", "ms", "mo", "mt", "ne", "nv", "nh", "nj", "nm", "ny", "nc", "nd", "oh", "ok", "or", "pa", "pr", "ri", "sc", "sd", "tn", "tx", "ut", "vt", "va", "wa", "wv", "wi", "wy" ],
                             "Description": "state"
                         },
                         { "Name": "chamber",
-                            "Required": "N", "Default": null, "Type": "enumerated", "EnumeratedList": ["upper", "lower"] ,
+                            "Required": "N", "Default": null, "Type": "enumerated", "EnumeratedList": ["", "upper", "lower"] ,
                             "Description": "Filter by chamber"
                         }
                     ]
