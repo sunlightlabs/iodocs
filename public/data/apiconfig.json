@@ -52,7 +52,7 @@
         "name": "Capitol Words",
         "protocol": "http",
         "baseURL": "capitolwords.org",
-        "publicPath": "/api/1/",
+        "publicPath": "/api/1",
         "booleanTrueVal": "true",
         "booleanFalseVal": "false",
         "auth": "key",
