@@ -57,5 +57,16 @@
         "booleanFalseVal": "false",
         "auth": "key",
         "keyParam": "apikey"
+    },
+
+    "docketwrench": {
+        "name": "Docket Wrench",
+        "protocol": "http",
+        "baseURL": "docketwrench.sunlightfoundation.com",
+        "publicPath": "/api/1.0",
+        "booleanTrueVal": "true",
+        "booleanFalseVal": "false",
+        "auth": "key",
+        "keyParam": "apikey"
     }
 }

@@ -34,6 +34,13 @@ table.parameters td.description p {
     max-width: none;
 }
 
+span.description p {
+	margin-bottom: 1em;
+}
+span.description em {
+	font-style: italic !important;
+}
+
 h1{
 	font-size: 343.36%;
 	margin-bottom: 0.4em;

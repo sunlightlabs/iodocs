@@ -111,7 +111,7 @@
                             <input type="hidden" name="oauth" value="{{secure}}">
                             <input type="hidden" name="methodUri" value="{{method.URI}}">
 
-                            <span class="description">{{method.Synopsis}}</span>
+                            <span class="description">{{method.Synopsis|raw|join("")}}</span>
                             <br>
                             <br>
                             {% if method.parameters.length > 0 %}
