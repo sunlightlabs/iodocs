@@ -262,7 +262,7 @@
                     "MethodName": "Committee Lookup",
                     "Synopsis": "Lookup full details on a committee (including its members) by id",
                     "HTTPMethod": "GET",
-                    "URI": "/committee/:committee_id/",
+                    "URI": "/committees/:committee_id/",
                     "RequiresOAuth": "N",
                     "parameters": [
                         { "Name": "committee_id", "Required": "Y", "Default": null, "Type": "string",
@@ -299,7 +299,7 @@
                     "MethodName": "Event Lookup",
                     "Synopsis": "Lookup full details on a event by id",
                     "HTTPMethod": "GET",
-                    "URI": "/event/:event_id/",
+                    "URI": "/events/:event_id/",
                     "RequiresOAuth": "N",
                     "parameters": [
                         { "Name": "event_id", "Required": "Y", "Default": null, "Type": "string",
