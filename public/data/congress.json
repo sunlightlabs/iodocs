@@ -563,6 +563,70 @@
             ]
         },
         {
+            "name": "Amendments",
+            "methods": [
+                {
+                    "MethodName": "/amendments",
+                    "Synopsis": "Filter through amendments in Congress. Below are just the fields you can filter on - responses may have many more fields.",
+                    "HTTPMethod": "GET",
+                    "URI": "amendments",
+                    "RequiresOAuth": "N",
+                    "parameters": [
+                        {
+                            "Name": "amendment_id",
+                            "Required": "N",
+                            "Description": "The unique ID for this amendment. Formed from the _amendment_type_, _number_, and _congress_.",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "amendment_type",
+                            "Required": "N",
+                            "Description": "The type for this amendment. For the amendment “H.Amdt. 10”, the amendment_type represents the “H.Amdt.” part.",
+                            "Type": "enumerated",
+                            "EnumeratedList": ["hamdt", "samdt"]
+                        },
+                        {
+                            "Name": "number",
+                            "Required": "N",
+                            "Description": "The number for this amendment. For the amendment “H.Amdt. 10”, the number is 10.",
+                            "Type": "number"                        
+                        },
+                        {
+                            "Name": "congress",
+                            "Required": "N",
+                            "Description": "The Congress in which this amendment was introduced",
+                            "Type": "number"
+                        },
+                        {
+                            "Name": "chamber",
+                            "Required": "N",
+                            "Description": "The chamber of Congress in which the amendment was introduced.",
+                            "Type": "enumerated",
+                            "EnumeratedList": ["house", "senate"]
+                        },
+                        {
+                            "Name": "house_number",
+                            "Required": "N",
+                            "Description": "If the amendment was introduced in the House, this is a relative amendment number, scoped to the bill or treaty the House it relates to.",
+                            "Type": "number"
+                        },               
+                        {
+                            "Name": "introduced_on",
+                            "Required": "N",
+                            "Description": "The date this amendment was introduced, in YYYY-MM-DD format.",
+                            "Type": "date"                            
+                        },
+                        {
+                            "Name": "last_action_at",
+                            "Required": "N",
+                            "Description": "The date and/or time of the most recent official action on the amendment, in ISO-8601 format. Often, there are no official actions, in which case this field will be set to the value of introduced_on.",
+                            "Type": "date"                            
+                        }                        
+                    ]
+                }                
+            ]
+        },
+        {
             "name": "Votes",
             "methods": [
                 {
