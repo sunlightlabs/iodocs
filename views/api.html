@@ -54,6 +54,7 @@
                         <label for="key">API Key</label>
                         <input id="key" name="key" value="{{defaultKey}}" placeholder="Your API key">
                     </div>
+                    <div class="getakey"><a href="http://sunlightfoundation.com/api/accounts/register/">Get an API key!</a></div>
                     <div>
                         {% if apiInfo.oauth or apiInfo.signature %}
                             <label for="secret">Shared Secret</label>
@@ -110,7 +111,7 @@
                             <input type="hidden" name="oauth" value="{{secure}}">
                             <input type="hidden" name="methodUri" value="{{method.URI}}">
 
-                            <span class="description">{{method.Synopsis}}</span>
+                            <span class="description">{{method.Synopsis|raw|join("")}}</span>
                             <br>
                             <br>
                             {% if method.parameters.length > 0 %}
@@ -156,8 +157,8 @@
                                                             {% if parameter.Default == '' %}
                                                             <option value=""></option>
                                                             {% endif %}
-                                                            <option value="{{apiInfo.booleanTrueVal}}" {% if parameter.Default == apiInfo.booleanTrueVal %}selected="selected"{% endif %}>
-                                                            <option value="{{apiInfo.booleanFalseVal}}" {% if parameter.Default == apiInfo.booleanFalseVal %}selected="selected"{% endif %}>
+                                                            <option value="{{apiInfo.booleanTrueVal}}" {% if parameter.Default == apiInfo.booleanTrueVal %}selected="selected"{% endif %}>{{ apiInfo.booleanTrueVal }}</option>
+                                                            <option value="{{apiInfo.booleanFalseVal}}" {% if parameter.Default == apiInfo.booleanFalseVal %}selected="selected"{% endif %}>{{ apiInfo.booleanFalseVal }}</option>
                                                         </select>
                                                         {% else %}
                                                         <input name="params[{{parameter.Name}}]" value="{{parameter.Default|eat_null}}" placeholder="{{className}}">

@@ -24,9 +24,9 @@
         "protocol": "http",
         "baseURL": "congress.api.sunlightfoundation.com",
         "publicPath": "/",
-        "headers": {
-            "X-APIKEY": "your_key_here"
-        }
+	"auth": "key",
+	"keyParam": "apikey"
+
     },
 
     "influenceexplorer": {
@@ -52,7 +52,18 @@
         "name": "Capitol Words",
         "protocol": "http",
         "baseURL": "capitolwords.org",
-        "publicPath": "/api/1/",
+        "publicPath": "/api/1",
+        "booleanTrueVal": "true",
+        "booleanFalseVal": "false",
+        "auth": "key",
+        "keyParam": "apikey"
+    },
+
+    "docketwrench": {
+        "name": "Docket Wrench",
+        "protocol": "http",
+        "baseURL": "docketwrench.sunlightfoundation.com",
+        "publicPath": "/api/1.0",
         "booleanTrueVal": "true",
         "booleanFalseVal": "false",
         "auth": "key",

@@ -34,6 +34,13 @@ table.parameters td.description p {
     max-width: none;
 }
 
+span.description p {
+	margin-bottom: 1em;
+}
+span.description em {
+	font-style: italic !important;
+}
+
 h1{
 	font-size: 343.36%;
 	margin-bottom: 0.4em;
@@ -111,11 +118,15 @@ div.title{
 }
 .parameters select, .parameters input {
 	width: 100%;
+}
+.parameters input {
 	box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
-	padding: 15px 7px;
+	padding: 7px 7px;
+    height: 39px;
 }
+
 .method .title .http-method {
 	font-family: "prenton-condensed","Helvetica Neue","Helvetica","Arial",sans-serif;
 	font-size: 170%;
@@ -136,7 +147,7 @@ div.title{
 	margin-right: 10px;
 }
 input#key{
-	width: 530px;
+	width: 500px;
 }
 
 form#credentials > section.credentials label, form#credentials > section.credentials input {
@@ -161,20 +172,10 @@ label {
 	color: #65615f;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+div.getakey {
+    display: block;
+    float: right;
+    clear: right;
+    margin: 10px 18px 0 0;
+}
 

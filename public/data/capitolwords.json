@@ -16,7 +16,7 @@
                             "Type": "string"
                         },
                         {
-                            "Name": "bioguide",
+                            "Name": "bioguide_id",
                             "Description": "The Bioguide ID of a member of congress, past or present, to limit results to.",
                             "Type": "string"
                         },
@@ -33,7 +33,7 @@
                         },
                         {
                             "Name": "granularity",
-                            "Default": "",
+                            "Default": "year",
                             "Description": "The size of each block in the time series.",
                             "Type": "enumerated",
                             "EnumeratedList": ["year", "month", "day"]
@@ -213,7 +213,7 @@
                             "Type": "string"
                         },
                         {
-                            "Name": "bioguide",
+                            "Name": "bioguide_id",
                             "Description": "Limit results to the member of Congress with the given Bioguide ID, eg. L000551.",
                             "Type": "string"
                         },
