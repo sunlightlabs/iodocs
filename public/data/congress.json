@@ -563,6 +563,138 @@
             ]
         },
         {
+            "name": "Amendments",
+            "methods": [
+                {
+                    "MethodName": "/amendments",
+                    "Synopsis": "Filter through amendments in Congress. Below are just the fields you can filter on - responses may have many more fields.",
+                    "HTTPMethod": "GET",
+                    "URI": "amendments",
+                    "RequiresOAuth": "N",
+                    "parameters": [
+                        {
+                            "Name": "amendment_id",
+                            "Required": "N",
+                            "Description": "The unique ID for this amendment. Formed from the _amendment_type_, _number_, and _congress_.",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "amendment_type",
+                            "Required": "N",
+                            "Description": "The type for this amendment. For the amendment “H.Amdt. 10”, the amendment_type represents the “H.Amdt.” part.",
+                            "Type": "enumerated",
+                            "EnumeratedList": ["hamdt", "samdt"]
+                        },
+                        {
+                            "Name": "number",
+                            "Required": "N",
+                            "Description": "The number for this amendment. For the amendment “H.Amdt. 10”, the number is 10.",
+                            "Type": "number"                        
+                        },
+                        {
+                            "Name": "congress",
+                            "Required": "N",
+                            "Description": "The Congress in which this amendment was introduced",
+                            "Type": "number"
+                        },
+                        {
+                            "Name": "chamber",
+                            "Required": "N",
+                            "Description": "The chamber of Congress in which the amendment was introduced.",
+                            "Type": "enumerated",
+                            "EnumeratedList": ["house", "senate"]
+                        },
+                        {
+                            "Name": "house_number",
+                            "Required": "N",
+                            "Description": "If the amendment was introduced in the House, this is a relative amendment number, scoped to the bill or treaty the House it relates to.",
+                            "Type": "number"
+                        },               
+                        {
+                            "Name": "introduced_on",
+                            "Required": "N",
+                            "Description": "The date this amendment was introduced, in YYYY-MM-DD format.",
+                            "Type": "date"                            
+                        },
+                        {
+                            "Name": "last_action_at",
+                            "Required": "N",
+                            "Description": "The date and/or time of the most recent official action on the amendment, in ISO-8601 format. Often, there are no official actions, in which case this field will be set to the value of introduced_on.",
+                            "Type": "date"                            
+                        }                        
+                    ]
+                }                
+            ]
+        },
+        {
+            "name": "Nominations",
+            "methods": [
+                {
+                    "MethodName": "/nominations",
+                    "Synopsis": "Search and filter through presidential nominations in Congress. Below are just the fields you can filter on - responses may have many more fields.",
+                    "HTTPMethod": "GET",
+                    "URI": "nominations",
+                    "RequiresOAuth": "N",
+                    "parameters": [
+                        {
+                            "Name": "nomination_id",
+                            "Required": "N",
+                            "Description": "The unique identifier for this nomination, taken from the Library of Congress. Of the form “PN[number]-[congress]”.",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "congress",
+                            "Required": "N",
+                            "Description": "The Congress in which this nomination was presented.",
+                            "Type": "number"                            
+                        },
+                        {
+                            "Name": "number",
+                            "Required": "N",
+                            "Description": "The number of this nomination, taken from the Library of Congress. Can occasionally contain hyphens, e.g. “PN64-01”.",
+                            "Type": "number"                        
+                        },
+                        {
+                            "Name": "received_on",
+                            "Required": "N",
+                            "Description": "The date this nomination was received in the Senate, in the form YYYY-MM-DD.",
+                            "Type": "date"
+                        },
+                        {
+                            "Name": "last_action_at",
+                            "Required": "N",
+                            "Description": "The date and/or time this nomination last received action. If there are no official actions, then this field will fall back to the value of received_on.",
+                            "Type": "date"                            
+                        },
+                        {
+                            "Name": "organization",
+                            "Required": "N",
+                            "Description": "The organization the nominee would be appointed to, if confirmed.",
+                            "Type": "string"                            
+                        },
+                        {
+                            "Name": "committee_ids",
+                            "Required": "N",
+                            "Description": "The ID of a committee that the nomination has been referred to for consideration. Multiple committees may be returned in responses; queries can only specify a single committee.",
+                            "Type": "string"
+                        },                                                               
+                        {
+                            "Name": "nominees.position",
+                            "Required": "N",
+                            "Description": "The position the nominee is being nominated for.",
+                            "Type": "string"                            
+                        },
+                        {
+                            "Name": "nominees.state",
+                            "Required": "N",
+                            "Description": "The which state in the United States this nominee hails from. This field is only available for some nominees, and never for batches of multiple nominees.",
+                            "Type": "string"                            
+                        }
+                    ]
+                }                
+            ]
+        },
+        {
             "name": "Votes",
             "methods": [
                 {
