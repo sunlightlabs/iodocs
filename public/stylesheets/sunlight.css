@@ -31,7 +31,9 @@ li.method form td.description {
     float: none;
     width: auto;
 }
-
+li.endpoint, li.endpoint li {
+max-width: 960px;
+}
 table.parameters td.description p {
     display: block;
     max-width: none;
