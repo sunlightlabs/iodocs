@@ -1,13 +1,25 @@
-.zipcode-form label { font-weight: bold; }
-.zipcode-form input { margin-left: 15px; width: 80px;}
-.zipcode-form #submitBtn { margin-top: 25px;}
+.zipcode-form {
+	text-align: center;
+}
+.zipcode-form label {  }
+.zipcode-form input { width: 80%; margin: 0 auto 15px auto; font-size: 17px; text-align: center;}
+.zipcode-form #submitBtn { width: 80%; margin: 0 auto;}
 
+ul.contacts {
+	margin-left: 0;
+}
 ul.contacts li {
 	margin-bottom: 3em;
-	width: 240px;
+	width: 100%;
+}
+ul.contacts li.called {
+	opacity: .8;
+}
+ul.contacts li.called p {
+
 }
 
-ul.contacts li img.avatar {
+.avatar {
 	background-color: #FFF;
 	border: 1px solid #D4CFC2;
 	float: left;
@@ -18,36 +30,36 @@ ul.contacts li img.avatar {
 	-moz-box-shadow: 2px 2px 2px #DDD;
 	box-shadow: 2px 2px 2px #DDD;
 }
+.contact-target .avatar{
+	width: 110px;
+}
 
 ul.contacts li p {
 	font-size: 120%;
 	margin: 1em 0;
 }
 
-ul.contacts li a.callnow {
-    background: url(../images/btn_call.png) left top no-repeat;
-	display: block;
-	margin-top: 1em;
-	text-indent: -9999em;
-	width: 240px;
-	height: 54px;
+ul.contacts li a.btn {
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
 }
-ul.contacts li a.callnow:hover {
-	background: url(../images/btn_call.png) left bottom no-repeat;
-}
-ul.contacts li a.callnow:active {
-	background-color: #902A01;
-	text-shadow: #902A01 0 0 0;
-}
-ul.contacts li.called a.callnow {
-    background: url(../images/btn_called.png) left top no-repeat;
-}
+
 
 .call-steps .orderedNumbers { font-size: 300%; width: 35px; margin-left: -20px; padding-top: 10px;}
 #sidebarInterior .orderedNumbers { margin-left: 0;}
 
 ol.call-steps li { margin: 4em 0; list-style-type: none;}
-ol.call-steps li span.phone { font-weight: bold; }
+span.phone { 
+	font-weight: bold;
+	color: #CA5703;
+	font-weight: 200;
+	font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+	display: block;
+	font-size: 70px;
+	height: 56px;
+}
 ol.call-steps li blockquote {
 	background-color: #FFF;
 	font-family: Georgia, "Times New Roman", Times, serif;
@@ -74,13 +86,81 @@ ol.call-steps form legend {
 	font-style: oblique;
 	margin-left: 2em;
 }
-
+.call-step {
+	padding: 28px 0 2em 5em;
+}
+.sidebar2 .call-step {
+	padding-top: 7px;
+}
 #sidebarInterior .call-steps { margin-top: 80px;}
 
-.sideFormSm input, .sideFormSm textarea { width: 225px;}
-.sideFormSm select { font-size: 100%;}
+.sideForm input, .sideForm textarea, .sideForm button, .sideForm select{ 
+	width: 100%;
+}
+.sideForm textarea{
+	min-height: 100px;
+}
+.sideForm select { 
+	font-size: 100%;
+}
 
-ul.script li { margin: 1em 0 1em 1.2em; }
+ul.script {
+	margin-left: 0;
+	list-style-type: none;
+}
+ul.script li { margin: 1em 0 1em 0; }
 
 ol.complete-steps li { margin: 3em 0; }
 ol.complete-steps li h3 a { text-decoration: underline; }
+
+.call-step h4 {
+	margin-top: 60px;
+}
+.multitarget.position {
+	background: #CA5703;
+	color: #ffffff;
+	padding: 5px 10px 5px 5em;
+	margin-left: -5em;
+}
+.multitarget.position.pos-a {
+	background: #CA7203;
+}
+.multitarget.position.pos-b {
+	background: #D9A608;
+}
+.multitarget.position.pos-c {
+	background: rgb(220, 192, 0);
+}
+.contact-target {
+	margin-bottom: 50px;
+	border-bottom: 1px solid #EAE7E0;
+}
+
+.call-buttons .sficon-skype{
+	color: #12A5F4;
+	font-size: 20px;
+	margin-right: 14px;
+}
+.call-buttons .skype {
+	width: 136px;
+	height: 30px;
+	display: table-cell;
+	background-color: #e4eef2;
+	float: left;
+	padding: 7px 30px;
+	line-height: 19px;
+	color: #12A5F4;
+	vertical-align: top;
+	box-sizing: border-box;
+	margin-right: 20px;
+}
+.call-buttons .skype:hover {
+	width: 136px;
+	height: 30px;
+	background-color: #CDE4EE;
+	border-bottom: 2px solid #88C4DD;
+	-webkit-transition-property: background,border;
+	-webkit-transition-duration: .15s;
+	-webkit-transition-timing-function: ease-in-out;
+	-webkit-font-smoothing: antialiased;
+}

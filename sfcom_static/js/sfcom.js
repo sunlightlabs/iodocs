@@ -6,33 +6,30 @@ $(document).ready(function() {
 
 		ev.preventDefault();
 
+		$signupForm.find('button[type=submit]').fadeOut();
+
 		var params = {
 			csrfmiddlewaretoken: $signupForm.find('input[name=csrfmiddlewaretoken]').val(),
 			email: $signupForm.find('input[name=email]').val(),
-			zipcode: $signupForm.find('input[name=zipcode]').val(),
-			response: 'json'
+			zipcode: $signupForm.find('input[name=zipcode]').val()
 		};
 
-		$.post(
+		var jqxhr = $.post(
 			$signupForm.attr('action'),
 			params,
-			function() {
+			function(data) {
 				$signupForm.fadeOut(400, function() {
-					$('.signup-thanks').fadeIn().css('display', 'inline-block');
+					var $thanks = $('.signup-thanks');
+					$thanks.find('a').attr('href', data.redirect);
+					$thanks.fadeIn().css('display', 'inline-block');
 				});
-
 			}
 		);
+		jqxhr.fail(function(data) {
+			window.alert('Email: ' + data.responseText);
+			$signupForm.find('button[type=submit]').fadeIn();
+		});
 
-		$signupForm.find('button[type=submit]').fadeOut();
-
-	});
-
-	/* carousel */
-	$('.carousel').carousel({
-		autoAdvance: true,
-		nextElem: $('a.carousel-next'),
-		previousElem: $('a.carousel-previous')
 	});
 
 
@@ -53,11 +50,13 @@ $(document).ready(function() {
 });
 
 var loadasync = function(id, src) {
-	if (console && console.log) {
-		console.log('Loading ' + id + ' from ' + src);
+	if (window.console && window.console.log) {
+		window.console.log('Loading ' + id + ' from ' + src);
 	}
 	var e, fe = document.getElementsByTagName('script')[0];
-	if (document.getElementById(id)) return;
+	if (document.getElementById(id)) {
+		return;
+	}
 	e = document.createElement('script');
 	e.id = id;
 	e.src = src;

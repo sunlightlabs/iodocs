@@ -49,62 +49,77 @@
 	    <script type="text/javascript" src="http://use.typekit.com/blp6kvr.js"></script>
 		<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 
+		<link rel="stylesheet" href="https://sunlight-cdn.s3.amazonaws.com/sf-icons/0.2/css/sf-icons.css">
+
 	</head>
 	<body class="">
 		<div id="container">
-			<header id="mainHeader">
+			<header id="mainHeader" class="container">
 				<div class="row">
+					<div class="span4">
+						<h1><a href="http://sunlightfoundation.com/">Sunlight Foundation</a></h1>
+					</div>
 					<div class="span8">
-	            		<h1><a href="http://www.sunlightfoundation.com/">Sunlight Foundation</a></h1>
-	            	</div>
-		            <div class="span4">
-	            		<div class="clearfix"></div>
-	            		<div id="follow-buttons">
-                            <a href="https://www.facebook.com/sunlightfoundation"><img src="/img/icons/16/facebook.png"></a>
-                            <a href="https://twitter.com/sunfoundation"><img src="/img/icons/16/twitter.png"></a>
-                            <a href="https://plus.google.com/113237175482409613675"><img src="/img/icons/16/google-plus.png"></a>
-                            <a href="http://sunfoundation.tumblr.com/"><img src="/img/icons/16/tumblr.png"></a>
-	            		</div>
-	            		<form action="http://www.sunlightfoundation.com/search/" method="get" id="mainsearch" class="searchform">
-			                <input class="transparent" type="search" name="q" id="id_q" placeholder="search the site">
-			                <button class="textReplace" type="submit">
-			                     <span>Search</span>
-			                </button>
-			            </form>
-		            </div>
-		        </div>
-	            <div class="row">
-	            	<div class="span12">
-	            		<nav class="primary-nav clearfix">
-	            			{% block nav %}
-				                <ul class="nav nav-pills clearfix">
-				                    <li class="about"><a href="http://www.sunlightfoundation.com/about/">About</a></li>
-				                    <li class="blog"><a href="http://www.sunlightfoundation.com/blog/">Blog</a></li>
-				                    <li class="issues"><a href="http://www.sunlightfoundation.com/issues/">Issues</a></li>
-				                    <li class="projects"><a href="http://www.sunlightfoundation.com/projects/">Tools</a></li>
-				                    <li class="participate"><a href="http://www.sunlightfoundation.com/participate/">Participate</a></li>
-				                    <li class="policy"><a href="http://www.sunlightfoundation.com/policy/">Policy</a></li>
-				                    <li class="press"><a href="http://www.sunlightfoundation.com/press/">Press</a></li>
-				                    <li class="reporting"><a href="http://reporting.sunlightfoundation.com">Reporting</a></li>
-				                    <li class="contact"><a href="http://www.sunlightfoundation.com/contact/">Contact</a></li>
-				                </ul>
-			                {% endblock %}
-			            </nav>
-					<div class="secondary-nav">
+						<div class="clearfix"></div>
+						<div class="loginlinks">
+							<ul>
+								
+									<li></li>
+								
+							</ul>
+						</div>
+						<div id="follow-buttons">
+							<h4>Follow Us</h4>
+							<a href="https://www.facebook.com/sunlightfoundation"><span class="sficon-facebook"></span></a>
+							<a href="https://twitter.com/sunfoundation"><span class="sficon-twitter"></span></a>
+							<a href="https://plus.google.com/113237175482409613675"><span class="sficon-google-plus"></span></a>
+							<a href="http://sunfoundation.tumblr.com/"><span class="sficon-tumblr"></span></a>
+						</div>
+						<form action="http://www.sunlightfoundation.com/search/" method="get" id="mainsearch" class="searchform globalsearch">
+							<input class="transparent" type="search" name="q" id="id_q" placeholder="search the site">
+							<button class="textReplace" type="submit">
+								 <span>Search</span>
+							</button>
+						</form>
+					</div>
+				</div>
+				<div class="row">
+					<div class="span12">
+						<nav class="primary-nav clearfix">
+							
+								<ul class="nav nav-pills clearfix">
+									<li class="blog"><a href="http://tryit.sunlightfoundation.com/blog/">Blog</a></li>
+									<li class="projects"><a href="http://sunlightfoundation.com/tools/">Tools</a></li>
+									<li class="api"><a href="http://sunlightfoundation.com/api/">APIs</a></li>
+									<li class="policy"><a href="http://sunlightfoundation.com/policy/">Policy</a></li>
+									<li class="issues"><a href="http://sunlightfoundation.com/issues/">Issues</a></li>
+									<li class="press"><a href="http://sunlightfoundation.com/press/">Press</a></li>
+									<li class="about"><a href="http://sunlightfoundation.com/about/">About</a></li>
+									<li class="contact"><a href="http://sunlightfoundation.com/contact/">Contact</a></li>
+									<li class="join"><a href="http://sunlightfoundation.com/join/">join</a></li>
+									<li class="donate"><a href="http://sunlightfoundation.com/donate/">donate</a></li>
+
+								</ul>
+							
+						</nav>
+						
+					    <div class="secondary-nav">
 					    <nav>
-						<ul class="nav nav-pills">
-						    <li class="apis"><a href="http://sunlightfoundation.com/api/">Overview</a></li>
-						    <li class="community"><a href="http://sunlightfoundation.com/api/community/">Community</a></li>
-						    <li class="events"><a href="http://sunlightfoundation.com/api/events/">Events</a></li>
-						    <li class="usage"><a href="http://sunlightfoundation.com/api/usage/">API Usage</a></li>
-						</ul>
+					        <ul class="nav nav-pills">
+					            <li class="apis"><a href="http://sunlightfoundation.com/api/">Overview</a></li>
+					            <li class="community"><a href="http://sunlightfoundation.com/api/community/">Community</a></li>
+					            <li class="events"><a href="http://sunlightfoundation.com/api/events/">Events</a></li>
+					            <li class="usage"><a href="http://sunlightfoundation.com/api/usage/">API Gallery</a></li>
+					            <li class="usage"><a href="http://sunlightfoundation.com/api/usage/terms">API Terms of Service</a></li>
+					            
+					        </ul>
 					    </nav>
 					</div>
 
-	            		{% block subnav %}{% endblock %}
-	            	</div>
-	            </div>
-	        </header>
+
+					</div>
+				</div>
+			</header>
 	        <div class="container">
 				{% block container %}{% endblock %}
 			</div>

@@ -4,8 +4,11 @@ body{
     font-size: 14px;
     line-height: 22px;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    width: auto;
 }
-
+.searchform.globalsearch input[type="search"] {
+font-family: "Georgia", "Times New Roman", "Times", serif;
+}
 h1.logo a { width: 357px; height: 64px; display: block; text-indent: -9999em; background: url(../images/logo.jpg) top left no-repeat;}
 
 
@@ -28,7 +31,9 @@ li.method form td.description {
     float: none;
     width: auto;
 }
-
+li.endpoint, li.endpoint li {
+max-width: 960px;
+}
 table.parameters td.description p {
     display: block;
     max-width: none;
