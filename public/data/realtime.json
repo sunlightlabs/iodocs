@@ -1,0 +1,492 @@
+{
+    "endpoints": [
+        {
+            "name": "New Filings",
+            "methods": [
+                {
+                    "MethodName": "Electronic filing summaries",
+                    "Synopsis": "Return summary info about electronic FEC filings",
+                    "HTTPMethod": "GET",
+                    "URI": "/new_filing/",
+                    "RequiresOAuth": "Y",
+                    "parameters": [
+                        {
+                            "Name": "format",
+                            "Required": "N",
+                            "Default": "json",
+                            "Type": "enumerated",
+                            "Description": "The format of the returned data. Default is json.",
+                            "EnumeratedList": [ "json", "csv" ]
+                        },
+                        {
+                            "Name": "page",
+                            "Required": "N",
+                            "Type": "enumerated",
+                            "Default":"1",
+                            "Description": "The page number of results to return. Default is 1. ",
+                            "EnumeratedList": [ "1" ]
+                        },
+                        {
+                            "Name": "page_size",
+                            "Required": "N",
+                            "Type": "integer",
+                            "Default":10,
+                            "Description": "The number of page results to return. for json, the default is 100 and the maximum is 100. This parameter is ignored for csv downloads, which return all matching rows, with a limit of 2000 total rows returned."
+                        },
+                        {
+                            "Name": "candidate_id",
+                            "Description": "The FEC's id for the candidate connected to this committee. Only authorized committees are connected to candidates; leadership pacs are unconnected.",
+                            "Required": "N",
+                            "Type": "string"
+                         },
+                         {
+                             "Name": "committee_class",
+                             "Description": "The one letter code that describes the type of committee (see the committee reference above). Multiple committee types are allowed--a search for house and senate candidate committees would use HS, for instance.",
+                             "Required": "N",
+                             "Type": "inclusion"
+                          },
+                          {
+                              "Name": "min_coh",
+                              "Description": "The minimum cash on hand of a report to include. Not all electronic reports include a cash on hand, so using this option will exclude all of those that do not report this figure.",
+                              "Required": "N",
+                              "Type": "integer"
+                           },
+                           {
+                                "Name": "min_raised",
+                                "Description": "The minimum money raised. Not all electronic reports include an amount raised, so using this option will exclude all of those that do not report this figure.",
+                                "Required": "N",
+                                "Type": "integer"
+                            },
+                            {
+                                "Name": "min_spent",
+                                "Description": "The minimum money spent. Not all electronic reports include an amount spent, so using this option will exclude all of those that do not report this figure.",
+                                "Required": "N",
+                                "Type": "integer"
+                            },
+                            {
+                                "Name": "period_type",
+                                "Description": "The type of periodic report to include--could be monthly, quarterly or semiannual. The value includes the type; M for monthly, Q for quarterly, and S for semiannually and the period number; so a second quarter report would be Q2 and a monthly report covering August would be M8. Using this option will only return periodic reports.",
+                                "Required": "N",
+                                "Default":"",
+                                "Type": "enumerated",
+                                "EnumeratedList": [ "M1", "M2", "M3", "M4", "M5", "M6", "M7", "M8", "M9", "M10", "M11", "M12", "Q1", "Q2", "Q3", "Q4", "S1", "S2" ]
+                            },
+                            {
+                                "Name": "year_covered",
+                                "Description": "The calendar year that a periodic report covers. Non-periodic reports that do not cover a particular time period will be excluded.",
+                                "Required": "N",
+                                "Type": "integer"
+                            },
+                            {
+                                "Name": "time_range",
+                                "Description": "Only show reports received within one of the following time ranges: today, in the last seven days, or at any time in this cycle.",
+                                "Required": "N",
+                                "Type": "string",
+                                "Default":"",
+                                "EnumeratedList": ["day", "week", "cycle"]
+                            },
+                            {
+                                "Name": "report_type",
+                                "Description": "The type of report to include",
+                                "Required": "N",
+                                "Default":"",
+                                "Type": "enumerated",
+                                "EnumeratedList": ["monthly", "ies", "F6", "F9", "F2", "F4", "F13"],
+                                "EnumeratedDescription": {
+                                  "monthly":"monthly: Monthly/quarterly reports", 
+                                  "ies":"ies: Independent/coordinated expenditures", 
+                                  "F6":"F6:48-hour notice of contributions/loans received",
+                                  "F9":"F9:24-hour notice of electioneering communications", 
+                                  "F2":"F2:Statement of candidacy", 
+                                  "F4":"F4:Convention committee report", 
+                                  "F13":"F13:Inaugural committee report"
+                                }
+                            },
+                            {
+                                "Name": "is_superceded",
+                                "Description": "When an amended version of an older filing is received we consider the original to have been superseded. When set to false, show only the most recent versions of an electronic filing; when set to True, show only original filings which have since been amended.",
+                                "Required": "N",
+                                "Type": "enumerated",
+                                "Default":"",
+                                "EnumeratedList": ["True", "False"]
+                            }
+                            
+                            
+
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Independent Expenditures",
+            "methods": [
+                {
+                    "MethodName": "Itemized independent expenditures",
+                    "Synopsis": "Return information about independent expenditures reported to the FEC. Independent expenditures are campaign spending by outside groups that are not made in coordination with the candidate, but support or oppose someone running for office. They must be reported within 24 or 48 hours. Any domestic entity can make an independent expenditure in any amount they want, including corporations, unions and nonprofits.",
+                    "HTTPMethod": "GET",
+                    "URI": "/independent-expenditures/",
+                    "RequiresOAuth": "Y",
+                    "parameters": [
+                        {
+                            "Name": "format",
+                            "Location": "extension",
+                            "Required": "N",
+                            "Default": "json",
+                            "Type": "enumerated",
+                            "Description": "The format of the returned data. Default is json.",
+                            "EnumeratedList": [ "json", "csv" ]
+                        },
+                        {
+                            "Name": "page",
+                            "Required": "N",
+                            "Type": "enumerated",
+                            "Description": "The page number of results to return. Default is 1. ",
+                            "EnumeratedList": [ "1" ]
+                        },
+                        {
+                            "Name": "page_size",
+                            "Required": "N",
+                            "Type": "integer",
+                            "Description": "The number of page results to return. for json, the default is 100 and the maximum is 100. This parameter is ignored for csv downloads, which return all matching rows, with a limit of 2000 total rows returned."
+                        },
+                        {
+                            "Name": "support_oppose_checked",
+                            "Required": "N",
+                            "Type": "enumerated",
+                            "Description": "Whether the expenditures supports (S) or opposes (O) a candidate.",
+                            "EnumeratedList": [ "S", "O" ]
+                        },
+                        {
+                            "Name": "min_spent",
+                            "Description": "The minimum money spent on an independent expenditure.",
+                            "Required": "N",
+                            "Type": "integer"
+                        },
+                        {
+                            "Name": "filer_committee_id_number",
+                            "Description": "The FEC id of the committee making the expenditure. This is a nine-character code that begins with 'C'.",
+                            "Required": "N",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "candidate_id_checked",
+                            "Description": "The FEC id of the candidate targeted (either supported or opposed) by the independent expenditure. This is a nine-character code that begins with 'H', 'S', or 'P'.",
+                            "Required": "N",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "district_checked",
+                            "Description": "The internal id of the district the candidate is running in. The id can be determined by using the /districts/ endpoint.",
+                            "Required": "N",
+                            "Type": "integer"
+                        },
+                        {
+                            "Name": "candidate_state_checked",
+                            "Description": "The two-digit postal code of the state in which the candidate targeted is running, e.g. 'NC' or 'OK'",
+                            "Required": "N",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "candidate_office_checked",
+                            "Description": "A one-digit code for the office the candidate targeted by the expenditure is seeking: 'H' for House or 'S' for Senate.",
+                            "Required": "N",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "candidate_district_checked",
+                            "Description": "A two digit code showing the district number of house candidates only. The first district would be '01'. States with at-large house districts, e.g. North Dakota, are assigned '00'. This number is not reliably assigned to senate districts; sometimes a '00' is used, sometimes the value is null",
+                            "Required": "N",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "candidate_party_checked",
+                            "Description": "A one digit code representing the party of the candidate targeted by the expenditure: 'D' for Democrat and 'R' for Republican. This value is often missing for third party candidates.",
+                            "Required": "N",
+                            "Type": "string"
+                        }
+                        
+
+
+                    ]
+                }
+            ]            
+        },
+        {
+            "name": "District spending",
+            "methods": [
+                {
+                    "MethodName": "Spending summary for 2013-14 by district",
+                    "Synopsis": "Summarize total spending by congressional district, including candidate spending and independent expenditures. Electioneering and 'communication cost' (promotion of candidates to members of a corporation or assocation) is not included. Also useful for retrieving IDs.",
+                    "HTTPMethod": "GET",
+                    "URI": "/districts/",
+                    "RequiresOAuth": "Y",
+                    "parameters": [
+                        {
+                            "Name": "format",
+                            "Location": "extension",
+                            "Required": "N",
+                            "Default": "json",
+                            "Type": "enumerated",
+                            "Description": "The format of the returned data. Default is json.",
+                            "EnumeratedList": [ "json", "csv" ]
+                        },
+                        {
+                            "Name": "page",
+                            "Required": "N",
+                            "Type": "enumerated",
+                            "Description": "The page number of results to return. Default is 1. ",
+                            "EnumeratedList": [ "1" ]
+                        },
+                        {
+                            "Name": "page_size",
+                            "Required": "N",
+                            "Type": "integer",
+                            "Description": "The number of page results to return. for json, the default is 100 and the maximum is 100. This parameter is ignored for csv downloads, which return all matching rows, with a limit of 2000 total rows returned."
+                        },
+                        {
+                            "Name": "state",
+                            "Required": "N",
+                            "Type": "string",
+                            "Description": "The two-letter postal code for the state where the district is located, e.g. 'AK' or 'DE'."
+                        }, 
+                        {
+                            "Name": "office",
+                            "Description": "A one-digit code for the district's office: 'H' for House or 'S' for Senate.",
+                            "Required": "N",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "office_district",
+                            "Description": "A two digit code showing the district number of house districts only. The first district would be '01'. States with at-large house districts, e.g. North Dakota, are assigned '00'. This number is not reliably assigned to senate districts; sometimes a '00' is used, sometimes the value is null",
+                            "Required": "N",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "term_class",
+                            "Required": "N",
+                            "Type": "enumerated",
+                            "Description": "The term class used to describe Senate seats' election cycle. Term class 1 is up in 2018, 2 is up in 2014 and 3 is up in 2016. This value is null for house districts.",
+                            "EnumeratedList": [ "1", "2", "3" ]
+                        },
+                        {
+                            "Name": "incumbent_party",
+                            "Description": "A one letter code for the incumbent's political party: 'D' for Democrat and 'R' for Republican. Angus King, independent Senator of Maine, is listed as 'I'",
+                            "Required": "N",
+                            "Type": "string"
+                        }
+                    ]
+                }
+            ]            
+        },
+        {
+            "name": "Candidates",
+            "methods": [
+                {
+                    "MethodName": "/candidates/",
+                    "Synopsis": "Return information about candidates for federal office",
+                    "HTTPMethod": "GET",
+                    "URI": "/candidates/",
+                    "RequiresOAuth": "Y",
+                    "parameters": [
+                        {
+                            "Name": "format",
+                            "Location": "extension",
+                            "Required": "N",
+                            "Default": "json",
+                            "Type": "enumerated",
+                            "Description": "The format of the returned data. Default is json.",
+                            "EnumeratedList": [ "json", "csv" ]
+                        },
+                        {
+                            "Name": "page",
+                            "Required": "N",
+                            "Type": "enumerated",
+                            "Description": "The page number of results to return. Default is 1. ",
+                            "EnumeratedList": [ "1" ]
+                        },
+                        {
+                            "Name": "page_size",
+                            "Required": "N",
+                            "Type": "integer",
+                            "Description": "The number of page results to return. for json, the default is 100 and the maximum is 100. This parameter is ignored for csv downloads, which return all matching rows, with a limit of 2000 total rows returned."
+                        },
+                        {
+                            "Name": "fec_id",
+                            "Required": "N",
+                            "Type": "integer",
+                            "Description": "The FEC id of the candidate by the independent expenditure. This is a nine-character code that begins with 'H', 'S', or 'P'."
+                        },
+                        {
+                            "Name": "state",
+                            "Required": "N",
+                            "Type": "string",
+                            "Description": "The two-letter postal code for the state where the candidate is running, e.g. 'AK' or 'DE'."
+                        }, 
+                        {
+                            "Name": "office",
+                            "Description": "A one-digit code for the candidate's office: 'H' for House or 'S' for Senate.",
+                            "Required": "N",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "office_district",
+                            "Description": "A two digit code showing the district number of house districts only. The first district would be '01'. States with at-large house districts, e.g. North Dakota, are assigned '00'. This number is not reliably assigned to senate districts; sometimes a '00' is used, sometimes the value is null",
+                            "Required": "N",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "term_class",
+                            "Required": "N",
+                            "Type": "enumerated",
+                            "Description": "The term class used to describe Senate seats' election cycle. Term class 1 is up in 2018, 2 is up in 2014 and 3 is up in 2016. This value is null for house districts.",
+                            "EnumeratedList": [ "1", "2", "3" ]
+                        },
+                        {
+                            "Name": "district",
+                            "Description": "An internal district id. Can be retrieved from the districts endpoint.",
+                            "Required": "N",
+                            "Type": "integer"
+                        },
+                        {
+                            "Name": "party",
+                            "Description": "A one letter code for the incumbent's political party: 'D' for Democrat and 'R' for Republican. Angus King, independent Senator of Maine, is listed as 'I'. This value is often missing for third party candidates.",
+                            "Required": "N",
+                            "Type": "string"
+                        },
+                        {
+                            "Name": "is_incumbent",
+                            "Required": "N",
+                            "Type": "enumerated",
+                            "Description": "Is the candidate an incumbent?",
+                            "EnumeratedList": [ "True", "False" ]
+                        }
+                    ]
+                }
+            ]            
+        },
+        {
+            "name": "PAC summaries",
+            "methods": [
+                {
+                    "MethodName": "/committee/",
+                    "Synopsis": "Return summary information about a nonprofit that reports spending to the FEC or a PAC, including candidate committees, leadership PACs, joint fundraising committees, super PACs, hybrid super PACs party committees, corporate pacs, etc",
+                    "HTTPMethod": "GET",
+                    "URI": "/committee/",
+                    "RequiresOAuth": "Y",
+                    "parameters": [
+                        {
+                            "Name": "format",
+                            "Location": "extension",
+                            "Required": "N",
+                            "Default": "json",
+                            "Type": "enumerated",
+                            "Description": "The format of the returned data. Default is json.",
+                            "EnumeratedList": [ "json", "csv" ]
+                        },
+                        {
+                            "Name": "page",
+                            "Required": "N",
+                            "Type": "enumerated",
+                            "Description": "The page number of results to return. Default is 1. ",
+                            "EnumeratedList": [ "1" ]
+                        },
+                        {
+                            "Name": "page_size",
+                            "Required": "N",
+                            "Type": "integer",
+                            "Description": "The number of page results to return. for json, the default is 100 and the maximum is 100. This parameter is ignored for csv downloads, which return all matching rows, with a limit of 2000 total rows returned."
+                        },
+                        {
+                            "Name": "ctype",
+                            "Required": "N",
+                            "Type": "string",
+                            "Description": "The FEC committee type. See more about committee types at the top of the page."
+                        }, 
+                        {
+                            "Name": "fec_id",
+                            "Required": "N",
+                            "Type": "string",
+                            "Description": "The FEC id of the committee by the independent expenditure. This is a nine-character code that begins with 'C'."
+                        },
+                        {
+                            "Name": "min_raised",
+                            "Required": "N",
+                            "Type": "integer",
+                            "Description": "The minimum amount reported as having been raised by the committee during the 2014 cycle."
+                        },
+                        {
+                            "Name": "min_spent",
+                            "Required": "N",
+                            "Type": "integer",
+                            "Description": "The minimum amount reported as having been spent by the committee during the 2014 cycle."
+                        }, 
+                        {
+                            "Name": "min_coh",
+                            "Required": "N",
+                            "Type": "integer",
+                            "Description": "The minimum cash on hand reported in the committee's most recent periodic filing."
+                        }
+                    
+                    ]
+                }
+            ]            
+        },
+        {
+            "name": "Outside spending summaries",
+            "methods": [
+                {
+                    "MethodName": "/outside-spenders/",
+                    "Synopsis": "Return summary information about any outside spending group, including non-committees (which are typically nonprofits, but may include individuals, LLC's, corporations or unions)",
+                    "HTTPMethod": "GET",
+                    "URI": "/outside-spenders/",
+                    "RequiresOAuth": "Y",
+                    "parameters": [
+                        {
+                            "Name": "format",
+                            "Location": "extension",
+                            "Required": "N",
+                            "Default": "json",
+                            "Type": "enumerated",
+                            "Description": "The format of the returned data. Default is json.",
+                            "EnumeratedList": [ "json", "csv" ]
+                        },
+                        {
+                            "Name": "page",
+                            "Required": "N",
+                            "Type": "enumerated",
+                            "Description": "The page number of results to return. Default is 1. ",
+                            "EnumeratedList": [ "1" ]
+                        },
+                        {
+                            "Name": "page_size",
+                            "Required": "N",
+                            "Type": "integer",
+                            "Description": "The number of page results to return. for json, the default is 100 and the maximum is 100. This parameter is ignored for csv downloads, which return all matching rows, with a limit of 2000 total rows returned."
+                        },
+                        {
+                            "Name": "ctype",
+                            "Required": "N",
+                            "Type": "string",
+                            "Description": "The FEC committee type. See more about committee types at the top of the page. Note that only some committee types are permitted to make independent expenditures."
+                        }, 
+                        {
+                            "Name": "fec_id",
+                            "Required": "N",
+                            "Type": "string",
+                            "Description": "The FEC id of the committee by the independent expenditure. This is a nine-character code that begins with 'C'."
+                        },
+                        {
+                            "Name": "min_ies",
+                            "Required": "N",
+                            "Type": "integer",
+                            "Description": "The minimum amount reported as having been spent by the committee on independent expenditures during the 2014 cycle."
+                        }
+                    ]
+                }
+            ]            
+        }
+        
+        
+        
+    ]
+}

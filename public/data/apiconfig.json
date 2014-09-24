@@ -11,21 +11,21 @@
         "keyParam": "apikey"
     },
      "partytime": {
-	    "name": "Political Party Time API",
-	    "protocol": "http",
-	    "baseURL": "politicalpartytime.org",
-	    "publicPath": "/api/v1",
-		"auth": "key",
-		"keyParam": "apikey"
-	},
+        "name": "Political Party Time API",
+        "protocol": "http",
+        "baseURL": "politicalpartytime.org",
+        "publicPath": "/api/v1",
+        "auth": "key",
+        "keyParam": "apikey"
+    },
 
     "congress": {
         "name": "Congress",
         "protocol": "http",
         "baseURL": "congress.api.sunlightfoundation.com",
         "publicPath": "/",
-	"auth": "key",
-	"keyParam": "apikey"
+    "auth": "key",
+    "keyParam": "apikey"
 
     },
 
@@ -47,7 +47,20 @@
         "auth": "key",
         "keyParam": "apikey"
     },
-
+    "realtime": {
+        "name": "Realtime FEC data",
+        "description": [
+            "<h3>Custom Parameter Types</h3>",
+            "<p>Some custom parameter types are referenced in this documentation. 'Inclusion' fields support <code>OR</code> searching, such as <code>IO</code>, which would match either a committee type of 'I' or 'O'.</p>",
+            "<h3>FEC codes</h3>",
+            "<p>The FEC uses one-letter codes to describe the types of committees. For more details, see their <a href='http://www.fec.gov/finance/disclosure/metadata/CommitteeTypeCodes.shtml'>list here</a>"
+        ],
+        "protocol": "http",
+        "baseURL": "realtime.influenceexplorer.com",
+        "publicPath": "/api/",
+        "auth": "key",
+        "keyParam": "apikey"
+    },
     "capitolwords": {
         "name": "Capitol Words",
         "protocol": "http",
