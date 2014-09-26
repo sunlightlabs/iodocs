@@ -139,6 +139,7 @@
                         {
                             "Name": "page",
                             "Required": "N",
+                            "Default":"1",
                             "Type": "enumerated",
                             "Description": "The page number of results to return. Default is 1. ",
                             "EnumeratedList": [ "1" ]
@@ -147,6 +148,7 @@
                             "Name": "page_size",
                             "Required": "N",
                             "Type": "integer",
+                            "Default": 10,
                             "Description": "The number of page results to return. for json, the default is 100 and the maximum is 100. This parameter is ignored for csv downloads, which return all matching rows, with a limit of 2000 total rows returned."
                         },
                         {
@@ -233,6 +235,7 @@
                         {
                             "Name": "page",
                             "Required": "N",
+                            "Default":"1",
                             "Type": "enumerated",
                             "Description": "The page number of results to return. Default is 1. ",
                             "EnumeratedList": [ "1" ]
@@ -241,6 +244,7 @@
                             "Name": "page_size",
                             "Required": "N",
                             "Type": "integer",
+                            "Default": 10,
                             "Description": "The number of page results to return. for json, the default is 100 and the maximum is 100. This parameter is ignored for csv downloads, which return all matching rows, with a limit of 2000 total rows returned."
                         },
                         {
@@ -300,6 +304,7 @@
                         {
                             "Name": "page",
                             "Required": "N",
+                            "Default":"1",
                             "Type": "enumerated",
                             "Description": "The page number of results to return. Default is 1. ",
                             "EnumeratedList": [ "1" ]
@@ -308,6 +313,7 @@
                             "Name": "page_size",
                             "Required": "N",
                             "Type": "integer",
+                            "Default": 10,
                             "Description": "The number of page results to return. for json, the default is 100 and the maximum is 100. This parameter is ignored for csv downloads, which return all matching rows, with a limit of 2000 total rows returned."
                         },
                         {
@@ -385,6 +391,7 @@
                         },
                         {
                             "Name": "page",
+                            "Default":"1",
                             "Required": "N",
                             "Type": "enumerated",
                             "Description": "The page number of results to return. Default is 1. ",
@@ -394,6 +401,7 @@
                             "Name": "page_size",
                             "Required": "N",
                             "Type": "integer",
+                            "Default": 10,
                             "Description": "The number of page results to return. for json, the default is 100 and the maximum is 100. This parameter is ignored for csv downloads, which return all matching rows, with a limit of 2000 total rows returned."
                         },
                         {
@@ -453,6 +461,7 @@
                         {
                             "Name": "page",
                             "Required": "N",
+                            "Default":"1",
                             "Type": "enumerated",
                             "Description": "The page number of results to return. Default is 1. ",
                             "EnumeratedList": [ "1" ]
@@ -461,6 +470,7 @@
                             "Name": "page_size",
                             "Required": "N",
                             "Type": "integer",
+                            "Default": 10,
                             "Description": "The number of page results to return. for json, the default is 100 and the maximum is 100. This parameter is ignored for csv downloads, which return all matching rows, with a limit of 2000 total rows returned."
                         },
                         {
