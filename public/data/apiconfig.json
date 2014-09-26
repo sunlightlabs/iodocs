@@ -50,10 +50,11 @@
     "realtime": {
         "name": "Realtime FEC data",
         "description": [
+            "<p>For more details on the data returned see the <a href='http://sunlightlabs.github.io/realtime-docs/'>complete documentation</a>.</p>",
             "<h3>Custom Parameter Types</h3>",
             "<p>Some custom parameter types are referenced in this documentation. 'Inclusion' fields support <code>OR</code> searching, such as <code>IO</code>, which would match either a committee type of 'I' or 'O'.</p>",
             "<h3>FEC codes</h3>",
-            "<p>The FEC uses one-letter codes to describe the types of committees. For more details, see their <a href='http://www.fec.gov/finance/disclosure/metadata/CommitteeTypeCodes.shtml'>list here</a>"
+            "<p>The FEC uses one-letter codes to describe the types of committees. For more details, see their <a href='http://www.fec.gov/finance/disclosure/metadata/CommitteeTypeCodes.shtml'>list here</a>.</p>"
         ],
         "protocol": "http",
         "baseURL": "realtime.influenceexplorer.com",
