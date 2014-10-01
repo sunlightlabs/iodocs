@@ -48,7 +48,7 @@
         "keyParam": "apikey"
     },
     "realtime": {
-        "name": "Realtime FEC data",
+        "name": "Real-Time Federal Campaign Finance API",
         "description": [
             "<p>For more details on the data returned see the <a href='http://sunlightlabs.github.io/realtime-docs/'>complete documentation</a>.</p>",
             "<h3>Custom Parameter Types</h3>",
